@@ -43,7 +43,7 @@ export default function Experiences() {
     : [
         { img: rawImages.decor || '/experiences/exp-decor.jpg', alt: 'Floral wedding mandap' },
         { img: rawImages.dining || '/experiences/exp-dining.jpg', alt: 'Poolside patio dining setup' },
-        { img: rawImages.dance || '/experiences/exp-dance.webp', alt: 'Classical dance performance' },
+        { img: rawImages.dance || '/experiences/exp-dance.jpg', alt: 'Classical dance performance' },
         { img: rawImages.reception || '/experiences/exp-reception.jpg', alt: 'Reception hall decor' },
       ];
 

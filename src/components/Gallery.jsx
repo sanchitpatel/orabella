@@ -80,16 +80,16 @@ export default function Gallery() {
           viewport={{ once: true, amount: 0.15 }}
           className="mt-14 grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4"
         >
-          {/* Left: two stacked large feature images */}
-          <div className="grid grid-rows-2 gap-3 lg:gap-4">
+          {/* Left: two stacked feature images with fixed aspect ratio matching section container */}
+          <div className="flex flex-col gap-3 lg:gap-4">
             {images[0] && (
-              <motion.div variants={rise} className="h-full">
-                <GImg name={images[0].name} alt={images[0].alt} seed={images[0].seed} className="h-64 sm:h-72 lg:h-full" />
+              <motion.div variants={rise}>
+                <GImg name={images[0].name} alt={images[0].alt} seed={images[0].seed} className="aspect-[4/3] w-full" />
               </motion.div>
             )}
             {images[1] && (
-              <motion.div variants={rise} className="h-full">
-                <GImg name={images[1].name} alt={images[1].alt} seed={images[1].seed} className="h-64 sm:h-72 lg:h-full" />
+              <motion.div variants={rise}>
+                <GImg name={images[1].name} alt={images[1].alt} seed={images[1].seed} className="aspect-[5/5] w-full" />
               </motion.div>
             )}
           </div>
