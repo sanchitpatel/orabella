@@ -6,7 +6,7 @@ import { X, Waveform, SpeakerHigh, MusicNotes } from '@phosphor-icons/react';
 const MUSIC_URL = '/audio/audio.mp3';
 
 // Responsive safety volume ceilings (50% for mobile phone speakers, 25% strictly for laptops)
-const LAPTOP_VOLUME_CAP = 0.80;
+const LAPTOP_VOLUME_CAP = 1.00;
 const MOBILE_VOLUME_CAP = 0.70;
 
 export default function MusicPlayer() {
