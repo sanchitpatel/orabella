@@ -1,0 +1,14 @@
+{
+  "badge": "Corporate Events",
+  "titleLine1": "Where Business",
+  "titleLine2": "Meets Serenity",
+  "bgImage": "/corporate/corporate-event.png",
+  "subtitle": "From executive retreats to grand gala celebrations — flexible indoor halls & sprawling outdoor lawn spaces designed for corporate outings, team retreats, and unforgettable offsite experiences in Delhi.",
+  "stats": [
+    { "value": "MICE-Ready", "label": "Venues & AV" },
+    { "value": "Grand Lawns", "label": "Lush Greenery" },
+    { "value": "500+", "label": "Successful Events" }
+  ],
+  "ctaPrimaryLabel": "Plan Your Offsite",
+  "ctaSecondaryLabel": "Locate Us"
+}

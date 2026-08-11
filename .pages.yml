@@ -1,0 +1,454 @@
+media:
+  input: public
+  output: /
+
+content:
+  - name: site
+    label: Global Site Settings
+    type: file
+    path: src/data/site.json
+    fields:
+      - name: name
+        label: Site Name
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: bookButtonLabel
+        label: Header Book Now Button Text
+        type: string
+      - name: whatsappPhone
+        label: WhatsApp Phone Number
+        type: string
+      - name: phone
+        label: Contact Phone Display
+        type: string
+      - name: email
+        label: Contact Email Address
+        type: string
+      - name: address
+        label: Full Address
+        type: text
+
+  - name: hero
+    label: Hero Section
+    type: file
+    path: src/data/hero.json
+    fields:
+      - name: headlineLine1
+        label: Headline Line 1
+        type: string
+      - name: headlineLine2
+        label: Headline Line 2
+        type: string
+      - name: subtitle
+        label: Subtitle Text
+        type: text
+      - name: ctaPrimaryLabel
+        label: Primary Button Text (Plan Your Event)
+        type: string
+      - name: ctaSecondaryLabel
+        label: Secondary Button Text (Explore Spaces)
+        type: string
+      - name: badgePrefix
+        label: Badge Prefix Text
+        type: string
+      - name: badgeText
+        label: Highlight Badge Text
+        type: string
+
+  - name: about
+    label: About Us Section
+    type: file
+    path: src/data/about.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Section Title
+        type: string
+      - name: image
+        label: Main Resort Photo
+        type: image
+      - name: paragraph1
+        label: First Description Paragraph
+        type: text
+      - name: paragraph2
+        label: Second Description Paragraph
+        type: text
+      - name: ctaLabel
+        label: Button Text (Schedule a Visit)
+        type: string
+      - name: stats
+        label: Statistics Counter Grid
+        type: object
+        list: true
+        fields:
+          - name: value
+            label: Stat Value
+            type: string
+          - name: label
+            label: Stat Label
+            type: string
+
+  - name: spaces
+    label: Event Spaces & Lawns
+    type: file
+    path: src/data/spaces.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Main Title
+        type: string
+      - name: subtitle
+        label: Subtitle Description
+        type: text
+      - name: ctaLabel
+        label: Button Text (Plan Your Event)
+        type: string
+      - name: featured
+        label: Featured Major Venues
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Venue Name
+            type: string
+          - name: desc
+            label: Description
+            type: text
+          - name: stats
+            label: Capacity & Dimensions
+            type: string
+          - name: img
+            label: Venue Image
+            type: image
+      - name: secondary
+        label: Additional Event Spaces
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Space Name
+            type: string
+          - name: stats
+            label: Capacity / Details
+            type: string
+          - name: img
+            label: Space Image
+            type: image
+
+  - name: experiences
+    label: Offerings & Experiences
+    type: file
+    path: src/data/experiences.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Main Title
+        type: string
+      - name: subtitle
+        label: Subtitle
+        type: text
+      - name: ctaLabel
+        label: Button Text (Learn More)
+        type: string
+      - name: offerings
+        label: Service Offerings List
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Service Title
+            type: string
+          - name: desc
+            label: Service Description
+            type: text
+      - name: images
+        label: Experience Collage Photos
+        type: object
+        list: true
+        fields:
+          - name: img
+            label: Photo Image
+            type: image
+          - name: alt
+            label: Caption / Alt Description
+            type: string
+
+  - name: corporate
+    label: Corporate Events
+    type: file
+    path: src/data/corporate.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: titleLine1
+        label: Title Line 1
+        type: string
+      - name: titleLine2
+        label: Title Line 2
+        type: string
+      - name: bgImage
+        label: Background Image
+        type: image
+      - name: subtitle
+        label: Subtitle Paragraph
+        type: text
+      - name: ctaPrimaryLabel
+        label: Primary Button Text (Plan Your Offsite)
+        type: string
+      - name: ctaSecondaryLabel
+        label: Secondary Button Text (Locate Us)
+        type: string
+      - name: stats
+        label: Corporate Stats
+        type: object
+        list: true
+        fields:
+          - name: value
+            label: Stat Value
+            type: string
+          - name: label
+            label: Stat Label
+            type: string
+
+  - name: gallery
+    label: Candid Photo Gallery
+    type: file
+    path: src/data/gallery.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: titlePrefix
+        label: Title Prefix
+        type: string
+      - name: titleSuffix
+        label: Title Suffix
+        type: string
+      - name: subtitle
+        label: Subtitle
+        type: text
+      - name: ctaLabel
+        label: Button Text (View Full Gallery)
+        type: string
+      - name: images
+        label: Photo Collection
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Image File
+            type: image
+          - name: alt
+            label: Alt Caption
+            type: string
+
+  - name: accommodations
+    label: Accommodations & Stay
+    type: file
+    path: src/data/accommodations.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Section Title
+        type: string
+      - name: slides
+        label: Accommodation Types
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Suite / Room Name
+            type: string
+          - name: count
+            label: Category / Unit Count
+            type: string
+          - name: label
+            label: Audience Label
+            type: string
+          - name: desc
+            label: Description
+            type: text
+          - name: features
+            label: Highlight Features / Bullet Points
+            type: string
+            list: true
+          - name: img
+            label: Room Photo
+            type: image
+
+  - name: journal
+    label: Blog & Celebration Stories
+    type: file
+    path: src/data/journal.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Section Title
+        type: string
+      - name: viewAllLabel
+        label: View All Link Text
+        type: string
+      - name: posts
+        label: Blog Articles List
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Article Title
+            type: string
+          - name: date
+            label: Date (YYYY-MM-DD)
+            type: date
+          - name: excerpt
+            label: Summary / Excerpt
+            type: text
+          - name: img
+            label: Article Cover Photo
+            type: image
+
+  - name: testimonials
+    label: Client Reviews & Highlights
+    type: file
+    path: src/data/testimonials.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: titleLine1
+        label: Title Line 1
+        type: string
+      - name: titleLine2
+        label: Title Line 2
+        type: string
+      - name: googleRating
+        label: Google Review Rating Badge
+        type: string
+      - name: reviews
+        label: Client Reviews List
+        type: object
+        list: true
+        fields:
+          - name: quote
+            label: Review Quote
+            type: text
+          - name: name
+            label: Client Name / Family
+            type: string
+          - name: meta
+            label: Celebration Type
+            type: string
+
+  - name: location
+    label: Location & Map Info
+    type: file
+    path: src/data/location.json
+    fields:
+      - name: titleLine1
+        label: Title Line 1
+        type: string
+      - name: titleLine2
+        label: Title Line 2
+        type: string
+      - name: venueName
+        label: Venue Name
+        type: string
+      - name: address
+        label: Address
+        type: text
+      - name: distances
+        label: Distance & Landmark Bullet Points
+        type: string
+        list: true
+      - name: travelTimeDisclaimer
+        label: Travel Time Disclaimer Note
+        type: string
+      - name: directionsButtonLabel
+        label: Directions Button Text
+        type: string
+      - name: parkingText
+        label: Parking Note
+        type: string
+
+  - name: faq
+    label: Frequently Asked Questions
+    type: file
+    path: src/data/faq.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: titlePrefix
+        label: Title Prefix
+        type: string
+      - name: titleSuffix
+        label: Title Suffix
+        type: string
+      - name: questions
+        label: FAQ Question Items
+        type: object
+        list: true
+        fields:
+          - name: q
+            label: Question
+            type: string
+          - name: a
+            label: Answer
+            type: text
+
+  - name: contact
+    label: Contact Form Section
+    type: file
+    path: src/data/contact.json
+    fields:
+      - name: badge
+        label: Section Badge
+        type: string
+      - name: title
+        label: Section Title
+        type: string
+      - name: subtitle
+        label: Subtitle
+        type: text
+      - name: submitButtonText
+        label: Submit Button Text
+        type: string
+      - name: thankYouTitle
+        label: Thank You Title
+        type: string
+      - name: thankYouMessage
+        label: Thank You Message
+        type: text
+
+  - name: footer
+    label: Footer Details
+    type: file
+    path: src/data/footer.json
+    fields:
+      - name: ctaTitle
+        label: Footer CTA Title
+        type: string
+      - name: ctaSubtitle
+        label: Footer CTA Subtitle
+        type: text
+      - name: ctaButtonLabel
+        label: CTA Button Text
+        type: string
+      - name: brandTagline
+        label: Brand Description Tagline
+        type: string
+      - name: copyrightText
+        label: Copyright Line
+        type: string

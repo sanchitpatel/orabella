@@ -1,0 +1,31 @@
+{
+  "badge": "Have Questions?",
+  "titlePrefix": "Frequently",
+  "titleSuffix": "Asked Questions",
+  "questions": [
+    {
+      "q": "Where is Orabella Banquet located?",
+      "a": "Orabella Banquet is located at E-2 Udhyog nagar, Main Rohtak Rd, Peera Garhi, Sector 8, Delhi, 110041. It is conveniently accessible via Main Rohtak Road and Peera Garhi Metro Station."
+    },
+    {
+      "q": "What types of events does Orabella Banquet host?",
+      "a": "Orabella Banquet is crafted exclusively for wedding ceremonies, sangeet functions, grand receptions, engagement parties, and royal wedding celebrations."
+    },
+    {
+      "q": "How many guests can Orabella Banquet accommodate?",
+      "a": "Orabella Banquet features expansive celebration spaces capable of hosting intimate gatherings as well as grand royal weddings with up to 1,500+ guests."
+    },
+    {
+      "q": "Is there parking available at Orabella Banquet?",
+      "a": "Yes, Orabella Banquet provides ample parking space for over 500 cars with seamless valet assistance for your guests."
+    },
+    {
+      "q": "Can I host an outdoor wedding ceremony at Orabella Banquet?",
+      "a": "Absolutely! Our celebration spaces are specially designed for grand open-air mandaps, evening sangeets, and luxurious wedding receptions."
+    },
+    {
+      "q": "How do I book or enquire about event dates?",
+      "a": "You can fill out our quick event enquiry form on the website or reach out directly to our event planning team to check date availability and request a customized proposal."
+    }
+  ]
+}

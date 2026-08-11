@@ -1,0 +1,48 @@
+{
+  "badge": "Stay & Hospitality",
+  "title": "Accommodations at Orabella Banquet",
+  "slides": [
+    {
+      "name": "Royal Bridal Suites",
+      "count": "Private Suites",
+      "label": "For Bride & Groom",
+      "desc": "Spacious luxury suites tailored for pre-wedding rituals, bridal dressing, and intimate family moments before your big celebration.",
+      "features": [
+        "Private dressing area with full-length vanity",
+        "Lush garden views & natural sunlight",
+        "Dedicated butler & hospitality service",
+        "Regal Indian interiors & plush bedding"
+      ],
+      "img": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1000&q=80",
+      "seed": "orabella-bridal-suite"
+    },
+    {
+      "name": "Luxury Family Villas",
+      "count": "Spacious Residences",
+      "label": "For Family & Relatives",
+      "desc": "Elegant multi-bedroom accommodations crafted to keep your immediate family comfortable and close to every ceremony.",
+      "features": [
+        "Multi-bedroom connected layouts",
+        "Spacious living & lounge areas",
+        "Modern en-suite bathrooms",
+        "Proximity to grand celebration lawns"
+      ],
+      "img": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80",
+      "seed": "orabella-family-villa"
+    },
+    {
+      "name": "Guest Accommodations",
+      "count": "Celebration Rooms",
+      "label": "For Wedding Guests",
+      "desc": "Comfortable, modern guest rooms designed to offer seamless hospitality for out-of-town wedding attendees.",
+      "features": [
+        "Premium king & twin bed configurations",
+        "Modern amenities & High-speed Wi-Fi",
+        "24-hour room service & dining",
+        "Ample valet parking & event access"
+      ],
+      "img": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=80",
+      "seed": "orabella-guest-rooms"
+    }
+  ]
+}

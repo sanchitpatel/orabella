@@ -1,0 +1,42 @@
+{
+  "badge": "What We Offer",
+  "title": "Curated Experiences",
+  "subtitle": "We don't just provide a venue; we craft an experience. From the first consultation to the final farewell, our team manages every detail.",
+  "offerings": [
+    {
+      "title": "Bespoke Decor",
+      "desc": "Our in-house design team transforms spaces into dreamscapes tailored to your vision."
+    },
+    {
+      "title": "Gourmet Catering",
+      "desc": "A culinary journey ranging from traditional feasts to continental delicacies."
+    },
+    {
+      "title": "Entertainment",
+      "desc": "Curated DJs, live bands, and performers to keep the celebration alive."
+    },
+    {
+      "title": "Photography",
+      "desc": "Capturing every tear, smile, and laugh with our preferred visual storytellers."
+    }
+  ],
+  "ctaLabel": "Learn More",
+  "images": [
+    {
+      "img": "/experiences/exp-decor.jpg",
+      "alt": "Floral wedding mandap"
+    },
+    {
+      "img": "/experiences/exp-dining.jpg",
+      "alt": "Poolside patio dining setup"
+    },
+    {
+      "img": "/experiences/exp-dance.webp",
+      "alt": "Classical dance performance"
+    },
+    {
+      "img": "/experiences/exp-reception.jpg",
+      "alt": "Reception hall decor"
+    }
+  ]
+}

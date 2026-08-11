@@ -1,0 +1,42 @@
+{
+  "badge": "Our Spaces",
+  "title": "Celebration & Event Spaces",
+  "subtitle": "Versatile indoor and outdoor celebration venues crafted for royal weddings, grand receptions, sangeet ceremonies, and corporate events",
+  "featured": [
+    {
+      "name": "Grand Royal Lawn",
+      "desc": "Sprawling manicured lawn for open-air mandaps, evening sangeets & grand receptions",
+      "stats": "800 Seated / 1,500+ Floating",
+      "img": "/spaces/Grand-Royal-Lawn.jpg"
+    },
+    {
+      "name": "Orabella Banquet Hall",
+      "desc": "Air-conditioned luxury hall for indoor ceremonies & regal dining setups",
+      "stats": "400 Seated / 700 Floating",
+      "img": "/spaces/Banquet-Hall.png"
+    }
+  ],
+  "secondary": [
+    {
+      "name": "Orabella Courtyard",
+      "stats": "250 seated / 500 floating",
+      "img": "/spaces/Courtyard.jpeg"
+    },
+    {
+      "name": "Grand Entrance",
+      "stats": "WHERE MEMORIES BEGIN",
+      "img": "/spaces/Poolside-Lawn.png"
+    },
+    {
+      "name": "Central Celebration Lawn",
+      "stats": "600 seated / 1,000 floating",
+      "img": "/spaces/Central-Celebration-Lawn.png"
+    },
+    {
+      "name": "Grand Royal Foyer",
+      "stats": "Multiple event layouts",
+      "img": "/spaces/Grand-Royal-Foyer.png"
+    }
+  ],
+  "ctaLabel": "Plan Your Event"
+}

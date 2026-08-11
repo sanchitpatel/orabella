@@ -1,0 +1,16 @@
+{
+  "titleLine1": "Conveniently Connected",
+  "titleLine2": "Naturally Secluded",
+  "venueName": "Orabella Banquet",
+  "address": "E-2 Udhyog nagar, Main Rohtak Rd, Peera Garhi, Sector 8, Delhi, 110041",
+  "rating": "4.8",
+  "reviews": "520",
+  "directionsButtonLabel": "Get Directions",
+  "distances": [
+    "Conveniently located at E-2 Udhyog nagar, Main Rohtak Rd, Peera Garhi, Delhi",
+    "Easily accessible via Peera Garhi Metro Station & Main Rohtak Road",
+    "Well-connected to West Delhi, Outer Ring Road & major arterial routes"
+  ],
+  "travelTimeDisclaimer": "Travel times are estimates and vary with traffic.",
+  "parkingText": "500 car spaces available"
+}

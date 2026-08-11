@@ -1,0 +1,49 @@
+{
+  "badge": "Gallery",
+  "titlePrefix": "Candid",
+  "titleSuffix": "Moments",
+  "subtitle": "We built Orabella Banquet, keeping your grand celebrations in mind",
+  "images": [
+    {
+      "name": "/gallery/g-couple-dhol.jpg",
+      "alt": "Couple celebrating with a dhol drummer",
+      "seed": "samsara-dhol"
+    },
+    {
+      "name": "/gallery/g-party.jpg",
+      "alt": "Guests dancing at an evening celebration",
+      "seed": "samsara-party"
+    },
+    {
+      "name": "/gallery/g-bride-smile.jpg",
+      "alt": "Bride smiling with family",
+      "seed": "samsara-bride1"
+    },
+    {
+      "name": "/gallery/g-black-outfit.jpg",
+      "alt": "Guest portrait in evening wear",
+      "seed": "samsara-guest"
+    },
+    {
+      "name": "/gallery/g-musicians.jpg",
+      "alt": "Traditional musicians performing",
+      "seed": "samsara-music"
+    },
+    {
+      "name": "/gallery/g-bride-portrait.jpg",
+      "alt": "Bridal portrait",
+      "seed": "samsara-bride2"
+    },
+    {
+      "name": "/gallery/g-garland.jpg",
+      "alt": "Garland exchange ceremony",
+      "seed": "samsara-garland"
+    },
+    {
+      "name": "/gallery/g-bokeh.jpg",
+      "alt": "Couple under festive lights",
+      "seed": "samsara-lights"
+    }
+  ],
+  "ctaLabel": "View Full Gallery"
+}

@@ -1,0 +1,15 @@
+{
+  "badge": "About Us",
+  "title": "Orabella Banquet",
+  "image": "/spaces/Grand-Royal-Lawn.jpg",
+  "imageAlt": "Aerial view of Orabella Banquet grounds",
+  "paragraph1": "Where sacred vows meet timeless luxury, where royal wedding dreams blossom amidst lush green serenity, cradled by elegance and regal Indian hospitality.",
+  "paragraph2": "Nestled in Delhi, Orabella Banquet is the city's most prestigious venue for destination weddings, royal receptions, sangeet nights, and grand celebrations. Designed to host lavish gatherings of up to 1,500+ guests with complete peace of mind.",
+  "stats": [
+    { "value": "Grand", "label": "Wedding Lawns" },
+    { "value": "1500+", "label": "Guest Capacity" },
+    { "value": "500+", "label": "Car Parking" },
+    { "value": "24/7", "label": "Event Support" }
+  ],
+  "ctaLabel": "Schedule a Visit"
+}

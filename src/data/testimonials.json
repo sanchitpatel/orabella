@@ -1,0 +1,24 @@
+{
+  "badge": "Testimonials",
+  "titleLine1": "What Our Clients",
+  "titleLine2": "Are Saying",
+  "googleRating": "4.8 on Google Reviews",
+  "videoBadge": "Orabella Banquet Highlights",
+  "reviews": [
+    {
+      "quote": "What a breathtaking venue! Our guests are still talking about the grand mandap & evening sangeet. The way Orabella Banquet transformed the lawn for our wedding was pure magic.",
+      "name": "Priya & Rahul Sharma Wedding",
+      "meta": "Royal Wedding Celebration"
+    },
+    {
+      "quote": "The sprawling green lawn and elegant banquet hall created the perfect setting for our 1,200+ guest reception. Extraordinary hospitality and seamless arrangement!",
+      "name": "Kapoor Family",
+      "meta": "Grand Reception Ceremony"
+    },
+    {
+      "quote": "We had an awesome evening — everything was flawlessly managed for my daughter's wedding. Thank you to the entire team at Orabella Banquet, Delhi.",
+      "name": "Verma Family Celebration",
+      "meta": "Wedding & Sangeet Night"
+    }
+  ]
+}

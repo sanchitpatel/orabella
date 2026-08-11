@@ -1,0 +1,28 @@
+{
+  "badge": "Journal",
+  "title": "Stories & Celebrations",
+  "viewAllLabel": "View All Stories",
+  "posts": [
+    {
+      "date": "2026-07-16",
+      "title": "Grand Wedding Venues in Delhi for 1,500+ Guests: Planning a Flawless Celebration",
+      "excerpt": "Hosting a royal wedding for 1,500+ guests requires the perfect balance of grandeur and seamless flow — elegant banquet halls, valet parking, and exquisite stage setups...",
+      "img": "/spaces/Grand-Royal-Lawn.jpg",
+      "seed": "orabella-lawn-reception"
+    },
+    {
+      "date": "2026-07-16",
+      "title": "Auspicious Wedding Muhurtham Dates: Planning Your Orabella Banquet Celebration",
+      "excerpt": "A practical guide for families planning an unforgettable wedding in Delhi: understanding auspicious muhurtham seasons, venue reservations, and regal decor...",
+      "img": "/spaces/Grand-Royal-Foyer.png",
+      "seed": "orabella-mandap"
+    },
+    {
+      "date": "2026-07-15",
+      "title": "How to Plan an Unforgettable Wedding Celebration in Delhi",
+      "excerpt": "From pre-wedding sangeet nights to grand reception feasts: expert tips on choosing the finest venue, decor themes, and guest hospitality...",
+      "img": "/spaces/Courtyard.jpeg",
+      "seed": "orabella-night-venue"
+    }
+  ]
+}
