@@ -497,38 +497,44 @@ export default function PricingBreakdownPage() {
 
       // --- AUTOMATIC DEPENDENCY & SECURITY LOGIC ---
       const INTEGRATION_IDS = ['c1_3', 'c1_4', 'c1_5'];
+      const c1_6_children = PARENT_CHILD_MAP['c1_6'] || [];
+      const c1_6_child_ids = c1_6_children.map(c => c.id);
       const c1_7_children = PARENT_CHILD_MAP['c1_7'] || [];
       const c1_7_child_ids = c1_7_children.map(c => c.id);
 
-      const isC17InCart = (cartList) => {
-        if (cartList.some(i => i.id === 'c1_7')) return true;
-        return c1_7_children.every(c => cartList.some(i => i.id === c.id));
+      const ALL_CLOUDFLARE_IDS = ['c1_6', ...c1_6_child_ids, 'c1_7', ...c1_7_child_ids];
+
+      const isC16InCart = (cartList) => {
+        if (cartList.some(i => i.id === 'c1_6')) return true;
+        return c1_6_children.length > 0 && c1_6_children.every(c => cartList.some(i => i.id === c.id));
       };
 
+      const isC17InCart = (cartList) => {
+        if (cartList.some(i => i.id === 'c1_7')) return true;
+        return c1_7_children.length > 0 && c1_7_children.every(c => cartList.some(i => i.id === c.id));
+      };
+
+      const wasC16InCart = isC16InCart(prev);
       const wasC17InCart = isC17InCart(prev);
+      const isC16NowInCart = isC16InCart(next);
       const isC17NowInCart = isC17InCart(next);
 
-      const wasAnyIntegrationAdded = INTEGRATION_IDS.some(id =>
-        !prev.some(i => i.id === id) && next.some(i => i.id === id)
-      );
+      const isAnyIntegrationInNext = INTEGRATION_IDS.some(id => next.some(i => i.id === id));
+      const wasAnyCloudflareExcluded = (wasC16InCart && !isC16NowInCart) || (wasC17InCart && !isC17NowInCart);
 
-      const isAnyIntegrationCurrentlyInNext = INTEGRATION_IDS.some(id =>
-        next.some(i => i.id === id)
-      );
-
-      // RULE A: Adding Telegram, Google Sheets, or Two-Way Lead Sync automatically includes Cloudflare Anti-Bot Guard
-      if (wasAnyIntegrationAdded && !isC17NowInCart) {
-        const filteredNext = next.filter(i => i.id !== 'c1_7' && !c1_7_child_ids.includes(i.id));
-        next = [...filteredNext, ...c1_7_children];
+      // RULE 1: If any Cloudflare option is excluded, both Cloudflare options and all Telegram/Ledger/Sync options are excluded
+      if (wasAnyCloudflareExcluded) {
+        next = next.filter(i => !ALL_CLOUDFLARE_IDS.includes(i.id) && !INTEGRATION_IDS.includes(i.id));
         setTimeout(() => {
-          showToast("Cloudflare Anti-Bot Guard was automatically added to protect your live notification & lead sync integrations.");
+          showToast("Excluding any Cloudflare security option automatically removed both Cloudflare infrastructure modules and all notification & lead sync integrations.");
         }, 0);
       }
-      // RULE B: Removing Cloudflare Anti-Bot Guard automatically removes Telegram, Google Sheets & Two-Way Lead Sync
-      else if (wasC17InCart && !isC17NowInCart && isAnyIntegrationCurrentlyInNext) {
-        next = next.filter(i => !INTEGRATION_IDS.includes(i.id));
+      // RULE 2: If Telegram, Ledger, or Two-Way Sync is selected, both Cloudflare options are included automatically
+      else if (isAnyIntegrationInNext && (!isC16NowInCart || !isC17NowInCart)) {
+        const filteredNext = next.filter(i => !ALL_CLOUDFLARE_IDS.includes(i.id));
+        next = [...filteredNext, ...c1_6_children, ...c1_7_children];
         setTimeout(() => {
-          showToast("Removing Anti-Bot Guard automatically removed notification & lead sync options as live endpoints require bot security.");
+          showToast("Both Cloudflare Infrastructure & Anti-Bot Guard options were automatically added to protect your live Telegram, Ledger & Sync integrations.");
         }, 0);
       }
 
