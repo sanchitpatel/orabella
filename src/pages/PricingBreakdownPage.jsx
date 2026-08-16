@@ -306,40 +306,40 @@ function VoiceAuditCard({
 
 const PARENT_CHILD_MAP = {
   c1_1: [
-    { id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 4799, formattedPrice: '₹4,799' },
+    { id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 3299, formattedPrice: '₹3,299' },
     { id: 'c1_1_sub2_p1', title: 'About Us Standalone Page', price: 999, formattedPrice: '₹999' },
     { id: 'c1_1_sub2_p2', title: 'Treatments & Services Standalone Page', price: 999, formattedPrice: '₹999' },
     { id: 'c1_1_sub2_p3', title: 'Clinic Gallery Standalone Page', price: 999, formattedPrice: '₹999' },
     { id: 'c1_1_sub2_p4', title: 'Dental Blog Standalone Page', price: 999, formattedPrice: '₹999' },
     { id: 'c1_1_sub2_p5', title: 'Doctor Profiles Standalone Page', price: 999, formattedPrice: '₹999' },
     { id: 'c1_1_sub2_p6', title: 'Appointment Booking Standalone Page', price: 999, formattedPrice: '₹999' },
-    { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', price: 599, formattedPrice: '₹599' },
-    { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', price: 599, formattedPrice: '₹599' },
-    { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', price: 599, formattedPrice: '₹599' },
-    { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', price: 449, formattedPrice: '₹449' },
-    { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', price: 449, formattedPrice: '₹449' },
-    { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', price: 449, formattedPrice: '₹449' },
+    { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', price: 399, formattedPrice: '₹399' },
+    { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', price: 399, formattedPrice: '₹399' },
+    { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', price: 399, formattedPrice: '₹399' },
+    { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', price: 399, formattedPrice: '₹399' },
+    { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', price: 399, formattedPrice: '₹399' },
+    { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', price: 399, formattedPrice: '₹399' },
   ],
   c1_2: [
-    { id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 2699, formattedPrice: '₹2,699' },
-    { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', price: 1199, formattedPrice: '₹1,199' },
-    { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', price: 299, formattedPrice: '₹299' },
-    { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', price: 299, formattedPrice: '₹299' },
+    { id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 1999, formattedPrice: '₹1,999' },
+    { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', price: 799, formattedPrice: '₹799' },
+    { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', price: 199, formattedPrice: '₹199' },
+    { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', price: 199, formattedPrice: '₹199' },
     { id: 'c1_2_sub4_m1', title: 'Blog Article Modal CMS Integration', price: 199, formattedPrice: '₹199' },
     { id: 'c1_2_sub4_m2', title: 'Treatment Details Modal CMS Integration', price: 199, formattedPrice: '₹199' },
     { id: 'c1_2_sub4_m3', title: 'Appointment Booking Modal CMS Integration', price: 199, formattedPrice: '₹199' },
   ],
   c1_6: [
-    { id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 2499, formattedPrice: '₹2,499' },
-    { id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1799, formattedPrice: '₹1,799' },
+    { id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 1799, formattedPrice: '₹1,799' },
+    { id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1199, formattedPrice: '₹1,199' },
   ],
   c1_7: [
-    { id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1299, formattedPrice: '₹1,299' },
+    { id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1199, formattedPrice: '₹1,199' },
     { id: 'c1_7_sub2', title: 'Enterprise WAF, Rate Limiting & Edge Caching', price: 1499, formattedPrice: '₹1,499' },
   ],
 };
@@ -528,7 +528,7 @@ export default function PricingBreakdownPage() {
 
                 {/* 2 Primary Level Branches: Website UI vs Appointment Engine */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹36,365) */}
+                  {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹28,568) */}
                   <div
                     id="section-1"
                     className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 scroll-mt-20 sm:scroll-mt-24 transition-all duration-300 ${isPricingActive
@@ -544,7 +544,7 @@ export default function PricingBreakdownPage() {
                         ? 'text-blue-800 bg-blue-100 border-blue-300 shadow-2xs'
                         : 'text-blue-700 bg-blue-100/60 border-blue-200'
                         }`}>
-                        ₹36,365
+                        ₹28,568
                       </span>
                     </div>
 
@@ -574,7 +574,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_1', title: 'Multi-page static & Mobile first Responsive Dental Website', price: 13937, formattedPrice: '₹13,937' });
+                                toggleCartItem({ id: 'c1_1', title: 'Multi-page static & Mobile first Responsive Dental Website', price: 11687, formattedPrice: '₹11,687' });
                               }}
                               title={isItemInCart('c1_1') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_1')
@@ -597,7 +597,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹11,687</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -626,7 +626,7 @@ export default function PricingBreakdownPage() {
                                       type="button"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 4799, formattedPrice: '₹4,799' });
+                                        toggleCartItem({ id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 3299, formattedPrice: '₹3,299' });
                                       }}
                                       title={isItemInCart('c1_1_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub1')
@@ -636,7 +636,7 @@ export default function PricingBreakdownPage() {
                                     >
                                       {isItemInCart('c1_1_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
                                     </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹4,799</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹3,299</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
                                     <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
@@ -700,7 +700,7 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
                                   <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Policy, Legal & Custom 404 Pages</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹599 / page</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹399 / page</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -708,9 +708,9 @@ export default function PricingBreakdownPage() {
                                     </p>
                                     <ul className="space-y-2">
                                       {[
-                                        { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', name: 'Terms & Conditions Page', desc: 'Legal terms of service & clinic patient agreement', price: 599, formattedPrice: '₹599' },
-                                        { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', name: 'Privacy Policy Page', desc: 'Patient data privacy & health info protection policy', price: 599, formattedPrice: '₹599' },
-                                        { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', name: 'Custom Branded 404 Page', desc: 'Custom error page with search & quick redirection', price: 599, formattedPrice: '₹599' },
+                                        { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', name: 'Terms & Conditions Page', desc: 'Legal terms of service & clinic patient agreement', price: 399, formattedPrice: '₹399' },
+                                        { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', name: 'Privacy Policy Page', desc: 'Patient data privacy & health info protection policy', price: 399, formattedPrice: '₹399' },
+                                        { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', name: 'Custom Branded 404 Page', desc: 'Custom error page with search & quick redirection', price: 399, formattedPrice: '₹399' },
                                       ].map((page) => (
                                         <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
                                           <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -747,7 +747,7 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
                                   <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">4. Interactive Sub-Page Popups & Modals</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹449 / modal</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹399 / modal</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -755,9 +755,9 @@ export default function PricingBreakdownPage() {
                                     </p>
                                     <ul className="space-y-2">
                                       {[
-                                        { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', name: 'Dental Blog Article Modal', desc: 'Read full dental articles without page reloads', price: 449, formattedPrice: '₹449' },
-                                        { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', name: 'Treatment Details Overlay Modal', desc: 'In-depth treatment info, pre-op steps & pricing popup', price: 449, formattedPrice: '₹449' },
-                                        { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', name: 'Quick Appointment Booking Modal', desc: 'Instant appointment booking popup accessible site-wide', price: 449, formattedPrice: '₹449' },
+                                        { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', name: 'Dental Blog Article Modal', desc: 'Read full dental articles without page reloads', price: 399, formattedPrice: '₹399' },
+                                        { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', name: 'Treatment Details Overlay Modal', desc: 'In-depth treatment info, pre-op steps & pricing popup', price: 399, formattedPrice: '₹399' },
+                                        { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', name: 'Quick Appointment Booking Modal', desc: 'Instant appointment booking popup accessible site-wide', price: 399, formattedPrice: '₹399' },
                                       ].map((modal) => (
                                         <li key={modal.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
                                           <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -819,7 +819,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_2', title: 'Content Management System', price: 11088, formattedPrice: '₹11,088' });
+                                toggleCartItem({ id: 'c1_2', title: 'Content Management System', price: 7788, formattedPrice: '₹7,788' });
                               }}
                               title={isItemInCart('c1_2') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_2')
@@ -842,7 +842,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹11,088</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹7,788</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -871,7 +871,7 @@ export default function PricingBreakdownPage() {
                                       type="button"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 2699, formattedPrice: '₹2,699' });
+                                        toggleCartItem({ id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 1999, formattedPrice: '₹1,999' });
                                       }}
                                       title={isItemInCart('c1_2_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub1')
@@ -881,7 +881,7 @@ export default function PricingBreakdownPage() {
                                     >
                                       {isItemInCart('c1_2_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
                                     </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹2,699</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,999</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
                                     <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
@@ -895,7 +895,7 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
                                   <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">2. Standalone Pages CMS Integration</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹1,199 / page</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹799 / page</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -903,12 +903,12 @@ export default function PricingBreakdownPage() {
                                     </p>
                                     <ul className="space-y-2">
                                       {[
-                                        { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', name: 'About Us CMS', desc: 'Dynamic CMS management for clinic info & story', price: 1199, formattedPrice: '₹1,199' },
-                                        { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', name: 'Treatments & Services CMS', desc: 'CMS control to add & edit dental procedures', price: 1199, formattedPrice: '₹1,199' },
-                                        { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', name: 'Clinic Gallery CMS', desc: 'Upload & manage clinic photos & before/after cases', price: 1199, formattedPrice: '₹1,199' },
-                                        { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', name: 'Dental Blog CMS', desc: 'Publish & edit blog posts with rich text editor', price: 1199, formattedPrice: '₹1,199' },
-                                        { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', name: 'Doctor Profiles CMS', desc: 'Manage doctor profiles, specialties & schedules', price: 1199, formattedPrice: '₹1,199' },
-                                        { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', name: 'Appointment Booking CMS', desc: 'Configure booking settings, slots & patient alerts', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', name: 'About Us CMS', desc: 'Dynamic CMS management for clinic info & story', price: 799, formattedPrice: '₹799' },
+                                        { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', name: 'Treatments & Services CMS', desc: 'CMS control to add & edit dental procedures', price: 799, formattedPrice: '₹799' },
+                                        { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', name: 'Clinic Gallery CMS', desc: 'Upload & manage clinic photos & before/after cases', price: 799, formattedPrice: '₹799' },
+                                        { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', name: 'Dental Blog CMS', desc: 'Publish & edit blog posts with rich text editor', price: 799, formattedPrice: '₹799' },
+                                        { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', name: 'Doctor Profiles CMS', desc: 'Manage doctor profiles, specialties & schedules', price: 799, formattedPrice: '₹799' },
+                                        { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', name: 'Appointment Booking CMS', desc: 'Configure booking settings, slots & patient alerts', price: 799, formattedPrice: '₹799' },
                                       ].map((page) => (
                                         <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
                                           <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -945,7 +945,7 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
                                   <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Terms & Privacy Policy CMS</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹299 / page</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹199 / page</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -953,8 +953,8 @@ export default function PricingBreakdownPage() {
                                     </p>
                                     <ul className="space-y-2">
                                       {[
-                                        { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', name: 'Terms & Conditions CMS', desc: 'CMS control to update clinic terms & patient agreement text', price: 299, formattedPrice: '₹299' },
-                                        { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', name: 'Privacy Policy CMS', desc: 'CMS control to update privacy policy & data protection terms', price: 299, formattedPrice: '₹299' },
+                                        { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', name: 'Terms & Conditions CMS', desc: 'CMS control to update clinic terms & patient agreement text', price: 199, formattedPrice: '₹199' },
+                                        { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', name: 'Privacy Policy CMS', desc: 'CMS control to update privacy policy & data protection terms', price: 199, formattedPrice: '₹199' },
                                       ].map((page) => (
                                         <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
                                           <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -1063,7 +1063,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_3', title: 'Telegram & WhatsApp Instant Notifications', price: 1499, formattedPrice: '₹1,499' });
+                                toggleCartItem({ id: 'c1_3', title: 'Telegram & WhatsApp Instant Notifications', price: 1199, formattedPrice: '₹1,199' });
                               }}
                               title={isItemInCart('c1_3') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_3')
@@ -1084,7 +1084,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,499</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,199</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1131,7 +1131,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_4', title: 'Automated Google Sheets Patient Lead Ledger', price: 1049, formattedPrice: '₹1,049' });
+                                toggleCartItem({ id: 'c1_4', title: 'Automated Google Sheets Patient Lead Ledger', price: 899, formattedPrice: '₹899' });
                               }}
                               title={isItemInCart('c1_4') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_4')
@@ -1152,7 +1152,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹899</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1199,7 +1199,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1699, formattedPrice: '₹1,699' });
+                                toggleCartItem({ id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1299, formattedPrice: '₹1,299' });
                               }}
                               title={isItemInCart('c1_5') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_5')
@@ -1220,7 +1220,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,699</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,299</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1267,7 +1267,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_6', title: 'Cloudflare Workers & R2 Storage deployment', price: 4298, formattedPrice: '₹4,298' });
+                                toggleCartItem({ id: 'c1_6', title: 'Cloudflare Workers & R2 Storage deployment', price: 2998, formattedPrice: '₹2,998' });
                               }}
                               title={isItemInCart('c1_6') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_6')
@@ -1290,7 +1290,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹4,298</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,998</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1314,7 +1314,7 @@ export default function PricingBreakdownPage() {
                                       type="button"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 2499, formattedPrice: '₹2,499' });
+                                        toggleCartItem({ id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 1799, formattedPrice: '₹1,799' });
                                       }}
                                       title={isItemInCart('c1_6_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub1')
@@ -1324,7 +1324,7 @@ export default function PricingBreakdownPage() {
                                     >
                                       {isItemInCart('c1_6_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
                                     </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹2,499</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,799</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
                                     <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
@@ -1342,7 +1342,7 @@ export default function PricingBreakdownPage() {
                                       type="button"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1799, formattedPrice: '₹1,799' });
+                                        toggleCartItem({ id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1199, formattedPrice: '₹1,199' });
                                       }}
                                       title={isItemInCart('c1_6_sub2') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub2')
@@ -1352,7 +1352,7 @@ export default function PricingBreakdownPage() {
                                     >
                                       {isItemInCart('c1_6_sub2') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
                                     </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,799</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,199</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
                                     <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
@@ -1391,7 +1391,7 @@ export default function PricingBreakdownPage() {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCartItem({ id: 'c1_7', title: 'Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure', price: 2798, formattedPrice: '₹2,798' });
+                                toggleCartItem({ id: 'c1_7', title: 'Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure', price: 2698, formattedPrice: '₹2,698' });
                               }}
                               title={isItemInCart('c1_7') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_7')
@@ -1414,7 +1414,7 @@ export default function PricingBreakdownPage() {
                                 </>
                               )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,798</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,698</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1437,7 +1437,7 @@ export default function PricingBreakdownPage() {
                                       type="button"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1299, formattedPrice: '₹1,299' });
+                                        toggleCartItem({ id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1199, formattedPrice: '₹1,199' });
                                       }}
                                       title={isItemInCart('c1_7_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7_sub1')
@@ -1447,7 +1447,7 @@ export default function PricingBreakdownPage() {
                                     >
                                       {isItemInCart('c1_7_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
                                     </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,299</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,199</span>
                                   </div>
                                   <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
                                     <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
