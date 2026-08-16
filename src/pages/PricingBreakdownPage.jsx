@@ -1604,10 +1604,10 @@ export default function PricingBreakdownPage() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t-2 border-dashed border-slate-300" />
               </div>
-              <div className="relative bg-white px-5 py-2 rounded-full border border-slate-300 shadow-xs flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-slate-900">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-                <span>Project Execution & Milestone Payment Flow</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+              <div className="relative bg-white px-4 sm:px-5 py-2 rounded-full border border-slate-300 shadow-xs flex items-center justify-center gap-2.5 text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-900 text-center">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse shrink-0" />
+                <span className="text-center">Project Execution & Milestone Payment Flow</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse shrink-0" />
               </div>
             </div>
 
@@ -1623,7 +1623,7 @@ export default function PricingBreakdownPage() {
                   </h2>
                 </div>
                 <div className="bg-emerald-50 border border-emerald-200 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold text-emerald-800 self-start sm:self-auto">
-                  Pay-As-You-Go (Total: ₹60,000)
+                  Pay-As-You-Go (Total: ₹20,000)
                 </div>
               </div>
 
@@ -1664,9 +1664,20 @@ export default function PricingBreakdownPage() {
                           transition={{ duration: 0.25, ease: "easeInOut" }}
                           className="overflow-hidden pt-1 sm:pt-2"
                         >
-                          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
-                            Mandatory <strong className="text-slate-900 font-extrabold">25% upfront advance (₹15,000 of ₹60,000) to lock commitment</strong> — as over <strong className="text-slate-900 font-extrabold">70%</strong> of core <strong className="text-slate-900 font-extrabold">development is already done</strong>. Acts as work security; upon receipt, the <strong className="text-slate-900 font-extrabold">project goes live on client domain</strong> & live revisions are made per client ask.
-                          </p>
+                          <ul className="space-y-2.5 sm:space-y-3 text-sm sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
+                            <li className="flex items-start gap-2.5">
+                              <span className="text-blue-600 font-bold shrink-0 mt-0.5">•</span>
+                              <span><strong className="text-slate-900 font-extrabold">25% Security Advance (₹5,000 of ₹20,000):</strong> Mandatory upfront deposit to lock project commitment.</span>
+                            </li>
+                            <li className="flex items-start gap-2.5">
+                              <span className="text-blue-600 font-bold shrink-0 mt-0.5">•</span>
+                              <span><strong className="text-slate-900 font-extrabold">80%+ Core Development Completed:</strong> Over 80% of core development and architecture will be done prior to showcasing the live interactive demo.</span>
+                            </li>
+                            <li className="flex items-start gap-2.5">
+                              <span className="text-blue-600 font-bold shrink-0 mt-0.5">•</span>
+                              <span><strong className="text-slate-900 font-extrabold">Live Domain Deployment & Revisions:</strong> Upon advance receipt, the project is deployed live onto the client's official domain for real-time review and custom revisions.</span>
+                            </li>
+                          </ul>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -1684,7 +1695,7 @@ export default function PricingBreakdownPage() {
                       <span>{openItems['seq_1'] ? 'Hide Details' : 'View Details & Terms'}</span>
                     </div>
                     <span className="font-black text-xs sm:text-base text-blue-700 bg-blue-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-200 shadow-2xs">
-                      ₹15,000
+                      ₹5,000
                     </span>
                   </div>
                 </div>
@@ -1726,17 +1737,13 @@ export default function PricingBreakdownPage() {
                         >
                           <div className="space-y-2.5 sm:space-y-3 pt-2.5 sm:pt-3 border-t border-slate-100">
                             <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-medium">
-                              Payment released upon handover of <strong className="text-slate-900 font-extrabold">Section 01 (Dynamic website pages, CMS, Telegram group lead handling & Google Sheets sync)</strong> together with completed <strong className="text-slate-900 font-extrabold">Cloudflare Security Infrastructure (Edge Workers, Turnstile, Enterprise WAF & Edge CDN)</strong>.
+                              Payment released upon final handover of Website <strong className="text-slate-900 font-extrabold">(Dynamic website pages, CMS, Telegram group lead handling & Google Sheets sync)</strong> together with completed <strong className="text-slate-900 font-extrabold">Cloudflare Security Infrastructure (Edge Workers, Turnstile, Enterprise WAF & Edge CDN)</strong>.
                             </p>
 
                             <ul className="space-y-2 pt-2 border-t border-indigo-100/80">
-                              <li className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 font-medium">
-                                <span className="text-indigo-600 font-black text-base leading-none">•</span>
-                                <span>Once this website & security layer is handed over to the client (prior to booking engine setup), <strong className="text-slate-900 font-extrabold">all payments for work completed must be released as per breakdown</strong> before proceeding with further module setup.</span>
-                              </li>
                               <li className="flex items-start gap-2 text-xs sm:text-sm text-indigo-900 font-bold bg-indigo-50/90 p-2.5 sm:p-3 rounded-xl border border-indigo-200/80">
                                 <span className="text-indigo-600 font-black text-base leading-none">•</span>
-                                <span><strong>Flexible Release Amount:</strong> Payment can be greater than ₹15,000 (depending on the total accumulated work completed & deployed at handover time).</span>
+                                <span><strong>Amount to be released:</strong> All payments for work completed must be released as per above breakdown</span>
                               </li>
                             </ul>
                           </div>
@@ -1757,127 +1764,7 @@ export default function PricingBreakdownPage() {
                       <span>{openItems['seq_2'] ? 'Hide Details' : 'View Details & Terms'}</span>
                     </div>
                     <span className="font-black text-xs sm:text-base text-indigo-700 bg-indigo-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-indigo-200 shadow-2xs">
-                      ₹15,000+
-                    </span>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div
-                  className={`rounded-2xl sm:rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_3'] ? 'border-teal-300 ring-2 ring-teal-500/10 shadow-md' : 'border-teal-200/80 hover:border-teal-300'
-                    }`}
-                >
-                  <div className="p-4 sm:p-7 space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-teal-50 border border-teal-200 text-teal-700">
-                        <Cpu size={22} weight="bold" className="sm:hidden" />
-                        <Cpu size={26} weight="bold" className="hidden sm:block" />
-                      </div>
-                      <span className="text-[11px] sm:text-sm font-black uppercase tracking-wider text-teal-700 bg-teal-100/80 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-teal-200">
-                        Step 03
-                      </span>
-                    </div>
-
-                    <div
-                      onClick={() => toggleSequenceRow(2)}
-                      className="cursor-pointer select-none space-y-1 group"
-                    >
-                      <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-teal-600">Module Deployments</span>
-                      <h4 className="font-extrabold text-slate-900 text-base sm:text-xl leading-snug group-hover:text-teal-600 transition-colors">
-                        Patient Appointment Engine & CMS Engineering
-                      </h4>
-                    </div>
-
-                    <AnimatePresence>
-                      {openItems['seq_3'] && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="overflow-hidden pt-1 sm:pt-2"
-                        >
-                          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
-                            Payments are released on-the-go progressively as development of each remaining Section 02 backend module (<strong className="text-slate-900 font-extrabold">Healthcare Portal Sync, Front-Desk Clinic CMS, & Direct Patient Booking Software</strong>) completes and is reported.
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Toggle Footer Bar */}
-                  <div
-                    onClick={() => toggleSequenceRow(2)}
-                    className="px-4 sm:px-6 py-3 sm:py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-teal-50/40 transition-colors"
-                  >
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
-                      <span className="text-teal-600">
-                        {openItems['seq_3'] ? <CaretDown size={16} weight="bold" /> : <CaretRight size={16} weight="bold" />}
-                      </span>
-                      <span>{openItems['seq_3'] ? 'Hide Details' : 'View Details & Terms'}</span>
-                    </div>
-                    <span className="font-black text-xs sm:text-sm text-teal-700 bg-teal-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-teal-200 shadow-2xs">
-                      Pay-As-You-Go
-                    </span>
-                  </div>
-                </div>
-
-                {/* Step 4 */}
-                <div
-                  className={`rounded-2xl sm:rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_4'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-200/80 hover:border-emerald-300'
-                    }`}
-                >
-                  <div className="p-4 sm:p-7 space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700">
-                        <CheckCircle size={22} weight="bold" className="sm:hidden" />
-                        <CheckCircle size={26} weight="bold" className="hidden sm:block" />
-                      </div>
-                      <span className="text-[11px] sm:text-sm font-black uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-emerald-200">
-                        Step 04
-                      </span>
-                    </div>
-
-                    <div
-                      onClick={() => toggleSequenceRow(2)}
-                      className="cursor-pointer select-none space-y-1 group"
-                    >
-                      <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-emerald-600">Final Settlement</span>
-                      <h4 className="font-extrabold text-slate-900 text-base sm:text-xl leading-snug group-hover:text-emerald-600 transition-colors">
-                        Live DNS & Final Handover
-                      </h4>
-                    </div>
-
-                    <AnimatePresence>
-                      {openItems['seq_4'] && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="overflow-hidden pt-1 sm:pt-2"
-                        >
-                          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
-                            Final settlement of any remaining payment left after complete deployment & final handover of the project.
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Toggle Footer Bar */}
-                  <div
-                    onClick={() => toggleSequenceRow(2)}
-                    className="px-4 sm:px-6 py-3 sm:py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-emerald-50/40 transition-colors"
-                  >
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
-                      <span className="text-emerald-600">
-                        {openItems['seq_4'] ? <CaretDown size={16} weight="bold" /> : <CaretRight size={16} weight="bold" />}
-                      </span>
-                      <span>{openItems['seq_4'] ? 'Hide Details' : 'View Details & Terms'}</span>
-                    </div>
-                    <span className="font-black text-xs sm:text-sm text-emerald-700 bg-emerald-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-200 shadow-2xs">
-                      Remaining Balance
+                      ₹15,000
                     </span>
                   </div>
                 </div>
