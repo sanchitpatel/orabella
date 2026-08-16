@@ -633,7 +633,7 @@ export default function PricingBreakdownPage() {
                           Unlock discounted price !
                         </p>
                         <p className="text-[11px] sm:text-xs font-semibold text-white mt-0.5">
-                          Add all items to cart , and avail the discount
+                          Add all items to cart & avail the discount
                         </p>
                       </div>
                     </div>
@@ -2171,7 +2171,7 @@ export default function PricingBreakdownPage() {
                   </div>
                   <p className="text-xs sm:text-sm font-extrabold text-emerald-800 flex items-center justify-center gap-1">
                     <Sparkle size={15} weight="fill" className="text-amber-500" />
-                    You saved ₹3,569 on the complete platform suite!
+                    You saved ₹3,569 on complete platform suite!
                   </p>
                 </div>
               </div>
