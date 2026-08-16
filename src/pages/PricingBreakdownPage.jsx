@@ -359,6 +359,7 @@ Object.entries(PARENT_CHILD_MAP).forEach(([parentId, children]) => {
 export default function PricingBreakdownPage() {
   const [activeTab, setActiveTab] = useState('pricing');
   const [openItems, setOpenItems] = useState({ roi_math: true });
+  const [isMaintenanceOpen, setIsMaintenanceOpen] = useState(true);
   const [toastMessage, setToastMessage] = useState(null);
   const toastTimeoutRef = useRef(null);
   const [showCelebrationModal, setShowCelebrationModal] = useState(false);
@@ -553,8 +554,6 @@ export default function PricingBreakdownPage() {
       setOpenItems(prev => ({ ...prev, seq_3: newState, seq_4: newState }));
     }
   };
-
-
 
   const tabs = [
     { id: 'pricing', label: 'Pricing Breakdown', targetId: 'section-1' },
@@ -1815,104 +1814,132 @@ export default function PricingBreakdownPage() {
                 </div>
               </div>
 
-              {/* Included Deliverables List */}
-              <div className="space-y-4">
-                <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                  <CheckCircle size={16} weight="bold" className="text-emerald-600" />
-                  What We Provide in Your Monthly Maintenance Plan:
-                </h4>
+              {/* Included Deliverables List with Interactive Toggle Button */}
+              <div className="space-y-3.5">
+                <button
+                  type="button"
+                  onClick={() => setIsMaintenanceOpen(!isMaintenanceOpen)}
+                  className="w-full py-3 px-4 sm:px-5 rounded-2xl bg-white hover:bg-slate-50/80 border border-blue-200/90 shadow-2xs hover:shadow-xs transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left group cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle size={18} weight="bold" className="text-emerald-600 shrink-0" />
+                    <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">
+                      What We Provide in Your Monthly Maintenance Plan:
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center gap-1.5 text-xs font-black text-white bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 hover:from-blue-700 hover:to-blue-600 px-3.5 py-2 sm:py-1.5 rounded-xl border border-blue-400/40 shadow-sm shadow-blue-500/20 transition-all shrink-0 w-full sm:w-auto">
+                    <span>{isMaintenanceOpen ? 'Hide Deliverables' : 'Show Deliverables'}</span>
+                    {isMaintenanceOpen ? (
+                      <CaretUp size={14} weight="bold" />
+                    ) : (
+                      <CaretDown size={14} weight="bold" />
+                    )}
+                  </div>
+                </button>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
-                  {/* Card 1 */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
-                        <CreditCard size={18} weight="fill" />
+                <AnimatePresence>
+                  {isMaintenanceOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="space-y-4 overflow-hidden pt-1"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+                        {/* Card 1 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
+                              <CreditCard size={18} weight="fill" />
+                            </div>
+                            <h5 className="font-black text-slate-900 text-sm sm:text-base">Razorpay & 24/7 Webhooks Maintenance</h5>
+                          </div>
+                          <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                              <span>Razorpay payment gateway maintenance, ensuring smooth real-time patient payments.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                              <span>24/7 monitoring of Cloudflare Workers & payment webhooks & api's maintenance, so zero transactions or leads get lost.</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        {/* Card 2 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                              <ShieldCheck size={18} weight="fill" />
+                            </div>
+                            <h5 className="font-black text-slate-900 text-sm sm:text-base">Browser & Package Compatibility Care</h5>
+                          </div>
+                          <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                              <span>Proactive updates for continuous Chrome, Safari, and iOS browser releases.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                              <span>Ongoing package & dependency upgrades to prevent version mismatches or broken layouts.</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        {/* Card 3 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                              <PaperPlaneTilt size={18} weight="fill" />
+                            </div>
+                            <h5 className="font-black text-slate-900 text-sm sm:text-base">Flawless API & Lead Pipeline Sync</h5>
+                          </div>
+                          <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                              <span>Active health checks & upkeep for instant Telegram notification bots.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                              <span>Real-time synchronization maintenance for Google Sheets lead ledger pipelines.</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        {/* Card 4 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0">
+                              <FileText size={18} weight="fill" />
+                            </div>
+                            <h5 className="font-black text-slate-900 text-sm sm:text-base">Personal Content & Price Updates</h5>
+                          </div>
+                          <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                              <span>Dedicated support for updating clinic gallery images & treatment pricing schedules.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                              <span>Direct developer access for team bio edits, website text tweaks, and legal policy pages etc.</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Razorpay & 24/7 Webhooks Maintenance</h5>
-                    </div>
-                    <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                        <span>Razorpay payment gateway maintenance, ensuring smooth real-time patient payments.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                        <span>24/7 monitoring of Cloudflare Workers & payment webhooks & api's maintenance, so zero transactions or leads get lost.</span>
-                      </li>
-                    </ul>
-                  </div>
 
-                  {/* Card 2 */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                        <ShieldCheck size={18} weight="fill" />
+                      {/* Humanized Peace of Mind Assurance Banner */}
+                      <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 border border-blue-200/80 flex items-start sm:items-center gap-3">
+                        <div className="p-2 rounded-xl bg-blue-600 text-white shrink-0 mt-0.5 sm:mt-0">
+                          <ShieldCheck size={20} weight="fill" />
+                        </div>
+                        <p className="text-xs sm:text-sm text-slate-700 font-semibold leading-relaxed">
+                          <strong className="font-black text-blue-950">Zero Technical Headaches For You:</strong> We treat your website like our own product. As browsers push silent updates and third-party APIs evolve, we manage all background health checks so your site stays rock-solid 24/7.
+                        </p>
                       </div>
-                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Browser & Package Compatibility Care</h5>
-                    </div>
-                    <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                        <span>Proactive updates for continuous Chrome, Safari, and iOS browser releases.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                        <span>Ongoing package & dependency upgrades to prevent version mismatches or broken layouts.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Card 3 */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                        <PaperPlaneTilt size={18} weight="fill" />
-                      </div>
-                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Flawless API & Lead Pipeline Sync</h5>
-                    </div>
-                    <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                        <span>Active health checks & upkeep for instant Telegram notification bots.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                        <span>Real-time synchronization maintenance for Google Sheets lead ledger pipelines.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Card 4 */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0">
-                        <FileText size={18} weight="fill" />
-                      </div>
-                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Personal Content & Price Updates</h5>
-                    </div>
-                    <ul className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed space-y-1.5">
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                        <span>Dedicated support for updating clinic gallery images & treatment pricing schedules.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                        <span>Direct developer access for team bio edits, website text tweaks, and legal policy pages etc.</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Humanized Peace of Mind Assurance Banner */}
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 border border-blue-200/80 flex items-start sm:items-center gap-3">
-                  <div className="p-2 rounded-xl bg-blue-600 text-white shrink-0 mt-0.5 sm:mt-0">
-                    <ShieldCheck size={20} weight="fill" />
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-700 font-semibold leading-relaxed">
-                    <strong className="font-black text-blue-950">Zero Technical Headaches For You:</strong> We treat your website like our own product. As browsers push silent updates and third-party APIs evolve, we manage all background health checks so your site stays rock-solid 24/7.
-                  </p>
-                </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
