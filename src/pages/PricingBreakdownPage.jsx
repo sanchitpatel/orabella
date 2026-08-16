@@ -304,6 +304,36 @@ function VoiceAuditCard({
   );
 }
 
+const PARENT_CHILD_MAP = {
+  c1_1: [
+    { id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 4799, formattedPrice: '₹4,799' },
+    { id: 'c1_1_sub2', title: 'Dedicated Standalone Pages (6 Pages)', price: 5994, formattedPrice: '₹5,994' },
+    { id: 'c1_1_sub3', title: 'Policy, Legal & Custom 404 Pages (3 Pages)', price: 1797, formattedPrice: '₹1,797' },
+    { id: 'c1_1_sub4', title: 'Interactive Sub-Page Popups & Modals (3 Modals)', price: 1347, formattedPrice: '₹1,347' },
+  ],
+  c1_2: [
+    { id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 2699, formattedPrice: '₹2,699' },
+    { id: 'c1_2_sub2', title: 'Standalone Pages CMS Integration (6 Pages)', price: 7194, formattedPrice: '₹7,194' },
+    { id: 'c1_2_sub3', title: 'Terms & Privacy Policy CMS (2 Pages)', price: 598, formattedPrice: '₹598' },
+    { id: 'c1_2_sub4', title: 'Pop-up Sub-pages CMS Integration (3 Modals)', price: 597, formattedPrice: '₹597' },
+  ],
+  c1_6: [
+    { id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 2499, formattedPrice: '₹2,499' },
+    { id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1799, formattedPrice: '₹1,799' },
+  ],
+  c1_7: [
+    { id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1299, formattedPrice: '₹1,299' },
+    { id: 'c1_7_sub2', title: 'Enterprise WAF, Rate Limiting & Edge Caching', price: 1499, formattedPrice: '₹1,499' },
+  ],
+};
+
+const CHILD_TO_PARENT = {};
+Object.entries(PARENT_CHILD_MAP).forEach(([parentId, children]) => {
+  children.forEach(child => {
+    CHILD_TO_PARENT[child.id] = parentId;
+  });
+});
+
 export default function PricingBreakdownPage() {
   const [activeTab, setActiveTab] = useState('pricing');
   const [openItems, setOpenItems] = useState({ roi_math: true });
@@ -313,18 +343,71 @@ export default function PricingBreakdownPage() {
 
   const [cartItems, setCartItems] = useState([]);
 
+  const isItemInCart = (id) => {
+    if (PARENT_CHILD_MAP[id]) {
+      const children = PARENT_CHILD_MAP[id];
+      if (cartItems.some(i => i.id === id)) return true;
+      return children.every(child => cartItems.some(i => i.id === child.id));
+    }
+    const parentId = CHILD_TO_PARENT[id];
+    if (parentId) {
+      if (cartItems.some(i => i.id === parentId)) return true;
+      return cartItems.some(i => i.id === id);
+    }
+    return cartItems.some(i => i.id === id);
+  };
+
   const toggleCartItem = (item) => {
     setCartItems(prev => {
-      const exists = prev.some(i => i.id === item.id);
+      const itemId = item.id;
+
+      // PARENT OPTION (e.g. c1_1, c1_2, c1_6, c1_7)
+      if (PARENT_CHILD_MAP[itemId]) {
+        const children = PARENT_CHILD_MAP[itemId];
+        const childIds = children.map(c => c.id);
+        const parentInCart = prev.some(i => i.id === itemId);
+        const allChildrenInCart = children.every(c => prev.some(i => i.id === c.id));
+
+        if (parentInCart || allChildrenInCart) {
+          // Remove parent and all of its sub-options
+          return prev.filter(i => i.id !== itemId && !childIds.includes(i.id));
+        } else {
+          // Add all sub-options of this parent option
+          const filtered = prev.filter(i => i.id !== itemId && !childIds.includes(i.id));
+          return [...filtered, ...children];
+        }
+      }
+
+      // SUB-OPTION (e.g. c1_1_sub1)
+      const parentId = CHILD_TO_PARENT[itemId];
+      if (parentId) {
+        const siblings = PARENT_CHILD_MAP[parentId];
+        const parentInCart = prev.some(i => i.id === parentId);
+
+        if (parentInCart) {
+          const remainingSiblings = siblings.filter(s => s.id !== itemId);
+          const filtered = prev.filter(i => i.id !== parentId && i.id !== itemId);
+          return [...filtered, ...remainingSiblings];
+        } else {
+          const childInCart = prev.some(i => i.id === itemId);
+          if (childInCart) {
+            return prev.filter(i => i.id !== itemId);
+          } else {
+            return [...prev, item];
+          }
+        }
+      }
+
+      // STANDALONE ITEM
+      const exists = prev.some(i => i.id === itemId);
       if (exists) {
-        return prev.filter(i => i.id !== item.id);
+        return prev.filter(i => i.id !== itemId);
       } else {
         return [...prev, item];
       }
     });
   };
 
-  const isItemInCart = (id) => cartItems.some(i => i.id === id);
   const cartTotal = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const toggleItem = (id) => {
@@ -1244,19 +1327,26 @@ export default function PricingBreakdownPage() {
                         <div className="mt-4 space-y-4">
                           <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
                             {cartItems.map((item) => (
-                              <div key={item.id} className="p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs flex items-center justify-between gap-3 animate-fade-in">
-                                <div className="min-w-0 flex-1">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm truncate">{item.title}</h6>
-                                  <span className="text-[11px] font-black text-emerald-700">{item.formattedPrice || `₹${item.price.toLocaleString()}`}</span>
+                              <div key={item.id} className="p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs space-y-2.5 animate-fade-in">
+                                <div className="flex items-start gap-2.5">
+                                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
+                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug break-words flex-1 min-w-0">
+                                    {item.title}
+                                  </h6>
                                 </div>
-                                <button
-                                  type="button"
-                                  onClick={() => toggleCartItem(item)}
-                                  title="Remove Item"
-                                  className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 transition-colors shrink-0 cursor-pointer"
-                                >
-                                  <Trash size={15} weight="bold" />
-                                </button>
+                                <div className="flex items-center justify-end gap-2 pt-2 border-t border-emerald-100/60">
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleCartItem(item)}
+                                    title="Remove Item"
+                                    className="p-1 sm:p-1.5 rounded-md sm:rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0"
+                                  >
+                                    <Trash size={14} weight="bold" />
+                                  </button>
+                                  <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs">
+                                    {item.formattedPrice || `₹${item.price.toLocaleString()}`}
+                                  </span>
+                                </div>
                               </div>
                             ))}
                           </div>
