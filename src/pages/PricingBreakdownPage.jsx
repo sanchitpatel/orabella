@@ -359,7 +359,7 @@ Object.entries(PARENT_CHILD_MAP).forEach(([parentId, children]) => {
 export default function PricingBreakdownPage() {
   const [activeTab, setActiveTab] = useState('pricing');
   const [openItems, setOpenItems] = useState({ roi_math: true });
-  const [isMaintenanceOpen, setIsMaintenanceOpen] = useState(true);
+  const [isMaintenanceOpen, setIsMaintenanceOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const toastTimeoutRef = useRef(null);
   const [showCelebrationModal, setShowCelebrationModal] = useState(false);
@@ -689,10 +689,13 @@ export default function PricingBreakdownPage() {
                       }`}
                   >
                     <div className="flex items-start justify-between gap-3 border-b border-blue-200/60 pb-3 sm:pb-4">
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-base sm:text-lg font-black text-slate-900">Website UI & Patient Lead Management Architecture</h4>
+                      <div className="flex-1 min-w-0 space-y-1">
+                        <h4 className="text-base sm:text-xl font-black text-slate-900">Overall Development Cost</h4>
+                        <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                          Complete Website, Patient Lead Management & Security Architecture implemented.
+                        </p>
                       </div>
-                      <span className={`text-base sm:text-xl font-black px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border transition-all duration-300 shrink-0 pt-0.5 ${isPricingActive
+                      <span className={`text-base sm:text-lg font-black px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border transition-all duration-300 shrink-0 pt-0.5 ${isPricingActive
                         ? 'text-blue-800 bg-blue-100 border-blue-300 shadow-2xs'
                         : 'text-blue-700 bg-blue-100/60 border-blue-200'
                         }`}>
@@ -1780,9 +1783,9 @@ export default function PricingBreakdownPage() {
             </div>
 
             {/* Monthly Maintenance & Support Notice Card */}
-            <div className="rounded-2xl sm:rounded-3xl border border-blue-200/90 bg-gradient-to-br from-white via-sky-50/40 to-blue-50/30 p-5 sm:p-8 shadow-sm space-y-6">
+            <div className="rounded-2xl sm:rounded-3xl border-2 border-blue-300/90 bg-gradient-to-br from-white via-sky-50/40 to-blue-50/30 p-5 sm:p-8 shadow-md shadow-blue-500/10 space-y-6 relative">
               {/* Header Section */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-blue-200/80 pb-5">
                 <div className="space-y-1.5">
                   <h3 className="text-xl sm:text-2xl font-black text-slate-900">
                     Monthly Platform Maintenance & Support
@@ -1956,7 +1959,7 @@ export default function PricingBreakdownPage() {
             </div>
 
             {/* VISUAL FLOWCHART 2: PAYMENT & MILESTONE TIMELINE FLOW */}
-            <div className="rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-10 shadow-sm space-y-5 sm:space-y-6">
+            <div className="rounded-2xl sm:rounded-3xl border-2 border-slate-300 bg-white p-4 sm:p-10 shadow-md shadow-slate-900/5 space-y-5 sm:space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
                   <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/60 px-3.5 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-blue-700">
