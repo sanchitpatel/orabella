@@ -576,15 +576,28 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_1', title: 'Multi-page static & Mobile first Responsive Dental Website', price: 13937, formattedPrice: '₹13,937' });
                               }}
-                              title={isItemInCart('c1_1') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1')
+                              title={isItemInCart('c1_1') ? "Remove Entire Package" : "Include All Sub-Options"}
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_1')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_1') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_1') ? (
+                                <>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -808,15 +821,28 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_2', title: 'Content Management System', price: 11088, formattedPrice: '₹11,088' });
                               }}
-                              title={isItemInCart('c1_2') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2')
+                              title={isItemInCart('c1_2') ? "Remove Entire Package" : "Include All Sub-Options"}
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_2')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_2') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_2') ? (
+                                <>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹11,088</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹11,088</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1039,15 +1065,26 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_3', title: 'Telegram & WhatsApp Instant Notifications', price: 1499, formattedPrice: '₹1,499' });
                               }}
-                              title={isItemInCart('c1_3') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_3')
+                              title={isItemInCart('c1_3') ? "Remove Section" : "Add Section to Cart"}
+                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_3')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_3') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_3') ? (
+                                <>
+                                  <CheckCircle size={17} weight="bold" />
+                                  <span className="font-bold text-xs">Added</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Plus size={12} weight="bold" />
+                                  <ShoppingCart size={15} weight="bold" />
+                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,499</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,499</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1096,15 +1133,26 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_4', title: 'Automated Google Sheets Patient Lead Ledger', price: 1049, formattedPrice: '₹1,049' });
                               }}
-                              title={isItemInCart('c1_4') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_4')
+                              title={isItemInCart('c1_4') ? "Remove Section" : "Add Section to Cart"}
+                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_4')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_4') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_4') ? (
+                                <>
+                                  <CheckCircle size={17} weight="bold" />
+                                  <span className="font-bold text-xs">Added</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Plus size={12} weight="bold" />
+                                  <ShoppingCart size={15} weight="bold" />
+                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1153,15 +1201,26 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1699, formattedPrice: '₹1,699' });
                               }}
-                              title={isItemInCart('c1_5') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_5')
+                              title={isItemInCart('c1_5') ? "Remove Section" : "Add Section to Cart"}
+                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_5')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_5') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_5') ? (
+                                <>
+                                  <CheckCircle size={17} weight="bold" />
+                                  <span className="font-bold text-xs">Added</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Plus size={12} weight="bold" />
+                                  <ShoppingCart size={15} weight="bold" />
+                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,699</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,699</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1210,15 +1269,28 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_6', title: 'Cloudflare Workers & R2 Storage deployment', price: 4298, formattedPrice: '₹4,298' });
                               }}
-                              title={isItemInCart('c1_6') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6')
+                              title={isItemInCart('c1_6') ? "Remove Entire Package" : "Include All Sub-Options"}
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_6')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_6') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_6') ? (
+                                <>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹4,298</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹4,298</span>
                           </div>
                         </div>
                         <AnimatePresence>
@@ -1321,15 +1393,28 @@ export default function PricingBreakdownPage() {
                                 e.stopPropagation();
                                 toggleCartItem({ id: 'c1_7', title: 'Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure', price: 2798, formattedPrice: '₹2,798' });
                               }}
-                              title={isItemInCart('c1_7') ? "Remove from Cart" : "Add to Cart"}
-                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7')
+                              title={isItemInCart('c1_7') ? "Remove Entire Package" : "Include All Sub-Options"}
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_7')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
                                 }`}
                             >
-                              {isItemInCart('c1_7') ? <CheckCircle size={16} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={13} weight="bold" /><ShoppingCart size={15} weight="bold" /></div>}
+                              {isItemInCart('c1_7') ? (
+                                <>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                </>
+                              )}
                             </button>
-                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,798</span>
+                            <span className="font-black text-xs sm:text-sm text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,798</span>
                           </div>
                         </div>
                         <AnimatePresence>
