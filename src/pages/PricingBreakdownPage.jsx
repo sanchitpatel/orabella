@@ -1821,43 +1821,55 @@ export default function PricingBreakdownPage() {
                   What We Provide in Monthly Platform Maintenance:
                 </h4>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">24/7 Uptime & Server Health Monitoring</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+                  {/* Card 1 */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
+                        <Lightning size={18} weight="fill" />
+                      </div>
+                      <h5 className="font-black text-slate-900 text-sm sm:text-base">24/7 Uptime & Server Health Monitoring</h5>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
-                      Continuous monitoring of Cloudflare Workers & R2 Storage infrastructure ensuring 99.9% uptime and instant site loading speeds.
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pl-0.5">
+                      Continuous monitoring of Cloudflare Workers & R2 Storage infrastructure ensuring 99.9% uptime and instant site/data loading speeds.
                     </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">Telegram & Google Sheets Sync Upkeep</h5>
+                  {/* Card 2 */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                        <PaperPlaneTilt size={18} weight="fill" />
+                      </div>
+                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Telegram & Google Sheets Sync Upkeep</h5>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pl-0.5">
                       Active maintenance and API health checks for two-way Telegram notification bots and Google Sheets lead ledger pipelines.
                     </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">CMS Content Assistance & Price Updates</h5>
+                  {/* Card 3 */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0">
+                        <FileText size={18} weight="fill" />
+                      </div>
+                      <h5 className="font-black text-slate-900 text-sm sm:text-base">CMS Content Assistance & Price Updates</h5>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
-                      Dedicated support for updating clinic gallery images, treatment pricing schedules, team bios, and legal policy pages.
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pl-0.5">
+                      Dedicated support for updating clinic gallery images, treatment pricing schedules, team bios, website content and legal policy pages.
                     </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">Priority Bug Fixes & Technical Assistance</h5>
+                  {/* Card 4 */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-100/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all group space-y-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors shrink-0">
+                        <ShieldCheck size={18} weight="fill" />
+                      </div>
+                      <h5 className="font-black text-slate-900 text-sm sm:text-base">Priority Bug Fixes & Technical Assistance</h5>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pl-0.5">
                       Direct developer access for rapid resolution of technical issues, unexpected layout glitches, or urgent changes.
                     </p>
                   </div>
