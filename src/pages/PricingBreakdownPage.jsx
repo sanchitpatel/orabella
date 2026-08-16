@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import {
   CurrencyInr,
   CheckCircle,
@@ -37,7 +38,8 @@ import {
   ShoppingCart,
   Trash,
   Plus,
-  X
+  X,
+  Gift
 } from '@phosphor-icons/react';
 
 // Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
@@ -357,11 +359,54 @@ export default function PricingBreakdownPage() {
   const [openItems, setOpenItems] = useState({ roi_math: true });
   const [toastMessage, setToastMessage] = useState(null);
   const toastTimeoutRef = useRef(null);
+  const [showCelebrationModal, setShowCelebrationModal] = useState(false);
+  const prevAllAddedRef = useRef(false);
 
   const isPricingActive = activeTab === 'pricing';
   const isCartActive = activeTab === 'cart';
 
   const [cartItems, setCartItems] = useState([]);
+
+  const triggerCelebrationConfetti = () => {
+    // Stage 1: Central Birthday Boom Poppers
+    confetti({
+      particleCount: 130,
+      spread: 110,
+      origin: { y: 0.55 },
+      colors: ['#3b82f6', '#10b981', '#fbbf24', '#ec4899', '#06b6d4', '#8b5cf6'],
+      disableForReducedMotion: true,
+    });
+
+    // Stage 2: Left & Right Corner Fireworks Cannons
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 80,
+        origin: { x: 0.05, y: 0.65 },
+        colors: ['#3b82f6', '#10b981', '#fbbf24', '#f43f5e']
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 80,
+        origin: { x: 0.95, y: 0.65 },
+        colors: ['#3b82f6', '#10b981', '#fbbf24', '#f43f5e']
+      });
+    }, 220);
+
+    // Stage 3: Glittering Golden Star Rain
+    setTimeout(() => {
+      confetti({
+        particleCount: 65,
+        spread: 160,
+        origin: { y: 0.35 },
+        shapes: ['star'],
+        colors: ['#fbbf24', '#38bdf8', '#34d399', '#f472b6'],
+        scalar: 1.3
+      });
+    }, 450);
+  };
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -384,6 +429,18 @@ export default function PricingBreakdownPage() {
     }
     return cartItems.some(i => i.id === id);
   };
+
+  // Watch cart state to trigger Birthday Boom celebration when all 7 sections are added to cart
+  useEffect(() => {
+    const ALL_SECTION_IDS = ['c1_1', 'c1_2', 'c1_3', 'c1_4', 'c1_5', 'c1_6', 'c1_7'];
+    const allAdded = ALL_SECTION_IDS.every(id => isItemInCart(id));
+
+    if (allAdded && !prevAllAddedRef.current) {
+      triggerCelebrationConfetti();
+      setShowCelebrationModal(true);
+    }
+    prevAllAddedRef.current = allAdded;
+  }, [cartItems]);
 
   const toggleCartItem = (item) => {
     setCartItems(prev => {
@@ -1830,6 +1887,82 @@ export default function PricingBreakdownPage() {
           </div>
         )}
       </main>
+
+      {/* Celebration Discount Unlocked Modal */}
+      <AnimatePresence>
+        {showCelebrationModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 10 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative max-w-md w-full rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-blue-200 text-center space-y-5 overflow-hidden"
+            >
+              {/* Decorative Background Ambient Glows */}
+              <div className="absolute -top-12 -left-12 w-36 h-36 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col items-center space-y-3">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-amber-400 via-emerald-400 to-blue-500 p-0.5 shadow-lg shadow-emerald-500/20 flex items-center justify-center">
+                  <div className="w-full h-full rounded-[22px] bg-white flex items-center justify-center text-3xl sm:text-4xl">
+                    🎉
+                  </div>
+                </div>
+
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wider border border-emerald-200">
+                  <Gift size={18} weight="fill" className="text-pink-500" />
+                  Full Package Discount Unlocked!
+                </span>
+
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
+                  Full Platform Bundle Unlocked!
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                  By including all website & lead architecture sections, you qualified for the complete bundled package price:
+                </p>
+
+                {/* Pricing Highlight Box */}
+                <div className="w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-sky-50 via-blue-50 to-teal-50 border border-blue-200/90 flex flex-col items-center justify-center text-center space-y-1.5 shadow-2xs">
+                  <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm font-bold text-slate-500">
+                    <span>Itemized Total:</span>
+                    <span className="text-red-500/80 line-through">₹28,568</span>
+                  </div>
+                  <div className="text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight text-center my-0.5">
+                    ₹24,999
+                  </div>
+                  <p className="text-xs sm:text-sm font-extrabold text-emerald-800 flex items-center justify-center gap-1">
+                    <Sparkle size={15} weight="fill" className="text-amber-500" />
+                    You saved ₹3,569 on the complete platform suite!
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 pt-2 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowCelebrationModal(false)}
+                  className="flex-1 py-3 px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-base shadow-md shadow-blue-500/20 active:scale-95 transition-all cursor-pointer"
+                >
+                  Awesome! 
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCelebrationModal(false);
+                    handleTabClick(tabs[1]);
+                  }}
+                  className="py-3 px-4 rounded-xl sm:rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-base border border-slate-200 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <ShoppingCart size={18} weight="bold" />
+                  View Cart
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Floating Toast Notification for Security Dependencies */}
       <AnimatePresence>
