@@ -307,15 +307,32 @@ function VoiceAuditCard({
 const PARENT_CHILD_MAP = {
   c1_1: [
     { id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 4799, formattedPrice: '₹4,799' },
-    { id: 'c1_1_sub2', title: 'Dedicated Standalone Pages (6 Pages)', price: 5994, formattedPrice: '₹5,994' },
-    { id: 'c1_1_sub3', title: 'Policy, Legal & Custom 404 Pages (3 Pages)', price: 1797, formattedPrice: '₹1,797' },
-    { id: 'c1_1_sub4', title: 'Interactive Sub-Page Popups & Modals (3 Modals)', price: 1347, formattedPrice: '₹1,347' },
+    { id: 'c1_1_sub2_p1', title: 'About Us Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub2_p2', title: 'Treatments & Services Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub2_p3', title: 'Clinic Gallery Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub2_p4', title: 'Dental Blog Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub2_p5', title: 'Doctor Profiles Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub2_p6', title: 'Appointment Booking Standalone Page', price: 999, formattedPrice: '₹999' },
+    { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', price: 599, formattedPrice: '₹599' },
+    { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', price: 599, formattedPrice: '₹599' },
+    { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', price: 599, formattedPrice: '₹599' },
+    { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', price: 449, formattedPrice: '₹449' },
+    { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', price: 449, formattedPrice: '₹449' },
+    { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', price: 449, formattedPrice: '₹449' },
   ],
   c1_2: [
     { id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 2699, formattedPrice: '₹2,699' },
-    { id: 'c1_2_sub2', title: 'Standalone Pages CMS Integration (6 Pages)', price: 7194, formattedPrice: '₹7,194' },
-    { id: 'c1_2_sub3', title: 'Terms & Privacy Policy CMS (2 Pages)', price: 598, formattedPrice: '₹598' },
-    { id: 'c1_2_sub4', title: 'Pop-up Sub-pages CMS Integration (3 Modals)', price: 597, formattedPrice: '₹597' },
+    { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', price: 1199, formattedPrice: '₹1,199' },
+    { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', price: 299, formattedPrice: '₹299' },
+    { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', price: 299, formattedPrice: '₹299' },
+    { id: 'c1_2_sub4_m1', title: 'Blog Article Modal CMS Integration', price: 199, formattedPrice: '₹199' },
+    { id: 'c1_2_sub4_m2', title: 'Treatment Details Modal CMS Integration', price: 199, formattedPrice: '₹199' },
+    { id: 'c1_2_sub4_m3', title: 'Appointment Booking Modal CMS Integration', price: 199, formattedPrice: '₹199' },
   ],
   c1_6: [
     { id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 2499, formattedPrice: '₹2,499' },
@@ -617,86 +634,146 @@ export default function PricingBreakdownPage() {
                                 </div>
 
                                 {/* Dedicated Standalone Pages */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">2. Dedicated Standalone Pages</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_1_sub2', title: 'Dedicated Standalone Pages (6 Pages)', price: 5994, formattedPrice: '₹5,994' });
-                                      }}
-                                      title={isItemInCart('c1_1_sub2') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub2')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_1_sub2') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹999 x 6</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">2. Dedicated Standalone Pages</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹999 / page</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Individual tailored pages designed for specific patient journeys: <strong className="text-slate-900 font-bold">About Us, Treatments & Services, Clinic Gallery, Dental Blog, Doctor Profiles & Appointment Booking</strong>.
+                                      Select individual tailored pages designed for specific patient journeys:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_1_sub2_p1', title: 'About Us Standalone Page', name: 'About Us Page', desc: 'Clinic story, mission, values & credentials', price: 999, formattedPrice: '₹999' },
+                                        { id: 'c1_1_sub2_p2', title: 'Treatments & Services Standalone Page', name: 'Treatments & Services Page', desc: 'Comprehensive list of procedures & care info', price: 999, formattedPrice: '₹999' },
+                                        { id: 'c1_1_sub2_p3', title: 'Clinic Gallery Standalone Page', name: 'Clinic Gallery Page', desc: 'Photos of clinic, tech & before/after results', price: 999, formattedPrice: '₹999' },
+                                        { id: 'c1_1_sub2_p4', title: 'Dental Blog Standalone Page', name: 'Dental Blog Page', desc: 'Educational dental articles & patient guides', price: 999, formattedPrice: '₹999' },
+                                        { id: 'c1_1_sub2_p5', title: 'Doctor Profiles Standalone Page', name: 'Doctor Profiles Page', desc: 'Dentist bios, qualifications & achievements', price: 999, formattedPrice: '₹999' },
+                                        { id: 'c1_1_sub2_p6', title: 'Appointment Booking Standalone Page', name: 'Appointment Booking Page', desc: 'Dedicated booking page with calendar & form sync', price: 999, formattedPrice: '₹999' },
+                                      ].map((page) => (
+                                        <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{page.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{page.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: page.id, title: page.title, price: page.price, formattedPrice: page.formattedPrice });
+                                              }}
+                                              title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{page.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
                                 {/* Policy & Legal Pages */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Policy, Legal & Custom 404 Pages</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_1_sub3', title: 'Policy, Legal & Custom 404 Pages (3 Pages)', price: 1797, formattedPrice: '₹1,797' });
-                                      }}
-                                      title={isItemInCart('c1_1_sub3') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub3')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_1_sub3') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹599 × 3</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Policy, Legal & Custom 404 Pages</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹599 / page</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Standard legal compliance & maintenance framework covering <strong className="text-slate-900 font-bold">Terms & Conditions</strong>, <strong className="text-slate-900 font-bold">Privacy Policy</strong>, and <strong className="text-slate-900 font-bold">Custom Branded 404 Page</strong>.
+                                      Select compliance & maintenance framework pages:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_1_sub3_p1', title: 'Terms & Conditions Page', name: 'Terms & Conditions Page', desc: 'Legal terms of service & clinic patient agreement', price: 599, formattedPrice: '₹599' },
+                                        { id: 'c1_1_sub3_p2', title: 'Privacy Policy Page', name: 'Privacy Policy Page', desc: 'Patient data privacy & health info protection policy', price: 599, formattedPrice: '₹599' },
+                                        { id: 'c1_1_sub3_p3', title: 'Custom Branded 404 Error Page', name: 'Custom Branded 404 Page', desc: 'Custom error page with search & quick redirection', price: 599, formattedPrice: '₹599' },
+                                      ].map((page) => (
+                                        <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{page.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{page.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: page.id, title: page.title, price: page.price, formattedPrice: page.formattedPrice });
+                                              }}
+                                              title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{page.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
                                 {/* Interactive Sub-Page Popups */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">4. Interactive Sub-Page Popups & Modals</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_1_sub4', title: 'Interactive Sub-Page Popups & Modals (3 Modals)', price: 1347, formattedPrice: '₹1,347' });
-                                      }}
-                                      title={isItemInCart('c1_1_sub4') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub4')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_1_sub4') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹449 × 3</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">4. Interactive Sub-Page Popups & Modals</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹449 / modal</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Rich interactive overlay modals integrated into <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Bookings</strong> pages for detailed sub-content views.
+                                      Select interactive overlay modals for detailed sub-content views:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_1_sub4_m1', title: 'Dental Blog Article Popup Modal', name: 'Dental Blog Article Modal', desc: 'Read full dental articles without page reloads', price: 449, formattedPrice: '₹449' },
+                                        { id: 'c1_1_sub4_m2', title: 'Treatment Details Overlay Modal', name: 'Treatment Details Overlay Modal', desc: 'In-depth treatment info, pre-op steps & pricing popup', price: 449, formattedPrice: '₹449' },
+                                        { id: 'c1_1_sub4_m3', title: 'Quick Appointment Booking Modal', name: 'Quick Appointment Booking Modal', desc: 'Instant appointment booking popup accessible site-wide', price: 449, formattedPrice: '₹449' },
+                                      ].map((modal) => (
+                                        <li key={modal.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{modal.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{modal.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: modal.id, title: modal.title, price: modal.price, formattedPrice: modal.formattedPrice });
+                                              }}
+                                              title={isItemInCart(modal.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(modal.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(modal.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{modal.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
@@ -789,86 +866,145 @@ export default function PricingBreakdownPage() {
                                 </div>
 
                                 {/* Per Page Standalone CMS */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">2. Standalone Pages CMS Integration</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_2_sub2', title: 'Standalone Pages CMS Integration (6 Pages)', price: 7194, formattedPrice: '₹7,194' });
-                                      }}
-                                      title={isItemInCart('c1_2_sub2') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub2')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_2_sub2') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,199 × 6</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">2. Standalone Pages CMS Integration</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹1,199 / page</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Full content management wiring across 7 core pages: <strong className="text-slate-900 font-bold">About Us, Treatments, Clinic Gallery, Dental Blog, Doctor Profiles, Appointment Booking & Contact</strong>.
+                                      Select CMS wiring for individual standalone pages:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_2_sub2_p1', title: 'About Us CMS Integration', name: 'About Us CMS', desc: 'Dynamic CMS management for clinic info & story', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p2', title: 'Treatments & Services CMS Integration', name: 'Treatments & Services CMS', desc: 'CMS control to add & edit dental procedures', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p3', title: 'Clinic Gallery CMS Integration', name: 'Clinic Gallery CMS', desc: 'Upload & manage clinic photos & before/after cases', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p4', title: 'Dental Blog CMS Integration', name: 'Dental Blog CMS', desc: 'Publish & edit blog posts with rich text editor', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p5', title: 'Doctor Profiles CMS Integration', name: 'Doctor Profiles CMS', desc: 'Manage doctor profiles, specialties & schedules', price: 1199, formattedPrice: '₹1,199' },
+                                        { id: 'c1_2_sub2_p6', title: 'Appointment Booking CMS Integration', name: 'Appointment Booking CMS', desc: 'Configure booking settings, slots & patient alerts', price: 1199, formattedPrice: '₹1,199' },
+                                      ].map((page) => (
+                                        <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{page.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{page.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: page.id, title: page.title, price: page.price, formattedPrice: page.formattedPrice });
+                                              }}
+                                              title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{page.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
                                 {/* Terms & Privacy CMS */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Terms & Privacy Policy CMS</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_2_sub3', title: 'Terms & Privacy Policy CMS (2 Pages)', price: 598, formattedPrice: '₹598' });
-                                      }}
-                                      title={isItemInCart('c1_2_sub3') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub3')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_2_sub3') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹299 × 2</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">3. Terms & Privacy Policy CMS</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹299 / page</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Editable policy fields allowing instant modifications to <strong className="text-slate-900 font-bold">Terms & Conditions</strong> and <strong className="text-slate-900 font-bold">Privacy Policy</strong> text copy.
+                                      Select legal & privacy policy CMS controls:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_2_sub3_p1', title: 'Terms & Conditions CMS Integration', name: 'Terms & Conditions CMS', desc: 'CMS control to update clinic terms & patient agreement text', price: 299, formattedPrice: '₹299' },
+                                        { id: 'c1_2_sub3_p2', title: 'Privacy Policy CMS Integration', name: 'Privacy Policy CMS', desc: 'CMS control to update privacy policy & data protection terms', price: 299, formattedPrice: '₹299' },
+                                      ].map((page) => (
+                                        <li key={page.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{page.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{page.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: page.id, title: page.title, price: page.price, formattedPrice: page.formattedPrice });
+                                              }}
+                                              title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{page.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
 
                                 {/* Pop-up Sub-pages CMS */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2 shadow-2xs">
-                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">4. Pop-up Sub-pages CMS Integration</h6>
-                                  <div className="flex items-center justify-end gap-1.5">
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleCartItem({ id: 'c1_2_sub4', title: 'Pop-up Sub-pages CMS Integration (3 Modals)', price: 597, formattedPrice: '₹597' });
-                                      }}
-                                      title={isItemInCart('c1_2_sub4') ? "Remove from Cart" : "Add to Cart"}
-                                      className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub4')
-                                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                                        }`}
-                                    >
-                                      {isItemInCart('c1_2_sub4') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
-                                    </button>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹199 × 3</span>
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-3 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base leading-snug">4. Pop-up Sub-pages CMS Integration</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0">₹199 / modal</span>
                                   </div>
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 flex items-start gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1.5" />
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-2.5">
                                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                      Dynamic content fields for interactive pop-up overlays in <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Booking</strong> sub-views.
+                                      Select CMS wiring for interactive popup modals:
                                     </p>
+                                    <ul className="space-y-2">
+                                      {[
+                                        { id: 'c1_2_sub4_m1', title: 'Blog Article Modal CMS Integration', name: 'Blog Article Modal CMS', desc: 'Manage blog modal content & media attachments dynamically', price: 199, formattedPrice: '₹199' },
+                                        { id: 'c1_2_sub4_m2', title: 'Treatment Details Modal CMS Integration', name: 'Treatment Details Modal CMS', desc: 'Update treatment modal FAQs, pricing & care notes', price: 199, formattedPrice: '₹199' },
+                                        { id: 'c1_2_sub4_m3', title: 'Appointment Booking Modal CMS Integration', name: 'Appointment Booking Modal CMS', desc: 'Configure quick booking modal fields & timing slots', price: 199, formattedPrice: '₹199' },
+                                      ].map((modal) => (
+                                        <li key={modal.id} className="p-2 sm:p-2.5 rounded-xl bg-white border border-blue-100/90 flex items-center justify-between gap-2.5 shadow-2xs hover:border-blue-200 transition-all">
+                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                              <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{modal.name}</h6>
+                                              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">{modal.desc}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCartItem({ id: modal.id, title: modal.title, price: modal.price, formattedPrice: modal.formattedPrice });
+                                              }}
+                                              title={isItemInCart(modal.id) ? "Remove from Cart" : "Add to Cart"}
+                                              className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(modal.id)
+                                                ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                }`}
+                                            >
+                                              {isItemInCart(modal.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
+                                            </button>
+                                            <span className="font-black text-blue-800 text-[11px] sm:text-xs bg-blue-100/90 px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs">{modal.formattedPrice}</span>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
