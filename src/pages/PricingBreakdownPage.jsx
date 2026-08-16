@@ -579,7 +579,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_1') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_1')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_1') ? (
@@ -589,11 +589,11 @@ export default function PricingBreakdownPage() {
                                 </>
                               ) : (
                                 <>
-                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                  <div className="flex items-center gap-0.5 text-current">
                                     <Plus size={13} weight="bold" />
                                     <ShoppingCart size={16} weight="bold" />
                                   </div>
-                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Include All</span>
                                 </>
                               )}
                             </button>
@@ -631,7 +631,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_1_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub1')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_1_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -683,7 +683,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -730,7 +730,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -777,7 +777,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(modal.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(modal.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(modal.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -824,7 +824,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_2') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_2')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_2') ? (
@@ -834,11 +834,11 @@ export default function PricingBreakdownPage() {
                                 </>
                               ) : (
                                 <>
-                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                  <div className="flex items-center gap-0.5 text-current">
                                     <Plus size={13} weight="bold" />
                                     <ShoppingCart size={16} weight="bold" />
                                   </div>
-                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Include All</span>
                                 </>
                               )}
                             </button>
@@ -876,7 +876,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_2_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub1')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_2_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -928,7 +928,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -974,7 +974,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(page.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(page.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(page.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1021,7 +1021,7 @@ export default function PricingBreakdownPage() {
                                               title={isItemInCart(modal.id) ? "Remove from Cart" : "Add to Cart"}
                                               className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart(modal.id)
                                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                                 }`}
                                             >
                                               {isItemInCart(modal.id) ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1068,7 +1068,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_3') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_3')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_3') ? (
@@ -1080,7 +1080,7 @@ export default function PricingBreakdownPage() {
                                 <>
                                   <Plus size={12} weight="bold" />
                                   <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                  <span className="font-bold text-xs text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1136,7 +1136,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_4') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_4')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_4') ? (
@@ -1148,7 +1148,7 @@ export default function PricingBreakdownPage() {
                                 <>
                                   <Plus size={12} weight="bold" />
                                   <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                  <span className="font-bold text-xs text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1204,7 +1204,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_5') ? "Remove Section" : "Add Section to Cart"}
                               className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_5')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_5') ? (
@@ -1216,7 +1216,7 @@ export default function PricingBreakdownPage() {
                                 <>
                                   <Plus size={12} weight="bold" />
                                   <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-emerald-950">Add Section</span>
+                                  <span className="font-bold text-xs text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1272,7 +1272,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_6') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_6')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_6') ? (
@@ -1282,11 +1282,11 @@ export default function PricingBreakdownPage() {
                                 </>
                               ) : (
                                 <>
-                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                  <div className="flex items-center gap-0.5 text-current">
                                     <Plus size={13} weight="bold" />
                                     <ShoppingCart size={16} weight="bold" />
                                   </div>
-                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Include All</span>
                                 </>
                               )}
                             </button>
@@ -1319,7 +1319,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_6_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub1')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_6_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1347,7 +1347,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_6_sub2') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub2')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_6_sub2') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1396,7 +1396,7 @@ export default function PricingBreakdownPage() {
                               title={isItemInCart('c1_7') ? "Remove Entire Package" : "Include All Sub-Options"}
                               className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_7')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
-                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-950 border-emerald-400/80 shadow-2xs'
+                                : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_7') ? (
@@ -1406,11 +1406,11 @@ export default function PricingBreakdownPage() {
                                 </>
                               ) : (
                                 <>
-                                  <div className="flex items-center gap-0.5 text-emerald-950">
+                                  <div className="flex items-center gap-0.5 text-current">
                                     <Plus size={13} weight="bold" />
                                     <ShoppingCart size={16} weight="bold" />
                                   </div>
-                                  <span className="font-extrabold text-xs sm:text-sm text-emerald-950">Include All</span>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Include All</span>
                                 </>
                               )}
                             </button>
@@ -1442,7 +1442,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_7_sub1') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7_sub1')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_7_sub1') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1470,7 +1470,7 @@ export default function PricingBreakdownPage() {
                                       title={isItemInCart('c1_7_sub2') ? "Remove from Cart" : "Add to Cart"}
                                       className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7_sub2')
                                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                        : 'bg-emerald-50 hover:bg-emerald-700 hover:text-white text-emerald-700 border-emerald-200 hover:border-emerald-700 shadow-2xs'
                                         }`}
                                     >
                                       {isItemInCart('c1_7_sub2') ? <CheckCircle size={14} weight="bold" /> : <div className="flex items-center gap-0.5"><Plus size={11} weight="bold" /><ShoppingCart size={13} weight="bold" /></div>}
@@ -1546,7 +1546,7 @@ export default function PricingBreakdownPage() {
                         </div>
                       ) : (
                         <div className="mt-4 space-y-4">
-                          <div className="space-y-2.5 max-h-[540px] lg:max-h-[860px] overflow-y-auto pr-1">
+                          <div className="space-y-2.5 max-h-[440px] lg:max-h-[860px] overflow-y-auto pr-1">
                             {cartItems.map((item) => (
                               <div key={item.id} className="p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs space-y-2.5 animate-fade-in">
                                 <div className="flex items-start gap-2.5">
@@ -1879,309 +1879,6 @@ export default function PricingBreakdownPage() {
                     <span className="font-black text-xs sm:text-sm text-emerald-700 bg-emerald-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-200 shadow-2xs">
                       Remaining Balance
                     </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* VISUAL SECTION BREAKER LINE */}
-            <div className="relative my-10 flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                <div className="w-full border-t-2 border-dashed border-slate-300"></div>
-              </div>
-              <div className="relative bg-white px-5 py-2 rounded-full border border-slate-300 shadow-xs flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-slate-900">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>Recurring Operational & Third-Party Expenses</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-              </div>
-            </div>
-
-            {/* VISUAL FLOWCHART 3: OPERATIONAL COST & CLINIC SYSTEM JUSTIFICATION */}
-            <div className="rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-10 shadow-sm space-y-6 sm:space-y-8">
-              {/* Top Header */}
-              <div className="border-b border-slate-100 pb-4 sm:pb-6">
-                <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 border border-slate-200 px-3.5 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Operational Cost Justification
-                </span>
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-2 sm:mt-3">
-                  Clinic Software & Cloud Infrastructure (<span className="text-blue-600">~₹3,000 / month</span>)
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
-                  Transparent breakdown of mandatory third-party infrastructure required for live clinic operations.
-                </p>
-              </div>
-
-              {/* Main 2-Column Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-stretch">
-                {/* Left Column: Image Container / Mockup Display */}
-                <div className="lg:col-span-5 rounded-2xl border border-slate-200 bg-slate-50 p-3 sm:p-4 flex flex-col justify-between overflow-hidden group">
-                  <div className="relative w-full h-full min-h-[220px] sm:min-h-[360px] rounded-xl bg-slate-50 border border-slate-200/80 overflow-hidden flex items-center justify-center shadow-2xs">
-                    {/* Live Screenshot Image Slot */}
-                    <img
-                      src="/merged-image-2026-08-14T06-45-30.png"
-                      alt="Clinic Management & Centralized Patient Dashboard"
-                      className="w-full h-full object-contain bg-slate-50 transition-transform duration-300 group-hover:scale-102"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        if (e.currentTarget.nextElementSibling) {
-                          e.currentTarget.nextElementSibling.style.display = 'flex';
-                        }
-                      }}
-                    />
-                    {/* Fallback Display if image is pending upload */}
-                    <div className="hidden flex-col items-center justify-center p-6 text-center space-y-4">
-                      <div className="p-3 sm:p-4 rounded-2xl bg-blue-50 text-blue-700 border border-blue-100 shadow-2xs">
-                        <SlidersHorizontal size={36} className="sm:hidden" weight="bold" />
-                        <SlidersHorizontal size={42} className="hidden sm:block" weight="bold" />
-                      </div>
-                      <div className="space-y-1.5">
-                        <p className="text-xs font-black uppercase tracking-wider text-slate-900">Clinic Management & Patient Dashboard</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column: Detailed Feature Breakdown + ROI Revenue Math */}
-                <div className="lg:col-span-7 space-y-5 sm:space-y-6">
-                  {/* Block 1: Infrastructure Features */}
-                  <div className="space-y-3 sm:space-y-3.5">
-                    <div className="space-y-1">
-                      <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-blue-600">Infrastructure & Feature Breakdown</span>
-                      <h4 className="text-base sm:text-lg font-black text-slate-900 leading-snug">
-                        Why the ~₹3,000/Month Subscription is an Unbeatable Value Deal
-                      </h4>
-                    </div>
-
-                    <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                      <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
-                        <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Dedicated Cloud Server & Database Hosting:</strong> Provides the core cloud infrastructure hosting our backend server and database, processing patient appointment requests with 99.9% uptime.</span>
-                      </li>
-
-                      <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
-                        <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Instant 2-Way Doctor Schedule Integration:</strong> Handles real-time treatment slot & calendar synchronization across major lead portals (Practo, Justdial, Google Business, WhatsApp Direct) to prevent double booking.</span>
-                      </li>
-
-                      <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
-                        <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Integration with Our Custom Patient Software:</strong> Seamlessly connects with our custom-built website appointment software to convert direct website traffic into instant confirmed patient visits.</span>
-                      </li>
-
-                      <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
-                        <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Centralized Clinic CMS (Patient CRM Tool):</strong> Delivers a single, unified front-desk portal for clinic receptionist staff to manage doctor slots, procedure tariffs, patient check-ins, and direct billing from one clean interface.</span>
-                      </li>
-
-                      <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
-                        <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Bundled Transactional SMS & Email Services:</strong> Dispatches automated patient appointment confirmation cards and SMS reminder notifications without external messaging fees.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Block 2: Revenue & Profit Calculation Accordion (The Math That Pays For Itself) */}
-                  <div className="rounded-2xl border border-emerald-200/90 bg-emerald-50/70 overflow-hidden shadow-2xs">
-                    {/* Interactive Accordion Toggle Header Bar */}
-                    <button
-                      type="button"
-                      onClick={() => toggleItem('roi_math')}
-                      className="w-full p-3.5 sm:p-5 flex items-center justify-between text-left bg-gradient-to-r from-emerald-100/90 via-emerald-50 to-emerald-100/90 hover:from-emerald-100 hover:to-emerald-100 transition-colors cursor-pointer group gap-2"
-                    >
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                        <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-600 text-white shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
-                          <CurrencyInr size={20} className="sm:hidden" weight="bold" />
-                          <CurrencyInr size={22} className="hidden sm:block" weight="bold" />
-                        </div>
-                        <div className="min-w-0">
-                          <h4 className="text-xs sm:text-lg font-black text-emerald-950 tracking-tight leading-snug break-words">
-                            Annual Patient Revenue & ROI Projections (For Dental Clinic)
-                          </h4>
-                          <p className="text-[10px] sm:text-xs text-emerald-800/90 font-medium mt-0.5 truncate">
-                            Click to {openItems['roi_math'] ? 'collapse' : 'expand'} full 3-tier patient revenue & payback breakdown
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="p-1.5 sm:p-2 rounded-xl bg-white/80 border border-emerald-200 text-emerald-800 shrink-0">
-                        {openItems['roi_math'] ? (
-                          <CaretUp size={16} weight="bold" />
-                        ) : (
-                          <CaretDown size={16} weight="bold" />
-                        )}
-                      </div>
-                    </button>
-
-                    {/* Expandable Content Body */}
-                    <AnimatePresence initial={false}>
-                      {openItems['roi_math'] && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: 'easeInOut' }}
-                          className="overflow-hidden"
-                        >
-                          <div className="p-4 sm:p-6 border-t border-emerald-200/80 space-y-4 sm:space-y-5 bg-emerald-50/40">
-                            {/* Sub-heading Highlights */}
-                            <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-emerald-200/90 space-y-2 text-xs sm:text-sm font-semibold text-emerald-950 shadow-2xs">
-                              <div className="flex items-start gap-2 sm:gap-2.5">
-                                <span className="text-emerald-600 font-black text-base sm:text-lg leading-none shrink-0">•</span>
-                                <span>See how online lead acquisition (<strong className="font-extrabold text-emerald-900">Google Business, Direct Website & Patient Portals</strong>) unlocks lakhs in high-margin dental procedure revenue.</span>
-                              </div>
-                              <div className="flex items-start gap-2 sm:gap-2.5 pt-2 border-t border-emerald-100/70">
-                                <span className="text-emerald-600 font-black text-base sm:text-lg leading-none shrink-0">•</span>
-                                <span>Estimated for <strong className="font-extrabold text-emerald-900">just 100 operating days</strong> at an average treatment value of <strong className="font-extrabold text-emerald-900">~₹3,000 / patient procedure</strong>:</span>
-                              </div>
-                            </div>
-
-                            {/* 3 Patient Scenario Cards */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                              {/* Card 1 */}
-                              <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-2xs space-y-3 flex flex-col justify-between hover:border-emerald-300 transition-all">
-                                <div>
-                                  {/* Top Header */}
-                                  <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
-                                    <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Patients : ~3/day
-                                    </div>
-                                  </div>
-
-                                  {/* Revenue Price */}
-                                  <div className="mt-2.5 sm:mt-3 flex items-baseline gap-1 flex-wrap">
-                                    <span className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
-                                      ₹9 L
-                                    </span>
-                                    <span className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
-                                  </div>
-
-                                  {/* Description */}
-                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 300 new patient consultations covers all tech investment costs <strong>9x over</strong>.
-                                  </p>
-                                </div>
-
-                                {/* Bottom Profit & Commission Breakdown */}
-                                <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-emerald-50/80 p-2 sm:p-2.5 rounded-xl border border-emerald-200/80">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-900 block uppercase tracking-wide">Net Clinic Revenue:</span>
-                                    <span className="text-sm sm:text-lg font-black text-emerald-700 block mt-0.5">~ ₹9.00 L</span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Card 2 */}
-                              <div className="p-3.5 sm:p-5 rounded-2xl bg-white border-2 border-emerald-400 shadow-2xs space-y-3 flex flex-col justify-between relative overflow-hidden">
-                                <div>
-                                  {/* Top Header */}
-                                  <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
-                                    <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Patients : ~6/day
-                                    </div>
-                                  </div>
-
-                                  {/* Revenue Price */}
-                                  <div className="mt-2.5 sm:mt-3 flex items-baseline gap-0.5 flex-wrap">
-                                    <span className="text-lg sm:text-2xl font-black text-emerald-800 tracking-tight">
-                                      ₹18 L
-                                    </span>
-                                    <span className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
-                                  </div>
-
-                                  {/* Description */}
-                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 600 online patient appointments via digital channels & direct website booking.
-                                  </p>
-                                </div>
-
-                                {/* Bottom Profit & Commission Breakdown */}
-                                <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-emerald-100/80 p-2 sm:p-2.5 rounded-xl border border-emerald-300/80">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-950 block uppercase tracking-wide">Net Clinic Revenue:</span>
-                                    <span className="text-sm sm:text-lg font-black text-emerald-800 block mt-0.5">~ ₹18.00 L</span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Card 3 */}
-                              <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-amber-300 shadow-2xs space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
-                                <div>
-                                  {/* Top Header */}
-                                  <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
-                                    <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Patients : ~10/day
-                                    </div>
-                                  </div>
-
-                                  {/* Revenue Price */}
-                                  <div className="mt-2.5 sm:mt-3 flex items-baseline gap-0 flex-wrap">
-                                    <span className="text-lg sm:text-2xl font-black text-amber-800 tracking-tight">
-                                      ₹30 L
-                                    </span>
-                                    <span className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
-                                  </div>
-
-                                  {/* Description */}
-                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 1,000 patient appointments across high-ticket dental procedures (Implants, Aligners, Restorative).
-                                  </p>
-                                </div>
-
-                                {/* Bottom Profit & Commission Breakdown */}
-                                <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-amber-50/90 p-2 sm:p-2.5 rounded-xl border border-amber-200/90">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-amber-950 block uppercase tracking-wide">Net Clinic Revenue:</span>
-                                    <span className="text-sm sm:text-lg font-black text-amber-800 block mt-0.5">~ ₹30.00 L</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Quick Math Comparison Bar - BIGGER & BOLDER */}
-                            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm">
-                              <div className="space-y-1">
-                                <span className="font-black text-slate-900 flex items-center gap-2">
-                                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                  The Payback Benchmark:
-                                </span>
-                                <p className="text-slate-600 font-medium leading-relaxed text-xs sm:text-sm">
-                                  1 patient procedure/mo (~₹3k) covers hosting. Just <strong className="text-emerald-800 font-black">20 patient procedures in 365 days</strong> pays off the entire ₹60,000 one-time dev cost!
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Value Comparison Banner - Bullet Point Format */}
-                  <div className="p-3.5 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-blue-50/90 border border-blue-200/80 space-y-2.5 sm:space-y-3">
-                    <div className="flex items-center gap-2 sm:gap-2.5 pb-1 border-b border-blue-200/60">
-                      <div className="p-1.5 sm:p-2 rounded-xl bg-blue-600 text-white shadow-2xs shrink-0">
-                        <TrendUp size={18} className="sm:hidden" weight="bold" />
-                        <TrendUp size={20} className="hidden sm:block" weight="bold" />
-                      </div>
-                      <h4 className="text-xs sm:text-lg font-black text-slate-900 tracking-tight">
-                        Value for Money ROI Justification
-                      </h4>
-                    </div>
-
-                    <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-slate-800 font-medium">
-                      <li className="flex items-start gap-2 sm:gap-2.5">
-                        <span className="text-rose-600 font-black text-sm sm:text-base leading-none mt-0.5">•</span>
-                        <span>
-                          <strong className="text-slate-900 font-extrabold">In-House Cost Benchmark:</strong> Attempting to build, host, and maintain custom cloud servers, high-availability databases, doctor API gateways, and HIPAA-conscious security in-house would easily cost <span className="text-rose-700 font-black bg-rose-50 px-2 py-0.5 rounded border border-rose-200 inline-block my-0.5">₹25,000 – ₹45,000+ per month</span> in infrastructure alone.
-                        </span>
-                      </li>
-
-                      <li className="flex items-start gap-2 sm:gap-2.5">
-                        <span className="text-emerald-600 font-black text-sm sm:text-base leading-none mt-0.5">•</span>
-                        <span>
-                          <strong className="text-slate-900 font-extrabold">Bundled Subscription Advantage:</strong> Getting full cloud hosting, multi-portal doctor sync, centralized clinic CMS, and SMS/email services bundled for just <span className="text-emerald-800 font-black bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 inline-block my-0.5">~₹3,000 / month</span> represents an extraordinary, high-value deal for the dental clinic.
-                        </span>
-                      </li>
-                    </ul>
                   </div>
                 </div>
               </div>
