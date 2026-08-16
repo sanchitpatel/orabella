@@ -616,8 +616,9 @@ export default function PricingBreakdownPage() {
               <div className="relative  pb-2 space-y-6">
                 {/* Central Root Box */}
                 <div className="mx-auto max-w-xl rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 p-4 sm:p-6 text-white text-center shadow-lg shadow-blue-500/20 space-y-3.5">
-                  <div className="flex items-center justify-center gap-2">
-                    <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹28,568 Breakdown</h3>
+                  <div className="flex items-center justify-center gap-2.5 flex-wrap">
+                    <span className="text-lg sm:text-2xl font-bold text-red-200 line-through">₹28,568</span>
+                    <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">₹24,999</h3>
                   </div>
 
                   {/* Professional Notice Banner */}
@@ -628,10 +629,10 @@ export default function PricingBreakdownPage() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-base sm:text-base font-extrabold text-white leading-tight">
-                          Unlock discounted price!
+                          Unlock discounted price !
                         </p>
-                        <p className="text-[14px] sm:text-sm font-semibold text-white mt-0.5">
-                          Get the complete suite for <strong className="text-amber-200 font-black text-base">₹24,999</strong>
+                        <p className="text-[11px] sm:text-xs font-semibold text-white mt-0.5">
+                          Add all items to cart , and avail the discount
                         </p>
                       </div>
                     </div>
@@ -695,7 +696,7 @@ export default function PricingBreakdownPage() {
                         : 'text-blue-700 bg-blue-100/60 border-blue-200'
                         }`}>
                         ₹28,568
-                      </span>
+                        </span>
                     </div>
 
                     {/* Sub-itemized Technical Deliverables with Interactive Collapsible Toggle Bars */}
