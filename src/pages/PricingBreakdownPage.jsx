@@ -39,7 +39,8 @@ import {
   Trash,
   Plus,
   X,
-  Gift
+  Gift,
+  Wrench
 } from '@phosphor-icons/react';
 
 // Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
@@ -1773,6 +1774,92 @@ export default function PricingBreakdownPage() {
                         </div>
                       )}
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Monthly Maintenance & Support Notice Card */}
+            <div className="rounded-2xl sm:rounded-3xl border border-blue-200/90 bg-gradient-to-br from-white via-sky-50/40 to-blue-50/30 p-5 sm:p-8 shadow-sm space-y-6">
+              {/* Header Section */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+                <div className="space-y-1.5">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+                    Monthly Platform Maintenance & Support
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 font-medium">
+                    Comprehensive 24/7 technical management and lead system maintenance.
+                  </p>
+                </div>
+
+                {/* Price Summary Cards */}
+                <div className="flex flex-col sm:flex-row gap-3.5 shrink-0">
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 text-white shadow-lg shadow-blue-500/25 border border-blue-400/40 text-center space-y-1.5 transform hover:scale-[1.02] transition-all">
+                    <div className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                      ₹1,599 <span className="text-xs font-extrabold text-blue-100 uppercase tracking-wide">/ month</span>
+                    </div>
+                    <span className="text-[10px] font-black text-slate-950 bg-amber-300 px-2.5 py-0.5 rounded-lg border border-amber-200 shadow-xs inline-block uppercase tracking-wider">
+                      Includes Annual Domain Renewal
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 text-white shadow-lg shadow-slate-900/25 border border-slate-700/60 text-center space-y-1.5 transform hover:scale-[1.02] transition-all">
+                    <div className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                      ₹1,449 <span className="text-xs font-extrabold text-slate-300 uppercase tracking-wide">/ month</span>
+                    </div>
+                    <span className="text-[10px] font-black text-slate-200 bg-slate-800/90 px-2.5 py-0.5 rounded-lg border border-slate-600 inline-block uppercase tracking-wider">
+                      Excludes Domain Renewal Cost
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Included Deliverables List */}
+              <div className="space-y-3">
+                <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                  <CheckCircle size={16} weight="bold" className="text-emerald-600" />
+                  What We Provide in Monthly Platform Maintenance:
+                </h4>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">24/7 Uptime & Server Health Monitoring</h5>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                      Continuous monitoring of Cloudflare Workers & R2 Storage infrastructure ensuring 99.9% uptime and instant site loading speeds.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">Telegram & Google Sheets Sync Upkeep</h5>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                      Active maintenance and API health checks for two-way Telegram notification bots and Google Sheets lead ledger pipelines.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">CMS Content Assistance & Price Updates</h5>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                      Dedicated support for updating clinic gallery images, treatment pricing schedules, team bios, and legal policy pages.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-blue-100/90 shadow-2xs space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                      <h5 className="font-extrabold text-slate-900 text-xs sm:text-sm">Priority Bug Fixes & Technical Assistance</h5>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed pl-4">
+                      Direct developer access for rapid resolution of technical issues, unexpected layout glitches, or urgent changes.
+                    </p>
                   </div>
                 </div>
               </div>
