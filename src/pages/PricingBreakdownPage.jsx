@@ -36,7 +36,8 @@ import {
   Quotes,
   ShoppingCart,
   Trash,
-  Plus
+  Plus,
+  X
 } from '@phosphor-icons/react';
 
 // Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
@@ -354,11 +355,21 @@ Object.entries(PARENT_CHILD_MAP).forEach(([parentId, children]) => {
 export default function PricingBreakdownPage() {
   const [activeTab, setActiveTab] = useState('pricing');
   const [openItems, setOpenItems] = useState({ roi_math: true });
+  const [toastMessage, setToastMessage] = useState(null);
+  const toastTimeoutRef = useRef(null);
 
   const isPricingActive = activeTab === 'pricing';
   const isCartActive = activeTab === 'cart';
 
   const [cartItems, setCartItems] = useState([]);
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 6000);
+  };
 
   const isItemInCart = (id) => {
     if (PARENT_CHILD_MAP[id]) {
@@ -377,6 +388,7 @@ export default function PricingBreakdownPage() {
   const toggleCartItem = (item) => {
     setCartItems(prev => {
       const itemId = item.id;
+      let next = [];
 
       // PARENT OPTION (e.g. c1_1, c1_2, c1_6, c1_7)
       if (PARENT_CHILD_MAP[itemId]) {
@@ -387,41 +399,80 @@ export default function PricingBreakdownPage() {
 
         if (parentInCart || allChildrenInCart) {
           // Remove parent and all of its sub-options
-          return prev.filter(i => i.id !== itemId && !childIds.includes(i.id));
+          next = prev.filter(i => i.id !== itemId && !childIds.includes(i.id));
         } else {
           // Add all sub-options of this parent option
           const filtered = prev.filter(i => i.id !== itemId && !childIds.includes(i.id));
-          return [...filtered, ...children];
+          next = [...filtered, ...children];
         }
-      }
+      } else {
+        // SUB-OPTION (e.g. c1_1_sub1, c1_7_sub1)
+        const parentId = CHILD_TO_PARENT[itemId];
+        if (parentId) {
+          const siblings = PARENT_CHILD_MAP[parentId];
+          const parentInCart = prev.some(i => i.id === parentId);
 
-      // SUB-OPTION (e.g. c1_1_sub1)
-      const parentId = CHILD_TO_PARENT[itemId];
-      if (parentId) {
-        const siblings = PARENT_CHILD_MAP[parentId];
-        const parentInCart = prev.some(i => i.id === parentId);
-
-        if (parentInCart) {
-          const remainingSiblings = siblings.filter(s => s.id !== itemId);
-          const filtered = prev.filter(i => i.id !== parentId && i.id !== itemId);
-          return [...filtered, ...remainingSiblings];
-        } else {
-          const childInCart = prev.some(i => i.id === itemId);
-          if (childInCart) {
-            return prev.filter(i => i.id !== itemId);
+          if (parentInCart) {
+            const remainingSiblings = siblings.filter(s => s.id !== itemId);
+            const filtered = prev.filter(i => i.id !== parentId && i.id !== itemId);
+            next = [...filtered, ...remainingSiblings];
           } else {
-            return [...prev, item];
+            const childInCart = prev.some(i => i.id === itemId);
+            if (childInCart) {
+              next = prev.filter(i => i.id !== itemId);
+            } else {
+              next = [...prev, item];
+            }
+          }
+        } else {
+          // STANDALONE ITEM (e.g. c1_3, c1_4, c1_5)
+          const exists = prev.some(i => i.id === itemId);
+          if (exists) {
+            next = prev.filter(i => i.id !== itemId);
+          } else {
+            next = [...prev, item];
           }
         }
       }
 
-      // STANDALONE ITEM
-      const exists = prev.some(i => i.id === itemId);
-      if (exists) {
-        return prev.filter(i => i.id !== itemId);
-      } else {
-        return [...prev, item];
+      // --- AUTOMATIC DEPENDENCY & SECURITY LOGIC ---
+      const INTEGRATION_IDS = ['c1_3', 'c1_4', 'c1_5'];
+      const c1_7_children = PARENT_CHILD_MAP['c1_7'] || [];
+      const c1_7_child_ids = c1_7_children.map(c => c.id);
+
+      const isC17InCart = (cartList) => {
+        if (cartList.some(i => i.id === 'c1_7')) return true;
+        return c1_7_children.every(c => cartList.some(i => i.id === c.id));
+      };
+
+      const wasC17InCart = isC17InCart(prev);
+      const isC17NowInCart = isC17InCart(next);
+
+      const wasAnyIntegrationAdded = INTEGRATION_IDS.some(id =>
+        !prev.some(i => i.id === id) && next.some(i => i.id === id)
+      );
+
+      const isAnyIntegrationCurrentlyInNext = INTEGRATION_IDS.some(id =>
+        next.some(i => i.id === id)
+      );
+
+      // RULE A: Adding Telegram, Google Sheets, or Two-Way Lead Sync automatically includes Cloudflare Anti-Bot Guard
+      if (wasAnyIntegrationAdded && !isC17NowInCart) {
+        const filteredNext = next.filter(i => i.id !== 'c1_7' && !c1_7_child_ids.includes(i.id));
+        next = [...filteredNext, ...c1_7_children];
+        setTimeout(() => {
+          showToast("Cloudflare Anti-Bot Guard was automatically added to protect your live notification & lead sync integrations.");
+        }, 0);
       }
+      // RULE B: Removing Cloudflare Anti-Bot Guard automatically removes Telegram, Google Sheets & Two-Way Lead Sync
+      else if (wasC17InCart && !isC17NowInCart && isAnyIntegrationCurrentlyInNext) {
+        next = next.filter(i => !INTEGRATION_IDS.includes(i.id));
+        setTimeout(() => {
+          showToast("Removing Anti-Bot Guard automatically removed notification & lead sync options as live endpoints require bot security.");
+        }, 0);
+      }
+
+      return next;
     });
   };
 
@@ -505,7 +556,7 @@ export default function PricingBreakdownPage() {
               <div className="relative  pb-2 space-y-6">
                 {/* Central Root Box */}
                 <div className="mx-auto max-w-md rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 backdrop-blur-md border border-blue-400/30 p-4 sm:p-5 text-white text-center shadow-lg shadow-blue-500/20">
-                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹20,000 Breakdown</h3>
+                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹28,568 Breakdown</h3>
                 </div>
 
                 {/* Simple Lightweight SVG Flowchart Arrows */}
@@ -1066,21 +1117,23 @@ export default function PricingBreakdownPage() {
                                 toggleCartItem({ id: 'c1_3', title: 'Telegram & WhatsApp Instant Notifications', price: 1199, formattedPrice: '₹1,199' });
                               }}
                               title={isItemInCart('c1_3') ? "Remove Section" : "Add Section to Cart"}
-                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_3')
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_3')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
                                 : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_3') ? (
                                 <>
-                                  <CheckCircle size={17} weight="bold" />
-                                  <span className="font-bold text-xs">Added</span>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
-                                  <Plus size={12} weight="bold" />
-                                  <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-current">Add Section</span>
+                                  <div className="flex items-center gap-0.5 text-current">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1134,21 +1187,23 @@ export default function PricingBreakdownPage() {
                                 toggleCartItem({ id: 'c1_4', title: 'Automated Google Sheets Patient Lead Ledger', price: 899, formattedPrice: '₹899' });
                               }}
                               title={isItemInCart('c1_4') ? "Remove Section" : "Add Section to Cart"}
-                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_4')
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_4')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
                                 : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_4') ? (
                                 <>
-                                  <CheckCircle size={17} weight="bold" />
-                                  <span className="font-bold text-xs">Added</span>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
-                                  <Plus size={12} weight="bold" />
-                                  <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-current">Add Section</span>
+                                  <div className="flex items-center gap-0.5 text-current">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1202,21 +1257,23 @@ export default function PricingBreakdownPage() {
                                 toggleCartItem({ id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1299, formattedPrice: '₹1,299' });
                               }}
                               title={isItemInCart('c1_5') ? "Remove Section" : "Add Section to Cart"}
-                              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1 shrink-0 ${isItemInCart('c1_5')
+                              className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0 ${isItemInCart('c1_5')
                                 ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
                                 : 'bg-gradient-to-r from-emerald-100 via-teal-50 to-emerald-100 hover:from-emerald-700 hover:via-teal-700 hover:to-emerald-800 text-emerald-950 hover:text-white border-emerald-400/80 hover:border-emerald-700 shadow-2xs hover:shadow-md'
                                 }`}
                             >
                               {isItemInCart('c1_5') ? (
                                 <>
-                                  <CheckCircle size={17} weight="bold" />
-                                  <span className="font-bold text-xs">Added</span>
+                                  <CheckCircle size={18} weight="bold" />
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
-                                  <Plus size={12} weight="bold" />
-                                  <ShoppingCart size={15} weight="bold" />
-                                  <span className="font-bold text-xs text-current">Add Section</span>
+                                  <div className="flex items-center gap-0.5 text-current">
+                                    <Plus size={13} weight="bold" />
+                                    <ShoppingCart size={16} weight="bold" />
+                                  </div>
+                                  <span className="font-extrabold text-xs sm:text-sm text-current">Add Section</span>
                                 </>
                               )}
                             </button>
@@ -1623,7 +1680,7 @@ export default function PricingBreakdownPage() {
                   </h2>
                 </div>
                 <div className="bg-emerald-50 border border-emerald-200 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold text-emerald-800 self-start sm:self-auto">
-                  Pay-As-You-Go (Total: ₹20,000)
+                  Pay-As-You-Go (Total: ₹24,999)
                 </div>
               </div>
 
@@ -1667,7 +1724,7 @@ export default function PricingBreakdownPage() {
                           <ul className="space-y-2.5 sm:space-y-3 text-sm sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
                             <li className="flex items-start gap-2.5">
                               <span className="text-blue-600 font-bold shrink-0 mt-0.5">•</span>
-                              <span><strong className="text-slate-900 font-extrabold">25% Security Advance (₹5,000 of ₹20,000):</strong> Mandatory upfront deposit to lock project commitment.</span>
+                              <span><strong className="text-slate-900 font-extrabold">25% Security Advance (₹6,250 of ₹24,999):</strong> Mandatory upfront deposit to lock project commitment.</span>
                             </li>
                             <li className="flex items-start gap-2.5">
                               <span className="text-blue-600 font-bold shrink-0 mt-0.5">•</span>
@@ -1695,7 +1752,7 @@ export default function PricingBreakdownPage() {
                       <span>{openItems['seq_1'] ? 'Hide Details' : 'View Details & Terms'}</span>
                     </div>
                     <span className="font-black text-xs sm:text-base text-blue-700 bg-blue-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-200 shadow-2xs">
-                      ₹5,000
+                      ₹6,250
                     </span>
                   </div>
                 </div>
@@ -1764,7 +1821,7 @@ export default function PricingBreakdownPage() {
                       <span>{openItems['seq_2'] ? 'Hide Details' : 'View Details & Terms'}</span>
                     </div>
                     <span className="font-black text-xs sm:text-base text-indigo-700 bg-indigo-100/90 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-indigo-200 shadow-2xs">
-                      ₹15,000
+                      ₹18,750
                     </span>
                   </div>
                 </div>
@@ -1773,6 +1830,36 @@ export default function PricingBreakdownPage() {
           </div>
         )}
       </main>
+
+      {/* Floating Toast Notification for Security Dependencies */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 40, x: '-50%', scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
+            exit={{ opacity: 0, y: 20, x: '-50%', scale: 0.95 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="fixed bottom-6 left-1/2 z-50 w-[92vw] max-w-lg p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-sky-50 via-blue-50 to-teal-50 text-slate-800 backdrop-blur-xl border border-blue-200/90 shadow-xl shadow-blue-500/15 flex items-center gap-3.5"
+          >
+            <div className="p-2.5 rounded-xl bg-blue-100/90 text-blue-700 shrink-0 border border-blue-200 shadow-2xs">
+              <ShieldCheck size={22} weight="bold" />
+            </div>
+            <div className="flex-1 min-w-0 pr-1">
+              <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-snug">
+                {toastMessage}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setToastMessage(null)}
+              className="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-blue-100/60 transition-colors shrink-0 cursor-pointer"
+              title="Close notification"
+            >
+              <X size={16} weight="bold" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
