@@ -533,7 +533,10 @@ export default function PricingBreakdownPage() {
     });
   };
 
-  const cartTotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const ALL_SECTION_IDS = ['c1_1', 'c1_2', 'c1_3', 'c1_4', 'c1_5', 'c1_6', 'c1_7'];
+  const isFullBundleInCart = ALL_SECTION_IDS.every(id => isItemInCart(id));
+  const rawCartTotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const cartTotal = isFullBundleInCart ? 24999 : rawCartTotal;
 
   const toggleItem = (id) => {
     setOpenItems(prev => ({ ...prev, [id]: !prev[id] }));
@@ -612,8 +615,47 @@ export default function PricingBreakdownPage() {
               {/* Flowchart Diagram Canvas */}
               <div className="relative  pb-2 space-y-6">
                 {/* Central Root Box */}
-                <div className="mx-auto max-w-md rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 backdrop-blur-md border border-blue-400/30 p-4 sm:p-5 text-white text-center shadow-lg shadow-blue-500/20">
-                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹28,568 Breakdown</h3>
+                <div className="mx-auto max-w-xl rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 p-4 sm:p-6 text-white text-center shadow-lg shadow-blue-500/20 space-y-3.5">
+                  <div className="flex items-center justify-center gap-2">
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹28,568 Breakdown</h3>
+                  </div>
+
+                  {/* Professional Notice Banner */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="p-2 sm:p-2.5 rounded-xl bg-amber-400 text-slate-950 font-black shrink-0 shadow-xs">
+                        <Sparkle size={18} weight="fill" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-base sm:text-base font-extrabold text-white leading-tight">
+                          Unlock discounted price!
+                        </p>
+                        <p className="text-[14px] sm:text-sm font-semibold text-white mt-0.5">
+                          Get the complete suite for <strong className="text-amber-200 font-black text-base">₹24,999</strong>
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const ALL_SECTIONS = [
+                          { id: 'c1_1', title: 'Multi-page static & Mobile first Responsive Dental Website', price: 11687, formattedPrice: '₹11,687' },
+                          { id: 'c1_2', title: 'Content Management System (CMS)', price: 7788, formattedPrice: '₹7,788' },
+                          { id: 'c1_3', title: 'Automated Google Sheets Patient Lead Ledger', price: 899, formattedPrice: '₹899' },
+                          { id: 'c1_4', title: 'Telegram & WhatsApp Instant Notifications', price: 1199, formattedPrice: '₹1,199' },
+                          { id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1299, formattedPrice: '₹1,299' },
+                          { id: 'c1_6', title: 'Cloudflare Workers & R2 Storage deployment', price: 2998, formattedPrice: '₹2,998' },
+                          { id: 'c1_7', title: 'Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure', price: 2698, formattedPrice: '₹2,698' },
+                        ];
+                        setCartItems(ALL_SECTIONS);
+                      }}
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 active:scale-95 text-slate-950 font-black text-xs sm:text-sm transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 shrink-0 border border-amber-300/60"
+                    >
+                      <ShoppingCart size={18} weight="bold" />
+                      <span>Add All to Cart</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Simple Lightweight SVG Flowchart Arrows */}
@@ -1692,9 +1734,31 @@ export default function PricingBreakdownPage() {
                               <span>Selected Items:</span>
                               <span className="font-extrabold text-white">{cartItems.length} Deliverable{cartItems.length > 1 ? 's' : ''}</span>
                             </div>
+
+                            {isFullBundleInCart && (
+                              <div className="p-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-emerald-300 to-teal-200 text-slate-950 font-extrabold flex items-center justify-between shadow-md">
+                                <span className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-slate-950">
+                                  <Gift size={18} weight="fill" className="text-amber-800 shrink-0" />
+                                  <span>Full Platform Discount Applied</span>
+                                </span>
+                                <span className="bg-white/40 text-slate-950 px-2.5 py-0.5 rounded-lg text-[11px] uppercase font-black tracking-wide shrink-0">
+                                  Saved ₹3,569
+                                </span>
+                              </div>
+                            )}
+
                             <div className="flex items-center justify-between pt-0 sm:pt-1 border-t-0 sm:border-t border-emerald-500/60">
                               <span className="font-black text-sm sm:text-base">Custom Cart Total:</span>
-                              <span className="font-black text-xl sm:text-2xl tracking-tight">₹{cartTotal.toLocaleString()}</span>
+                              <div className="flex items-center gap-2">
+                                {isFullBundleInCart && (
+                                  <span className="text-xs sm:text-base font-bold text-red-100/80 line-through">
+                                    ₹{rawCartTotal.toLocaleString()}
+                                  </span>
+                                )}
+                                <span className="font-black text-xl sm:text-2xl tracking-tight text-white">
+                                  ₹{cartTotal.toLocaleString()}
+                                </span>
+                              </div>
                             </div>
                             <button
                               type="button"
