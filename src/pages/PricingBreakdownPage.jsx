@@ -532,8 +532,8 @@ export default function PricingBreakdownPage() {
                   <div
                     id="section-1"
                     className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 scroll-mt-20 sm:scroll-mt-24 transition-all duration-300 ${isPricingActive
-                      ? 'border-2 border-blue-500 bg-blue-50/50 ring-4 ring-blue-500/20 shadow-xl shadow-blue-500/10 md:scale-[1.015] z-10'
-                      : 'border border-blue-200/80 bg-blue-50/20 md:opacity-75 hover:md:opacity-100'
+                      ? 'bg-blue-50/50 ring-4 ring-blue-500/20 shadow-xl shadow-blue-500/10 md:scale-[1.015] z-10'
+                      : 'bg-blue-50/20 md:opacity-75 hover:md:opacity-100'
                       }`}
                   >
                     <div className="flex items-start justify-between gap-3 border-b border-blue-200/60 pb-3 sm:pb-4">
@@ -585,7 +585,7 @@ export default function PricingBreakdownPage() {
                               {isItemInCart('c1_1') ? (
                                 <>
                                   <CheckCircle size={18} weight="bold" />
-                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
@@ -830,7 +830,7 @@ export default function PricingBreakdownPage() {
                               {isItemInCart('c1_2') ? (
                                 <>
                                   <CheckCircle size={18} weight="bold" />
-                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
@@ -1278,7 +1278,7 @@ export default function PricingBreakdownPage() {
                               {isItemInCart('c1_6') ? (
                                 <>
                                   <CheckCircle size={18} weight="bold" />
-                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
@@ -1402,7 +1402,7 @@ export default function PricingBreakdownPage() {
                               {isItemInCart('c1_7') ? (
                                 <>
                                   <CheckCircle size={18} weight="bold" />
-                                  <span className="font-extrabold text-xs sm:text-sm">All Included</span>
+                                  <span className="font-extrabold text-xs sm:text-sm">Added</span>
                                 </>
                               ) : (
                                 <>
@@ -1514,8 +1514,8 @@ export default function PricingBreakdownPage() {
                   <div
                     id="cart-section"
                     className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 flex flex-col justify-between scroll-mt-20 sm:scroll-mt-24 transition-all duration-300 ${isCartActive
-                      ? 'border-2 border-emerald-500 bg-emerald-50/50 ring-4 ring-emerald-500/20 shadow-xl shadow-emerald-500/10 md:scale-[1.015] z-10'
-                      : 'border border-emerald-200/80 bg-emerald-50/20 md:opacity-75 hover:md:opacity-100'
+                      ? 'bg-emerald-50/50 ring-4 ring-emerald-500/20 shadow-xl shadow-emerald-500/10 md:scale-[1.015] z-10'
+                      : 'bg-emerald-50/20 md:opacity-75 hover:md:opacity-100'
                       }`}
                   >
                     <div>
@@ -1546,7 +1546,7 @@ export default function PricingBreakdownPage() {
                         </div>
                       ) : (
                         <div className="mt-4 space-y-4">
-                          <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+                          <div className="space-y-2.5 max-h-[540px] lg:max-h-[860px] overflow-y-auto pr-1">
                             {cartItems.map((item) => (
                               <div key={item.id} className="p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs space-y-2.5 animate-fade-in">
                                 <div className="flex items-start gap-2.5">
