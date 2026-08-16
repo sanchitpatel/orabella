@@ -1,0 +1,1966 @@
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  CurrencyInr,
+  CheckCircle,
+  XCircle,
+  Warning,
+  ArrowRight,
+  ShieldCheck,
+  Lightning,
+  Sparkle,
+  Globe,
+  FileText,
+  LockKey,
+  Images,
+  PhoneCall,
+  Buildings,
+  Receipt,
+  DownloadSimple,
+  CaretRight,
+  CaretDown,
+  CaretUp,
+  Database,
+  PaperPlaneTilt,
+  Table,
+  Video,
+  DeviceMobile,
+  SlidersHorizontal,
+  Cpu,
+  Browsers,
+  TrendUp,
+  Play,
+  Pause,
+  SpeakerHigh,
+  Microphone,
+  Quotes
+} from '@phosphor-icons/react';
+
+// Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
+function VoiceAuditCard({
+  recordingNumber = 1,
+  agencyName = "Agency Quote #1",
+  quotedPrice = "₹2.5L - ₹4.0L",
+  audioTitle = "Voice Recording Audio Breakdown",
+  imageSrc = "",
+  imageAlt = "Agency Quotation / Proposal Screenshot",
+  audioSrc = "",
+  summaryBullets = [],
+  comparisonRows = [
+    { metric: "Total Quoted Cost", agency: "₹3,50,000 + GST", amritaara: "₹60,000 (One-Time)", highlight: true },
+    { metric: "Core Stack", agency: "WordPress + Elementor Theme", amritaara: "Bespoke React 18 + Serverless Engine" },
+    { metric: "Delivery Timeline", agency: "60 – 90 Days", amritaara: "Ready & Live in 7 Days" },
+    { metric: "Ongoing Maintenance", agency: "₹10,000 / month mandatory retainer", amritaara: "₹0 / month mandatory fee" },
+    { metric: "OTA Booking Engine", agency: "Not Included (Paid Third-Party SaaS)", amritaara: "10+ OTA Channel Sync Built-In" },
+    { metric: "Mobile Load Speed", agency: "3.8s – 5.5s (Fails Google Vitals)", amritaara: "< 0.6s Instant Load (95+ Score)" }
+  ]
+}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showSummary, setShowSummary] = useState(false);
+  const [isFullView, setIsFullView] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const audioRef = useRef(null);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(() => { });
+      setIsPlaying(true);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+      setDuration(audioRef.current.duration || 0);
+    }
+  };
+
+  const formatTime = (secs) => {
+    if (isNaN(secs) || secs === 0) return '0:00';
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+
+  return (
+    <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+      {/* 1. HEADING */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center font-black text-sm shrink-0">
+            <Microphone size={20} weight="bold" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-black uppercase tracking-wider text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+                Audit #{recordingNumber}
+              </span>
+              <span className="text-xs font-bold text-slate-500">{agencyName}</span>
+            </div>
+            <h3 className="text-base sm:text-lg font-black text-slate-900 mt-0.5 tracking-tight">
+              {audioTitle}
+            </h3>
+          </div>
+        </div>
+        <div className="px-3.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-extrabold text-xs text-center shrink-0">
+          Quoted Price: <span className="text-rose-700 font-black">{quotedPrice}</span>
+        </div>
+      </div>
+
+      {/* 2. IMAGE TO BE ATTACHED */}
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 overflow-hidden relative">
+        {imageSrc ? (
+          <div
+            onClick={() => setIsFullView(true)}
+            className="rounded-xl overflow-hidden border border-slate-200 bg-white max-h-[500px] flex items-center justify-center cursor-zoom-in relative group"
+            title="Click to view full size image & zoom"
+          >
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="w-full h-auto object-contain max-h-[500px]"
+            />
+          </div>
+        ) : (
+          <div className="py-7 px-4 text-center border-2 border-dashed border-slate-300 rounded-xl bg-white/80 space-y-2">
+            <div className="w-10 h-10 rounded-2xl bg-slate-100 border border-slate-200 text-slate-400 flex items-center justify-center mx-auto">
+              <Images size={22} weight="duotone" />
+            </div>
+            <div className="text-xs sm:text-sm font-extrabold text-slate-800">
+              Agency Proposal / WhatsApp Quotation Screenshot Attached Here
+            </div>
+            <p className="text-[11px] text-slate-500 font-medium max-w-md mx-auto">
+              Place screenshot image in <code className="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600">/public/audio/proposal_{recordingNumber}.png</code> to display automatically.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* PURE IMAGE FULLSCREEN VIEWER - ZERO FANCY UI */}
+      <AnimatePresence>
+        {isFullView && imageSrc && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center p-2 sm:p-4 select-none cursor-pointer"
+            onClick={() => { setIsFullView(false); setIsZoomed(false); }}
+          >
+            {/* Top right quick actions: Open in new tab & close */}
+            <div
+              className="absolute top-4 right-4 z-20 flex items-center gap-3"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <a
+                href={imageSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-colors backdrop-blur-md"
+              >
+                Open Original Image ↗
+              </a>
+              <button
+                onClick={() => { setIsFullView(false); setIsZoomed(false); }}
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-black transition-colors backdrop-blur-md"
+                title="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Pure image with zoom toggle on click */}
+            <div
+              className="w-full h-full flex items-center justify-center overflow-auto p-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsZoomed(!isZoomed);
+              }}
+            >
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                className={`transition-all duration-300 ${isZoomed
+                    ? 'max-w-none w-auto h-auto cursor-zoom-out'
+                    : 'max-w-full max-h-[94vh] object-contain cursor-zoom-in'
+                  }`}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 3. RECORDING JUST BENEATH THE IMAGE */}
+      {audioSrc ? (
+        <div className="p-4 rounded-2xl bg-slate-100 border border-slate-200 text-slate-800 space-y-2.5 shadow-sm">
+          <audio
+            ref={audioRef}
+            src={audioSrc}
+            onTimeUpdate={handleTimeUpdate}
+            onEnded={() => setIsPlaying(false)}
+            onLoadedMetadata={handleTimeUpdate}
+          />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={togglePlay}
+              type="button"
+              className="w-10 h-10 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center justify-center transition-all shrink-0 font-black shadow-md cursor-pointer"
+              title={isPlaying ? "Pause Recording" : "Play Recording"}
+            >
+              {isPlaying ? <Pause size={20} weight="fill" /> : <Play size={20} weight="fill" className="ml-0.5" />}
+            </button>
+            <div className="flex-1 space-y-1">
+              <div className="flex items-center justify-between text-[11px] text-slate-600 font-mono">
+                <span className="font-bold text-slate-700">{formatTime(currentTime)}</span>
+                <span className="text-slate-500 font-semibold">{formatTime(duration)}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max={duration || 100}
+                value={currentTime}
+                onChange={(e) => {
+                  if (audioRef.current) {
+                    audioRef.current.currentTime = Number(e.target.value);
+                    setCurrentTime(Number(e.target.value));
+                  }
+                }}
+                style={{
+                  background: `linear-gradient(to right, #059669 0%, #059669 ${progressPercent}%, #cbd5e1 ${progressPercent}%, #cbd5e1 100%)`
+                }}
+                className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-emerald-700 shadow-inner transition-all"
+              />
+            </div>
+            <SpeakerHigh size={20} className="text-slate-500 shrink-0" />
+          </div>
+        </div>
+      ) : null}
+
+      {/* 4. BRIEF SUMMARY (PERMANENT) */}
+      <div className="space-y-2.5">
+        <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
+          <Quotes size={18} weight="fill" className="text-slate-600" />
+          Brief Summary
+        </h4>
+        <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90">
+          <ul className="space-y-2 text-xs sm:text-sm text-slate-800 font-medium">
+            {summaryBullets.map((bullet, idx) => (
+              <li key={idx} className="flex items-start gap-2.5">
+                <span className="text-slate-500 font-black leading-none mt-0.5">•</span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* 5. DETAILED COMPARISON BETWEEN US AND THEM IN TABLE FORMAT */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Table size={18} weight="bold" className="text-emerald-700" />
+          <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900">
+            {agencyName} vs. Our Offerings
+          </h4>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-2xs">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[11px] tracking-wider">
+                  <th className="py-3 px-4 w-1/3">Feature / Parameter</th>
+                  <th className="py-3 px-4 w-1/3 text-rose-700 bg-rose-50/60">{agencyName}</th>
+                  <th className="py-3 px-4 w-1/3 text-emerald-800 bg-emerald-50/70">Our Offerings</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {comparisonRows.map((row, idx) => (
+                  <tr key={idx} className={row.highlight ? "bg-slate-50/80 font-bold" : "hover:bg-slate-50/40 transition-colors"}>
+                    <td className="py-3 px-4 font-semibold text-slate-900">{row.metric}</td>
+                    <td className="py-3 px-4 text-slate-700 bg-rose-50/20 font-medium">
+                      {row.agency}
+                    </td>
+                    <td className="py-3 px-4 text-emerald-950 bg-emerald-50/30 font-extrabold">
+                      {row.ourOfferings || row.amritaara}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function PricingBreakdownPage() {
+  const [activeTab, setActiveTab] = useState('pricing');
+  const [openItems, setOpenItems] = useState({ roi_math: true });
+
+  const toggleItem = (id) => {
+    setOpenItems(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const toggleSequenceRow = (row) => {
+    if (row === 1) {
+      const newState = !openItems['seq_1'];
+      setOpenItems(prev => ({ ...prev, seq_1: newState, seq_2: newState }));
+    } else if (row === 2) {
+      const newState = !openItems['seq_3'];
+      setOpenItems(prev => ({ ...prev, seq_3: newState, seq_4: newState }));
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeTab]);
+
+  const tabs = [
+    { id: 'pricing', label: 'Pricing Breakdown' },
+    { id: 'reality', label: 'Reality Check' },
+    { id: 'resources', label: 'Resources Required' }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-indigo-500 selection:text-white pb-24">
+      {/* Floating Centered Navbar */}
+      <header className="sticky top-5 z-50 flex justify-center px-4">
+        <nav className="w-full max-w-[680px] grid grid-cols-3 gap-1.5 rounded-full border border-slate-200/90 bg-white/95 backdrop-blur-xl p-2.5 shadow-2xl shadow-slate-900/10 text-sm sm:text-base font-bold">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative z-10 w-full rounded-full py-3.5 px-4 text-center transition-colors duration-200 cursor-pointer select-none font-bold tracking-wide ${isActive ? 'text-white' : 'text-slate-600 hover:text-slate-900'
+                  }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeProposalTab"
+                    className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/30"
+                    transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                  />
+                )}
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </header>
+
+      {/* Main Content Body */}
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
+        {/* SUBSECTION 1: PRICING BREAKDOWN */}
+        {activeTab === 'pricing' && (
+          <div className="space-y-10 animate-fade-in">
+            {/* VISUAL FLOWCHART 1: CAPITAL ALLOCATION TREE */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-4">
+              <div className="flex flex-col items-center justify-center text-center gap-2.5 border-b border-slate-100 pb-3">
+                <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/60 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
+                  Transparent price breakdown
+                </span>
+                <div className="rounded-2xl bg-white/90 border border-slate-200/90 backdrop-blur-md px-6 py-2.5 text-center shadow-sm">
+                  <span className="text-xs text-slate-500 block font-semibold">Complete Resort Platform</span>
+                  <span className="text-2xl font-black tracking-tight text-blue-600">₹60,000</span>
+                </div>
+              </div>
+
+              {/* Flowchart Diagram Canvas */}
+              <div className="relative pt-1 pb-2 space-y-6">
+                {/* Central Root Box */}
+                <div className="mx-auto max-w-md rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 backdrop-blur-md border border-blue-400/30 p-4 sm:p-5 text-white text-center shadow-lg shadow-blue-500/20">
+                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹60,000 Breakdown</h3>
+                </div>
+
+                {/* Simple Lightweight SVG Flowchart Arrows */}
+                <div className="hidden md:block my-2">
+                  <svg className="w-full h-10 fill-none stroke-slate-300" viewBox="0 0 600 40" preserveAspectRatio="none">
+                    {/* Stem down from root */}
+                    <line x1="300" y1="0" x2="300" y2="18" strokeWidth="1.5" />
+                    {/* Horizontal distribution line */}
+                    <line x1="150" y1="18" x2="450" y2="18" strokeWidth="1.5" />
+                    {/* Left drop line */}
+                    <line x1="150" y1="18" x2="150" y2="36" strokeWidth="1.5" />
+                    {/* Right drop line */}
+                    <line x1="450" y1="18" x2="450" y2="36" strokeWidth="1.5" />
+                    {/* Lightweight Arrowhead Left */}
+                    <path d="M 145 30 L 150 37 L 155 30" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    {/* Lightweight Arrowhead Right */}
+                    <path d="M 445 30 L 450 37 L 455 30" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+
+                {/* 2 Primary Level Branches: Website UI vs Booking Engine */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹27,000) */}
+                  <div className="rounded-3xl border border-blue-200 bg-blue-50/30 p-6 space-y-5">
+                    <div className="flex items-center justify-between border-b border-blue-200/60 pb-4">
+                      <div>
+                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Category 01</span>
+                        <h4 className="text-lg font-black text-slate-900">Website UI & Lead Management Architecture</h4>
+                      </div>
+                      <span className="text-xl font-black text-blue-700 bg-blue-100/80 px-3.5 py-1 rounded-2xl border border-blue-200">
+                        ₹29,269
+                      </span>
+                    </div>
+
+                    {/* Sub-itemized Technical Deliverables with Interactive Collapsible Toggle Bars */}
+                    <div className="space-y-3.5">
+                      {/* Item 1 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_1'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c1_1')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
+                              <Browsers size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Multi-page static & Responsive Website</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-blue-800 bg-blue-100 px-4 py-1.5 rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
+                            <motion.div animate={{ rotate: openItems['c1_1'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c1_1'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-blue-50/20"
+                            >
+                              {/* Overview Subtitle */}
+                              <p className="leading-relaxed font-medium text-slate-700 bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs">
+                                Build a beautiful, Ultra-smooth static website compatible & responsive across both laptop and mobile screen sizes — featuring smooth Lenis scroll physics, integrated background music, and ultra-optimized video & media assets.
+                              </p>
+
+                              {/* Granular Line-Item Breakdown */}
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Cost & Feature Breakdown</span>
+
+                                {/* Home Page Engine */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Home Page Engine (Primary Sitemap & SEO Hub)</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹4,799</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Decides the entire website sitemap and search engine SEO framework. Includes well-build custom lead submission form, interactive location mapping (with QR integration), section routing, plus optimized background video, audio & media assets as the cherry on top.
+                                  </p>
+                                </div>
+
+                                {/* Dedicated Standalone Pages */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Dedicated Standalone Pages</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹999 x 6</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Individual tailored pages designed for specific guest journeys: <strong className="text-slate-900 font-bold">About Us, Spaces, Gallery, Blog, Corporate Events & Room Booking</strong>.
+                                  </p>
+                                </div>
+
+                                {/* Policy & Legal Pages */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">3. Policy, Legal & Custom 404 Pages</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹599 × 3</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Standard legal compliance & maintenance framework covering <strong className="text-slate-900 font-bold">Terms & Conditions</strong>, <strong className="text-slate-900 font-bold">Privacy Policy</strong>, and <strong className="text-slate-900 font-bold">Custom Branded 404 / Under Preparation</strong> page.
+                                  </p>
+                                </div>
+
+                                {/* Interactive Sub-Page Popups */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">4. Interactive Sub-Page Popups & Modals</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹449 × 3</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Rich interactive overlay modals integrated into <strong className="text-slate-900 font-bold">Blog, Corporate Events, and Bookings</strong> pages for detailed sub-content views.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 2 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_2'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c1_2')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
+                              <FileText size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Content Management System</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-blue-800 bg-blue-100 px-4 py-1.5 rounded-xl border border-blue-300 shadow-2xs">₹11,088</span>
+                            <motion.div animate={{ rotate: openItems['c1_2'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c1_2'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-blue-50/20"
+                            >
+                              {/* Overview Subtitle */}
+                              <p className="leading-relaxed font-medium text-slate-700 bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs">
+                                Built a headless, self-serve JSON content management architecture enabling the resort owner to update room prices, text copy, media galleries, and blog entries in real-time without requiring developer assistance — <strong className="text-slate-900 font-bold">hence making the site completely dynamic</strong>.
+                              </p>
+
+                              {/* Granular Line-Item Breakdown */}
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Cost & Feature Breakdown</span>
+
+                                {/* Home Page CMS */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Home Page CMS Build & Integration</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹2,699</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Dynamic JSON schema mapping for hero banners, footer, contact form and all content on the homepage's different section enabling client to edit effortlessly.
+                                  </p>
+                                </div>
+
+                                {/* Per Page Standalone CMS */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Standalone Pages CMS Integration</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹1,199 × 6</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Full content management wiring across 7 core pages: <strong className="text-slate-900 font-bold">About Us, Spaces, Gallery, Blog, Corporate Events, Room Booking & Contact</strong>.
+                                  </p>
+                                </div>
+
+                                {/* Terms & Privacy CMS */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">3. Terms & Privacy Policy CMS</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹299 × 2</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Editable policy fields allowing instant modifications to <strong className="text-slate-900 font-bold">Terms & Conditions</strong> and <strong className="text-slate-900 font-bold">Privacy Policy</strong> text copy.
+                                  </p>
+                                </div>
+
+                                {/* Pop-up Sub-pages CMS */}
+                                <div className="p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">4. Pop-up Sub-pages CMS Integration</h6>
+                                    <span className="font-black text-blue-800 text-xs sm:text-sm bg-blue-100/90 px-3 py-1 rounded-lg border border-blue-200 shadow-2xs shrink-0">₹199 × 3</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Dynamic content fields for interactive pop-up overlays in <strong className="text-slate-900 font-bold">Blog, Corporate Events, and Booking</strong> sub-views.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 3 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_3'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c1_3')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
+                              <PaperPlaneTilt size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Telegram & WhatsApp Instant Notifications</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-blue-800 bg-blue-100 px-4 py-1.5 rounded-xl border border-blue-300 shadow-2xs">₹1,499</span>
+                            <motion.div animate={{ rotate: openItems['c1_3'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c1_3'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-5 pb-4 pt-2 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-1.5 bg-blue-50/30"
+                            >
+                              <p className="leading-relaxed font-medium">
+                                Multi-channel webhook notification system dispatching instant booking inquiry alerts directly to Telegram staff channels & WhatsApp Business response templates.
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 4 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_4'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c1_4')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
+                              <Table size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Automated Google Sheets Lead Ledger</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-blue-800 bg-blue-100 px-4 py-1.5 rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
+                            <motion.div animate={{ rotate: openItems['c1_4'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c1_4'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-5 pb-4 pt-2 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-1.5 bg-blue-50/30"
+                            >
+                              <p className="leading-relaxed font-medium">
+                                Automated database pipeline storing every guest inquiry into a structured Google Sheets business CRM with zero manual data entry required.
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 5 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_5'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c1_5')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
+                              <SlidersHorizontal size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Two-Way Telegram ↔ Ledger Sync Engine</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-blue-800 bg-blue-100 px-4 py-1.5 rounded-xl border border-blue-300 shadow-2xs">₹1,699</span>
+                            <motion.div animate={{ rotate: openItems['c1_5'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c1_5'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-5 pb-4 pt-2 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-1.5 bg-blue-50/30"
+                            >
+                              <p className="leading-relaxed font-medium">
+                                Bi-directional webhook sync keeping lead status updated in real-time between Google Sheets ledger and Telegram alerts to prevent management confusion.
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BRANCH B: BOOKING SOFTWARE & ENGINE (₹33,000) */}
+                  <div className="rounded-3xl border border-emerald-200 bg-emerald-50/30 p-6 space-y-5">
+                    <div className="flex items-center justify-between border-b border-emerald-200/60 pb-4">
+                      <div>
+                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Category 02</span>
+                        <h4 className="text-lg font-black text-slate-900">Booking engine software & Backend Engineering</h4>
+                      </div>
+                      <span className="text-xl font-black text-emerald-700 bg-emerald-100/80 px-3.5 py-1 rounded-2xl border border-emerald-200">
+                        ₹30,729
+                      </span>
+                    </div>
+
+                    {/* Sub-itemized Technical Cards with Interactive Toggle Bars */}
+                    <div className="space-y-3.5">
+                      {/* Item 1 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_1'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c2_1')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                              <Video size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Cloudflare Workers & R2 Storage deployment</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-xl border border-emerald-300 shadow-2xs">₹4,298</span>
+                            <motion.div animate={{ rotate: openItems['c2_1'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c2_1'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                            >
+                              {/* Granular Architecture Deliverables */}
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Architecture Deliverables</span>
+
+                                {/* Sub-heading 1: Cloudflare Workers */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Cloudflare Workers Implementation (Security & Credential Shield)</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹2,499</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Serverless edge proxy execution, protecting sensitive credentials like API keys, webhook secrets, and Telegram bot tokens from client-side inspection and unauthorized access.
+                                  </p>
+                                </div>
+
+                                {/* Sub-heading 2: Cloudflare R2 Storage */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Cloudflare R2 Implementation (4K Video CDN Storage)</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹1,799</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    High-throughput S3-compatible Cloudflare R2 object storage integration for streaming 4K hero background videos at 0ms cold start & zero egress cost.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 2 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_2'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c2_2')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                              <ShieldCheck size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Cloudflare WAF, Turnstile & Edge Caching</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-xl border border-emerald-300 shadow-2xs">₹2,798</span>
+                            <motion.div animate={{ rotate: openItems['c2_2'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c2_2'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                            >
+                              {/* Granular Security & Defense Deliverables */}
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Security & Defense Deliverables</span>
+
+                                {/* Sub-heading 1: Cloudflare Turnstile */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹1,299</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Privacy-first, frictionless bot verification --- (blocking automated form spam, fake/spam booking inquiries, preventing random webhook triggering, data scraping etc.) without frustrating real guests with visual puzzles.
+                                  </p>
+                                </div>
+
+                                {/* Sub-heading 2: Cloudflare WAF & Edge Caching */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-2.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2 border-b border-emerald-100/60 pb-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Enterprise WAF, Rate Limiting & Edge Caching</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹1,499</span>
+                                  </div>
+
+                                  <div className="space-y-2 pt-0.5">
+                                    {/* Point A */}
+                                    <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
+                                      <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                                        <h6 className="font-bold text-slate-900 text-xs sm:text-sm">Edge Web Application Firewall (WAF)</h6>
+                                      </div>
+                                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium pl-4">
+                                        Inspects HTTP/S traffic directly at the Cloudflare edge to protect the website and APIs from Layer 7 attacks like SQL injection, cross-site scripting (XSS), and bot abuse.
+                                      </p>
+                                    </div>
+
+                                    {/* Point B */}
+                                    <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
+                                      <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                                        <h6 className="font-bold text-slate-900 text-xs sm:text-sm">Rate Limiting & Global Edge Caching</h6>
+                                      </div>
+                                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium pl-4">
+                                        Enforces strict IP rate-limiting rules and global CDN edge caching to prevent server bandwidth abuse, mitigate DDoS floods, and ensure ultra-fast load speed.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 3 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_3'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c2_3')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                              <Globe size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Multi-Channel OTA Integration & Inventory Sync</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-xl border border-emerald-300 shadow-2xs">₹9,898</span>
+                            <motion.div animate={{ rotate: openItems['c2_3'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c2_3'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                            >
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Integration & Channel Deliverables</span>
+
+                                {/* Sub-heading 1 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Multi-OTA Channel API Mapping & 2-Way Sync Engine</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹7,999</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Complex bi-directional API channel integration connecting the resort engine with major OTAs (<strong className="text-slate-900 font-bold">MakeMyTrip, Goibibo, Booking.com, Agoda, Airbnb, Yatra</strong>) upto 6 OTA. Meticulously mapping individual room category keys, automated 2-way room availability pooling, instant reservation import, and real-time calendar locks to eliminate overbooking risks across all portals.
+                                  </p>
+                                </div>
+
+                                {/* Sub-heading 2 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Dynamic Pricing Matrix, Seasonal Tariffs & Promo Rules</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹1,899</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Configuring intricate multi-channel pricing rules — defining peak weekend tariffs, seasonal holiday surcharges, extra adult/child guest pricing policies, non-refundable vs flexible cancellation rules, minimum night stay restrictions, GST tax slab calculations, and automated promo code discount distribution across all linked channels.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 4 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_4'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c2_4')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                              <Receipt size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Centralized PMS Setup & Front-Desk Receptionist Engineering</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-xl border border-emerald-300 shadow-2xs">₹8,498</span>
+                            <motion.div animate={{ rotate: openItems['c2_4'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c2_4'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                            >
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">PMS & Staff Workflow Deliverables</span>
+
+                                {/* Sub-heading 1 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Room Inventory, Vault Storage & Domain Setup</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹5,999</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Meticulous room-by-room database setup — mapping room inventory (Deluxe, Executive, Villa categories), max guest capacity rules, seasonal tariff slabs, meal plan inclusions, GST tax structures, photo galleries, PCI-compliant guest card details vault storage setup, and booking software integration on custom domain SSL endpoints.
+                                  </p>
+                                </div>
+
+                                {/* Sub-heading 2 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Front-Desk Receptionist UI Simplification & Error-Proof Controls</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹2,499</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Designing and configuring a simplified, error-proof administrative PMS dashboard specifically tailored for non-technical receptionist staff — featuring one-click room status controls (Clean/Dirty/Reserved), quick walk-in guest check-in billing, and automated daily occupancy reports.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Item 5 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_5'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                        <div
+                          onClick={() => toggleItem('c2_5')}
+                          className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-3"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                              <PhoneCall size={22} weight="bold" />
+                            </div>
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">Custom Direct Booking Software & Handoff Engine</h5>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="font-black text-sm sm:text-base text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-xl border border-emerald-300 shadow-2xs">₹5,248</span>
+                            <motion.div animate={{ rotate: openItems['c2_5'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <CaretDown size={18} className="text-slate-400" weight="bold" />
+                            </motion.div>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {openItems['c2_5'] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="px-4 sm:px-5 pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                            >
+                              <div className="space-y-2.5 pt-1">
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Direct Booking Deliverables</span>
+
+                                {/* Sub-heading 1 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">1. Custom Interactive Booking Flow & Checkout UI</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹3,249</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Developing the interactive client-side booking interface: room category selector, date availability pickers, guest/room count selection options, live price calculation logic, custom checkout page flow, payment gateway integration, and real-time reservation notification architecture.
+                                  </p>
+                                </div>
+
+                                {/* Sub-heading 2 */}
+                                <div className="p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h6 className="font-extrabold text-slate-900 text-sm sm:text-base">2. Automated Transactional Email Confirmation setup</h6>
+                                    <span className="font-black text-emerald-800 text-sm sm:text-base bg-emerald-100/90 px-3.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs shrink-0">₹1,999</span>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                                    Direct booking handoff engine auto-generating pre-filled reservation links and instant custom & transactional email confirmation mails for guests.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Section Breaker Line */}
+            <div className="relative my-10 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t-2 border-dashed border-slate-300" />
+              </div>
+              <div className="relative bg-white px-5 py-2 rounded-full border border-slate-300 shadow-xs flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-slate-900">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+                <span>Project Execution & Milestone Payment Flow</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+              </div>
+            </div>
+
+            {/* VISUAL FLOWCHART 2: PAYMENT & MILESTONE TIMELINE FLOW */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-10 shadow-sm space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/60 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
+                    Execution Sequence
+                  </span>
+                  <h2 className="text-2xl font-black text-slate-900 mt-2">
+                    Transparent Payment & Milestone Timeline
+                  </h2>
+                </div>
+                <div className="bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold text-emerald-800 self-start sm:self-auto">
+                  Pay-As-You-Go (Total: ₹60,000)
+                </div>
+              </div>
+
+              {/* 2x2 Interactive Milestone Accordion Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {/* Step 1 */}
+                <div
+                  className={`rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_1'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-200/80 hover:border-blue-300'
+                    }`}
+                >
+                  <div className="p-6 sm:p-7 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-blue-700">
+                        <CurrencyInr size={26} weight="bold" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-blue-700 bg-blue-100/80 px-3.5 py-1 rounded-full border border-blue-200">
+                        Step 01
+                      </span>
+                    </div>
+
+                    <div
+                      onClick={() => toggleSequenceRow(1)}
+                      className="cursor-pointer select-none space-y-1 group"
+                    >
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-blue-600">25% Security Advance</span>
+                      <h4 className="font-extrabold text-slate-900 text-lg sm:text-xl leading-snug group-hover:text-blue-600 transition-colors flex items-center justify-between">
+                        <span>Client Onboarding & Project Kickoff</span>
+                      </h4>
+                    </div>
+
+                    <AnimatePresence>
+                      {openItems['seq_1'] && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden pt-2"
+                        >
+                          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium pt-3 border-t border-slate-100">
+                            Mandatory <strong className="text-slate-900 font-extrabold">25% upfront advance (₹15,000 of ₹60,000) to lock commitment</strong> — as over <strong className="text-slate-900 font-extrabold">70%</strong> of core <strong className="text-slate-900 font-extrabold">development is already done</strong>. Acts as work security; upon receipt, the <strong className="text-slate-900 font-extrabold">project goes live on client domain</strong> & live revisions are made per client ask.
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Toggle Footer Bar */}
+                  <div
+                    onClick={() => toggleSequenceRow(1)}
+                    className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-blue-50/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <span className="text-blue-600">
+                        {openItems['seq_1'] ? <CaretDown size={18} weight="bold" /> : <CaretRight size={18} weight="bold" />}
+                      </span>
+                      <span>{openItems['seq_1'] ? 'Hide Details' : 'View Details & Terms'}</span>
+                    </div>
+                    <span className="font-black text-sm sm:text-base text-blue-700 bg-blue-100/90 px-3.5 py-1.5 rounded-xl border border-blue-200 shadow-2xs">
+                      ₹15,000
+                    </span>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div
+                  className={`rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_2'] ? 'border-indigo-300 ring-2 ring-indigo-500/10 shadow-md' : 'border-indigo-200/80 hover:border-indigo-300'
+                    }`}
+                >
+                  <div className="p-6 sm:p-7 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="p-3 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-700">
+                        <Browsers size={26} weight="bold" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-indigo-700 bg-indigo-100/80 px-3.5 py-1 rounded-full border border-indigo-200">
+                        Step 02
+                      </span>
+                    </div>
+
+                    <div
+                      onClick={() => toggleSequenceRow(1)}
+                      className="cursor-pointer select-none space-y-1 group"
+                    >
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-600">UI & Security Handover</span>
+                      <h4 className="font-extrabold text-slate-900 text-lg sm:text-xl leading-snug group-hover:text-indigo-600 transition-colors">
+                        Website & Cloudflare Protection Handover
+                      </h4>
+                    </div>
+
+                    <AnimatePresence>
+                      {openItems['seq_2'] && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden pt-2"
+                        >
+                          <div className="space-y-3 pt-3 border-t border-slate-100">
+                            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+                              Payment released upon handover of <strong className="text-slate-900 font-extrabold">Section 01 (Dynamic website pages, CMS, Telegram group lead handling & Google Sheets sync)</strong> together with completed <strong className="text-slate-900 font-extrabold">Cloudflare Security Infrastructure (Edge Workers, Turnstile, Enterprise WAF & Edge CDN)</strong>.
+                            </p>
+
+                            <ul className="space-y-2 pt-2 border-t border-indigo-100/80">
+                              <li className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 font-medium">
+                                <span className="text-indigo-600 font-black text-base leading-none">•</span>
+                                <span>Once this website & security layer is handed over to the client (prior to booking engine setup), <strong className="text-slate-900 font-extrabold">all payments for work completed must be released as per breakdown</strong> before proceeding with further module setup.</span>
+                              </li>
+                              <li className="flex items-start gap-2 text-xs sm:text-sm text-indigo-900 font-bold bg-indigo-50/90 p-3 rounded-xl border border-indigo-200/80">
+                                <span className="text-indigo-600 font-black text-base leading-none">•</span>
+                                <span><strong>Flexible Release Amount:</strong> Payment can be greater than ₹15,000 (depending on the total accumulated work completed & deployed at handover time).</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Toggle Footer Bar */}
+                  <div
+                    onClick={() => toggleSequenceRow(1)}
+                    className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-indigo-50/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <span className="text-indigo-600">
+                        {openItems['seq_2'] ? <CaretDown size={18} weight="bold" /> : <CaretRight size={18} weight="bold" />}
+                      </span>
+                      <span>{openItems['seq_2'] ? 'Hide Details' : 'View Details & Terms'}</span>
+                    </div>
+                    <span className="font-black text-sm sm:text-base text-indigo-700 bg-indigo-100/90 px-3.5 py-1.5 rounded-xl border border-indigo-200 shadow-2xs">
+                      ₹15,000+
+                    </span>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div
+                  className={`rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_3'] ? 'border-teal-300 ring-2 ring-teal-500/10 shadow-md' : 'border-teal-200/80 hover:border-teal-300'
+                    }`}
+                >
+                  <div className="p-6 sm:p-7 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="p-3 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700">
+                        <Cpu size={26} weight="bold" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-teal-700 bg-teal-100/80 px-3.5 py-1 rounded-full border border-teal-200">
+                        Step 03
+                      </span>
+                    </div>
+
+                    <div
+                      onClick={() => toggleSequenceRow(2)}
+                      className="cursor-pointer select-none space-y-1 group"
+                    >
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-teal-600">Module Deployments</span>
+                      <h4 className="font-extrabold text-slate-900 text-lg sm:text-xl leading-snug group-hover:text-teal-600 transition-colors">
+                        Booking Engine & PMS Engineering
+                      </h4>
+                    </div>
+
+                    <AnimatePresence>
+                      {openItems['seq_3'] && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden pt-2"
+                        >
+                          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium pt-3 border-t border-slate-100">
+                            Payments are released on-the-go progressively as development of each remaining Section 02 backend module (<strong className="text-slate-900 font-extrabold">OTA Channel Sync, Front-Desk PMS, & Direct Booking Software</strong>) completes and is reported.
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Toggle Footer Bar */}
+                  <div
+                    onClick={() => toggleSequenceRow(2)}
+                    className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-teal-50/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <span className="text-teal-600">
+                        {openItems['seq_3'] ? <CaretDown size={18} weight="bold" /> : <CaretRight size={18} weight="bold" />}
+                      </span>
+                      <span>{openItems['seq_3'] ? 'Hide Details' : 'View Details & Terms'}</span>
+                    </div>
+                    <span className="font-black text-xs sm:text-sm text-teal-700 bg-teal-100/90 px-3.5 py-1.5 rounded-xl border border-teal-200 shadow-2xs">
+                      Pay-As-You-Go
+                    </span>
+                  </div>
+                </div>
+
+                {/* Step 4 */}
+                <div
+                  className={`rounded-3xl bg-white border transition-all duration-200 shadow-sm overflow-hidden flex flex-col justify-between ${openItems['seq_4'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-200/80 hover:border-emerald-300'
+                    }`}
+                >
+                  <div className="p-6 sm:p-7 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700">
+                        <CheckCircle size={26} weight="bold" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-3.5 py-1 rounded-full border border-emerald-200">
+                        Step 04
+                      </span>
+                    </div>
+
+                    <div
+                      onClick={() => toggleSequenceRow(2)}
+                      className="cursor-pointer select-none space-y-1 group"
+                    >
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-600">Final Settlement</span>
+                      <h4 className="font-extrabold text-slate-900 text-lg sm:text-xl leading-snug group-hover:text-emerald-600 transition-colors">
+                        Live DNS & Final Handover
+                      </h4>
+                    </div>
+
+                    <AnimatePresence>
+                      {openItems['seq_4'] && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden pt-2"
+                        >
+                          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium pt-3 border-t border-slate-100">
+                            Final settlement of any remaining payment left after complete deployment & final handover of the project.
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Toggle Footer Bar */}
+                  <div
+                    onClick={() => toggleSequenceRow(2)}
+                    className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between cursor-pointer select-none hover:bg-emerald-50/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <span className="text-emerald-600">
+                        {openItems['seq_4'] ? <CaretDown size={18} weight="bold" /> : <CaretRight size={18} weight="bold" />}
+                      </span>
+                      <span>{openItems['seq_4'] ? 'Hide Details' : 'View Details & Terms'}</span>
+                    </div>
+                    <span className="font-black text-xs sm:text-sm text-emerald-700 bg-emerald-100/90 px-3.5 py-1.5 rounded-xl border border-emerald-200 shadow-2xs">
+                      Remaining Balance
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* VISUAL SECTION BREAKER LINE */}
+            <div className="relative my-10 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t-2 border-dashed border-slate-300"></div>
+              </div>
+              <div className="relative bg-white px-5 py-2 rounded-full border border-slate-300 shadow-xs flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-slate-900">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span>Recurring Operational & Third-Party Expenses</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+              </div>
+            </div>
+
+            {/* VISUAL FLOWCHART 3: OPERATIONAL COST & CHANNEL MANAGER JUSTIFICATION */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-10 shadow-sm space-y-8">
+              {/* Top Header */}
+              <div className="border-b border-slate-100 pb-6">
+                <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 border border-slate-200 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Operational Cost Justification
+                </span>
+                <h2 className="text-2xl font-black text-slate-900 mt-3">
+                  Channel Manager & Cloud Infrastructure (<span className="text-blue-600">~₹3,000 / month</span>)
+                </h2>
+                <p className="text-sm text-slate-600 font-medium mt-1">
+                  Transparent breakdown of mandatory third-party subscription required for live resort operations.
+                </p>
+              </div>
+
+              {/* Main 2-Column Content Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                {/* Left Column: Image Container / Mockup Display */}
+                <div className="lg:col-span-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 flex flex-col justify-between overflow-hidden group">
+                  <div className="relative w-full h-full min-h-[300px] sm:min-h-[360px] rounded-xl bg-slate-50 border border-slate-200/80 overflow-hidden flex items-center justify-center shadow-2xs">
+                    {/* Live Screenshot Image Slot */}
+                    <img
+                      src="/merged-image-2026-08-14T06-45-30.png"
+                      alt="Channel Manager & Centralized PMS Dashboard"
+                      className="w-full h-full object-contain bg-slate-50 transition-transform duration-300 group-hover:scale-102"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }
+                      }}
+                    />
+                    {/* Fallback Display if image is pending upload */}
+                    <div className="hidden flex-col items-center justify-center p-6 text-center space-y-4">
+                      <div className="p-4 rounded-2xl bg-blue-50 text-blue-700 border border-blue-100 shadow-2xs">
+                        <SlidersHorizontal size={42} weight="bold" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <p className="text-xs font-black uppercase tracking-wider text-slate-900">Channel Manager & PMS Dashboard</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Detailed Feature Breakdown + ROI Revenue Math */}
+                <div className="lg:col-span-7 space-y-6">
+                  {/* Block 1: Infrastructure Features */}
+                  <div className="space-y-3.5">
+                    <div className="space-y-1">
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-blue-600">Infrastructure & Feature Breakdown</span>
+                      <h4 className="text-lg font-black text-slate-900 leading-snug">
+                        Why the ~₹3,000/Month Subscription is an Unbeatable Value Deal
+                      </h4>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                      <li className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+                        <span className="text-blue-600 font-black text-lg leading-none mt-0.5">•</span>
+                        <span><strong className="text-slate-900 font-extrabold">Dedicated Cloud Server & Database Hosting:</strong> The Channel Manager provides the core cloud infrastructure hosting our backend server and database, processing guest reservation requests with 99.9% uptime.</span>
+                      </li>
+
+                      <li className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+                        <span className="text-blue-600 font-black text-lg leading-none mt-0.5">•</span>
+                        <span><strong className="text-slate-900 font-extrabold">Instant 2-Way OTA Integration:</strong> Handles real-time inventory and rate synchronization across 10+ major OTAs (MakeMyTrip, Booking.com, Agoda, Goibibo, etc.) to prevent room overbooking.</span>
+                      </li>
+
+                      <li className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+                        <span className="text-blue-600 font-black text-lg leading-none mt-0.5">•</span>
+                        <span><strong className="text-slate-900 font-extrabold">Integration with Our Custom Booking Software:</strong> Seamlessly connects with our custom-built website booking software to convert direct website traffic into instant confirmed reservations.</span>
+                      </li>
+
+                      <li className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+                        <span className="text-blue-600 font-black text-lg leading-none mt-0.5">•</span>
+                        <span><strong className="text-slate-900 font-extrabold">Centralized PMS (CRM Tool):</strong> Delivers a single, unified front-desk portal for resort staff to manage room categories, tariffs, guest check-ins, and direct ledgers from one clean interface.</span>
+                      </li>
+
+                      <li className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+                        <span className="text-blue-600 font-black text-lg leading-none mt-0.5">•</span>
+                        <span><strong className="text-slate-900 font-extrabold">Bundled Transactional Email Services:</strong> Dispatches pre-filled guest confirmation vouchers and reservation emails automatically without external email service fees.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Block 2: Revenue & Profit Calculation Accordion (The Math That Pays For Itself) */}
+                  <div className="rounded-2xl border border-emerald-200/90 bg-emerald-50/70 overflow-hidden shadow-2xs">
+                    {/* Interactive Accordion Toggle Header Bar */}
+                    <button
+                      type="button"
+                      onClick={() => toggleItem('roi_math')}
+                      className="w-full p-4 sm:p-5 flex items-center justify-between text-left bg-gradient-to-r from-emerald-100/90 via-emerald-50 to-emerald-100/90 hover:from-emerald-100 hover:to-emerald-100 transition-colors cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl bg-emerald-600 text-white shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                          <CurrencyInr size={22} weight="bold" />
+                        </div>
+                        <div>
+                          <h4 className="text-base sm:text-lg font-black text-emerald-950 tracking-tight">
+                            Annual Revenue & Profit Projections (For 20-Rooms)
+                          </h4>
+                          <p className="text-xs text-emerald-800/90 font-medium mt-0.5">
+                            Click to {openItems['roi_math'] ? 'collapse' : 'expand'} full 3-tier annual revenue & payback breakdown
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-2 rounded-xl bg-white/80 border border-emerald-200 text-emerald-800 shrink-0">
+                        {openItems['roi_math'] ? (
+                          <CaretUp size={18} weight="bold" />
+                        ) : (
+                          <CaretDown size={18} weight="bold" />
+                        )}
+                      </div>
+                    </button>
+
+                    {/* Expandable Content Body */}
+                    <AnimatePresence initial={false}>
+                      {openItems['roi_math'] && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-5 sm:p-6 border-t border-emerald-200/80 space-y-5 bg-emerald-50/40">
+                            {/* Sub-heading Highlights */}
+                            <div className="p-4 rounded-xl bg-white border border-emerald-200/90 space-y-2 text-xs sm:text-sm font-semibold text-emerald-950 shadow-2xs">
+                              <div className="flex items-start gap-2.5">
+                                <span className="text-emerald-600 font-black text-lg leading-none shrink-0">•</span>
+                                <span>See how online distribution (<strong className="font-extrabold text-emerald-900">10+ OTAs & Direct Website booking</strong>) unlocks 10&apos;s of lakhs in resort revenue.</span>
+                              </div>
+                              <div className="flex items-start gap-2.5 pt-2 border-t border-emerald-100/70">
+                                <span className="text-emerald-600 font-black text-lg leading-none shrink-0">•</span>
+                                <span>Estimated for <strong className="font-extrabold text-emerald-900">just 100 active days</strong> (out of 365 days) at an average room tariff of <strong className="font-extrabold text-emerald-900">~₹3,000 / night</strong>:</span>
+                              </div>
+                            </div>
+
+                            {/* 3 Occupancy Scenario Cards (Estimated for 100 Days) */}
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+                              {/* Card 1 */}
+                              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-2xs space-y-3.5 flex flex-col justify-between hover:border-emerald-300 transition-all">
+                                <div>
+                                  {/* Top Header */}
+                                  <div className="flex items-center justify-end border-b border-slate-100 pb-3">
+                                    <div className="px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-extrabold text-[11px] text-center leading-tight shrink-0">
+                                      Bookings : ~3/day
+                                    </div>
+                                  </div>
+
+                                  {/* Revenue Price */}
+                                  <div className="mt-3 flex items-baseline gap-1 flex-wrap">
+                                    <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                                      ₹9 L
+                                    </span>
+                                    <span className="text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
+                                  </div>
+
+                                  {/* Description */}
+                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-3">
+                                    Generating 300 online room-nights over 100 days covers all tech costs <strong>9x over</strong>.
+                                  </p>
+                                </div>
+
+                                {/* Bottom Profit & Commission Breakdown */}
+                                <div className="pt-3 border-t border-slate-100 space-y-2.5 text-center">
+                                  <div className="bg-rose-50/60 p-2 rounded-xl border border-rose-100">
+                                    <span className="text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
+                                    <span className="text-xs font-black text-rose-600 block mt-0.5">-- ₹1.62 L</span>
+                                  </div>
+                                  <div className="bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-200/80">
+                                    <span className="text-[11px] font-extrabold text-emerald-900 block uppercase tracking-wide">Net Online Profit:</span>
+                                    <span className="text-base sm:text-lg font-black text-emerald-700 block mt-0.5">~ ₹6.42 L</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Card 2 */}
+                              <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-emerald-400 shadow-2xs space-y-3.5 flex flex-col justify-between relative overflow-hidden">
+                                <div>
+                                  {/* Top Header */}
+                                  <div className="flex items-center justify-end border-b border-slate-100 pb-3">
+                                    <div className="px-3 py-1 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 font-extrabold text-[11px] text-center leading-tight shrink-0">
+                                      Bookings : ~6/day
+                                    </div>
+                                  </div>
+
+                                  {/* Revenue Price */}
+                                  <div className="mt-3 flex items-baseline gap-0.5 flex-wrap">
+                                    <span className="text-xl sm:text-2xl font-black text-emerald-800 tracking-tight">
+                                      ₹18 L
+                                    </span>
+                                    <span className="text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
+                                  </div>
+
+                                  {/* Description */}
+                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-3">
+                                    Generating 600 online room-nights over 100 days via 10+ OTAs & direct website booking engine.
+                                  </p>
+                                </div>
+
+                                {/* Bottom Profit & Commission Breakdown */}
+                                <div className="pt-3 border-t border-slate-100 space-y-2.5 text-center">
+                                  <div className="bg-rose-50/60 p-2 rounded-xl border border-rose-100">
+                                    <span className="text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
+                                    <span className="text-xs font-black text-rose-600 block mt-0.5">-- ₹3.24 L</span>
+                                  </div>
+                                  <div className="bg-emerald-100/80 p-2.5 rounded-xl border border-emerald-300/80">
+                                    <span className="text-[11px] font-extrabold text-emerald-950 block uppercase tracking-wide">Net Online Profit:</span>
+                                    <span className="text-base sm:text-lg font-black text-emerald-800 block mt-0.5">~ ₹13.80 L</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Card 3 */}
+                              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-amber-300 shadow-2xs space-y-3.5 flex flex-col justify-between hover:border-amber-400 transition-all">
+                                <div>
+                                  {/* Top Header */}
+                                  <div className="flex items-center justify-end border-b border-slate-100 pb-3">
+                                    <div className="px-3 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-extrabold text-[11px] text-center leading-tight shrink-0">
+                                      Bookings : ~10/day
+                                    </div>
+                                  </div>
+
+                                  {/* Revenue Price */}
+                                  <div className="mt-3 flex items-baseline gap-0 flex-wrap">
+                                    <span className="text-xl sm:text-2xl font-black text-amber-800 tracking-tight">
+                                      ₹30 L
+                                    </span>
+                                    <span className="text-xs font-bold text-slate-400 shrink-0">/ 100 days</span>
+                                  </div>
+
+                                  {/* Description */}
+                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-3">
+                                    Generating 1,000 online room-nights over 100 days across peak holiday seasons & wedding weekends.
+                                  </p>
+                                </div>
+
+                                {/* Bottom Profit & Commission Breakdown */}
+                                <div className="pt-3 border-t border-slate-100 space-y-2.5 text-center">
+                                  <div className="bg-rose-50/60 p-2 rounded-xl border border-rose-100">
+                                    <span className="text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
+                                    <span className="text-xs font-black text-rose-600 block mt-0.5">-- ₹5.40 L</span>
+                                  </div>
+                                  <div className="bg-amber-50/90 p-2.5 rounded-xl border border-amber-200/90">
+                                    <span className="text-[11px] font-extrabold text-amber-950 block uppercase tracking-wide">Net Online Profit:</span>
+                                    <span className="text-base sm:text-lg font-black text-amber-800 block mt-0.5">~ ₹23.64 L</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Quick Math Comparison Bar - BIGGER & BOLDER */}
+                            <div className="p-4 rounded-2xl bg-white border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs sm:text-sm">
+                              <div className="space-y-1">
+                                <span className="font-black text-slate-900 flex items-center gap-2">
+                                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                  The Payback Benchmark:
+                                </span>
+                                <p className="text-slate-600 font-medium leading-relaxed">
+                                  1 room booking/mo (~₹3k) covers maintenance. Just <strong className="text-emerald-800 font-black">20 room bookings in 365 days</strong> pays off the entire ₹60,000 one-time dev cost!
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Value Comparison Banner - Bullet Point Format */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-blue-50/90 border border-blue-200/80 space-y-3">
+                    <div className="flex items-center gap-2.5 pb-1 border-b border-blue-200/60">
+                      <div className="p-2 rounded-xl bg-blue-600 text-white shadow-2xs shrink-0">
+                        <TrendUp size={20} weight="bold" />
+                      </div>
+                      <h4 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                        Value for Money ROI Justification
+                      </h4>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800 font-medium">
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-rose-600 font-black text-base leading-none mt-0.5">•</span>
+                        <span>
+                          <strong className="text-slate-900 font-extrabold">In-House Cost Benchmark:</strong> Attempting to build, host, and maintain custom cloud servers, high-availability databases, OTA API gateways, and PCI-compliant security in-house would easily cost <span className="text-rose-700 font-black bg-rose-50 px-2 py-0.5 rounded border border-rose-200 inline-block my-0.5">₹25,000 – ₹45,000+ per month</span> in infrastructure alone.
+                        </span>
+                      </li>
+
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-emerald-600 font-black text-base leading-none mt-0.5">•</span>
+                        <span>
+                          <strong className="text-slate-900 font-extrabold">Bundled Subscription Advantage:</strong> Getting full cloud hosting, 2-way OTA sync, centralized PMS, and email services bundled for just <span className="text-emerald-800 font-black bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 inline-block my-0.5">~₹3,000 / month</span> represents an extraordinary, high-value deal for the resort.
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SUBSECTION 2: REALITY CHECK */}
+        {activeTab === 'reality' && (
+          <div className="space-y-10 animate-fade-in">
+            {/* Reality Check Header */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-10 shadow-sm">
+              <span className="inline-flex items-center gap-2 rounded-full bg-rose-50 border border-rose-200 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-rose-700">
+                <Lightning size={14} weight="fill" />
+                Industry Benchmark & Reality Audit
+              </span>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+                Traditional Agency vs. What We Built
+              </h2>
+              <p className="mt-3 text-slate-600 leading-relaxed text-sm sm:text-base max-w-3xl">
+                Most web agencies charge exorbitant fees for generic WordPress templates that break easily, load slowly, and require constant paid maintenance. Here is a direct technical comparison:
+              </p>
+            </div>
+
+            {/* Voice Recording Audio Audits Section */}
+            <div className="space-y-6">
+              {/* 3 Voice Recording Audit Boilerplate Cards */}
+              <div className="space-y-6">
+                <VoiceAuditCard
+                  recordingNumber={1}
+                  agencyName="LM Softech"
+                  quotedPrice="₹8,000 - ₹13,000"
+                  audioTitle="LM Softech Agency (Rajwada Resort)"
+                  imageSrc="/LMsoftech.png"
+                  imageAlt="LM Softech Proposal Screenshot"
+                  audioSrc="/Lmsoftech.mp3"
+                  summaryBullets={[
+                    "Quoted ₹8,000 (Static) & ₹12,000 (Dynamic) — claimed multi-page, but actually duplicated identical homepage components across pages with zero extra engineering.",
+                    "Promised an integrated 'Room Booking System', but delivered a pure cosmetic UI button with NO backend software, NO room availability checks, and NO payment gateway.",
+                    "Marketed '1 Year Free Hosting & Domain', masking cheap .in domain costs (₹99/year) while locking clients into expensive hidden renewal fees after Year 1.",
+                    "Low-budget dynamic setup lacks basic security measures, leaving notification ledgers and client data vulnerable to credential theft and spam attacks."
+                  ]}
+                  comparisonRows={[
+                    { metric: "Total Quoted Cost", agency: "₹8,000 (Static) / ₹12,000 (Dynamic)", amritaara: "₹4,799 & ₹7,498 (for same build, respectively)", highlight: true },
+                    { metric: "Page Architecture", agency: "Fake Multi-Page (Duplicated Homepage Sections)", amritaara: "Bespoke Dynamic React 18 Architecture" },
+                    { metric: "Booking Engine Reality", agency: "Cosmetic UI Only (No Software / No Gateway)", amritaara: "Real-Time Room Availability + Payment Gateway + 10+ OTA Sync" },
+                    { metric: "Hosting & Domain Offer", agency: "Basic .in Domain + Hidden High Renewal Fees", amritaara: "Enterprise Global Cloud Edge Hosting Included" },
+                    { metric: "Security & Reliability", agency: "Unsecured Ledgers (Vulnerable to Spam & Theft)", amritaara: "Bank-Grade Encryption & Zero Vulnerability Stack" }
+                  ]}
+                />
+
+                <VoiceAuditCard
+                  recordingNumber={2}
+                  agencyName="88 Gravity"
+                  quotedPrice="₹2.0 Lakhs - ₹4.0 Lakhs"
+                  audioTitle="88 Gravity Agency (Proposal Chat Audit)"
+                  imageSrc="/88 gravity.png"
+                  imageAlt="88 Gravity WhatsApp Proposal Chat Screenshot"
+                  audioSrc=""
+                  summaryBullets={[
+                    "Quoted minimum ₹2.0 Lakhs up to ₹3.0 – ₹4.0 Lakhs for a custom React/Node.js build ('surely above 2 lakhs nothing below it').",
+                    "Demands a minimum 2 months (60+ days) development timeline for initial website delivery.",
+                    "Charges extra billing per OTA platform integration (MakeMyTrip, Goibibo) based on API complexity.",
+                    "Does NOT include automated inventory channel sync or all-in-one resort management without added dev costs."
+                  ]}
+                  comparisonRows={[
+                    { metric: "Total Quoted Cost", agency: "₹2,00,000 – ₹4,00,000", amritaara: "₹60,000 (One-Time)", highlight: true },
+                    { metric: "Core Stack", agency: "React + Node.js Custom Build", amritaara: "Bespoke React 18 + Serverless Engine" },
+                    { metric: "Delivery Timeline", agency: "60 – 90 Days (2 Months Min)", amritaara: "Ready & Live in 7 Days" },
+                    { metric: "OTA API Integration", agency: "Extra cost per platform API", amritaara: "10+ OTA Channels Included Free" },
+                    { metric: "Inventory Auto-Sync", agency: "Not Included (Paid Extra)", amritaara: "Real-Time Multi-OTA Sync" },
+                    { metric: "Maintenance Retainer", agency: "Paid Hourly/Custom Retainer", amritaara: "₹0 Mandatory Monthly Retainer" }
+                  ]}
+                />
+
+                <VoiceAuditCard
+                  recordingNumber={3}
+                  agencyName="Boffin brains"
+                  quotedPrice="₹2 Lakhs - ₹3 Lakhs"
+                  audioTitle="Boffin Brains Agency"
+                  imageSrc="/boffin.png"
+                  imageAlt="Boffin Proposal Screenshot"
+                  audioSrc="/audio/recording_3.mp3"
+                  summaryBullets={[
+                    "Quoted ₹1.8 Lakhs using a pre-built Wix / drag-and-drop website template.",
+                    "Third-party booking widget integration requires paying $49/month direct to US SaaS platforms.",
+                    "Fails Google Core Web Vitals on mobile devices with 5.5s average page load speed.",
+                    "No custom Rajwada wedding luxury design tokens or bespoke animation systems included."
+                  ]}
+                  comparisonRows={[
+                    { metric: "Total Quoted Cost", agency: "₹1,80,000 + $49/mo SaaS", amritaara: "₹60,000 (One-Time)", highlight: true },
+                    { metric: "Core Stack", agency: "Wix / Drag-and-Drop Builder", amritaara: "Custom Rajwada Modern UI Code" },
+                    { metric: "Delivery Timeline", agency: "30 – 45 Days", amritaara: "Ready & Live in 7 Days" },
+                    { metric: "Monthly SaaS Fees", agency: "$49 / month ($588/yr)", amritaara: "$0 Third-Party SaaS Lock-in" },
+                    { metric: "Design Quality", agency: "Generic $49 envato template", amritaara: "Bespoke Luxury Architecture" },
+                    { metric: "Mobile Performance", agency: "Laggy touch & slow scrolling", amritaara: "Native Mobile Bento & Swipe Feel" }
+                  ]}
+                />
+              </div>
+            </div>
+
+            {/* Comparison Audit Table */}
+            <div className="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-500">
+                      <th className="py-4 px-6">Metric / Feature</th>
+                      <th className="py-4 px-6 text-rose-600 bg-rose-50/50">Typical Local Agency ($4,000–$8,000)</th>
+                      <th className="py-4 px-6 text-emerald-700 bg-emerald-50/50">Our Offerings</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-sm">
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Core Technology Stack</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        WordPress + Elementor / Heavy PHP (Slow, bulky, 45+ vulnerable plugins)
+                      </td>
+                      <td className="py-4 px-6 font-medium text-emerald-900 bg-emerald-50/20">
+                        Modern React 18 + Vite + Serverless Engine (Zero plugins, 100% clean code)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Page Load Speed</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        3.8s – 6.5s (Fails Google Core Web Vitals)
+                      </td>
+                      <td className="py-4 px-6 font-medium text-emerald-900 bg-emerald-50/20">
+                        &lt; 0.6s Instant Load (Lighthouse Performance Score 95+)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Design Customization</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        $49 pre-made Envato template resold without custom brand identity
+                      </td>
+                      <td className="py-4 px-6 font-medium text-emerald-900 bg-emerald-50/20">
+                        Bespoke Rajwada leaf architecture (`rounded-tl-[38px]`), custom luxury iconography
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Security & Hacking Vulnerability</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        High risk (WordPress SQL injection & plugin vulnerabilities)
+                      </td>
+                      <td className="py-4 px-6 font-medium text-emerald-900 bg-emerald-50/20">
+                        Zero Security Risk (Static serverless hosting with no database attack vectors)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Mobile Experience</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        Clunky mobile dropdowns, broken image scaling, laggy scrolling
+                      </td>
+                      <td className="py-4 px-6 font-medium text-emerald-900 bg-emerald-50/20">
+                        Native mobile feel, horizontal touch-swipe bento grids, responsive navigation
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Ongoing Maintenance Fee</td>
+                      <td className="py-4 px-6 text-slate-600 bg-rose-50/20">
+                        ₹5,000 – ₹15,000 / month required for plugin updates & server fixes
+                      </td>
+                      <td className="py-4 px-6 font-semibold text-emerald-900 bg-emerald-50/20">
+                        ₹0 / month mandatory maintenance needed
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Proof Points & Evidence Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 space-y-3 shadow-sm">
+                <div className="flex items-center gap-2 text-rose-600 font-bold text-base">
+                  <XCircle size={22} weight="fill" />
+                  <span>The Agency WordPress Trap</span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Traditional agencies buy $50 WordPress themes, drag-and-drop 30+ plugins, and bill ₹3.5 Lakhs+. Within 6 months, plugins crash, updates break the site layout, and page load speeds drop to 5+ seconds, driving away high-paying resort guests.
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-7 space-y-3 shadow-sm">
+                <div className="flex items-center gap-2 text-emerald-800 font-bold text-base">
+                  <CheckCircle size={22} weight="fill" />
+                  <span>Our Modern Engineering Advantage</span>
+                </div>
+                <p className="text-xs sm:text-sm text-emerald-900/80 leading-relaxed">
+                  We engineered Amritaara from scratch using modern React.js. It loads instantly on 4G/5G mobile devices, has zero server maintenance costs, and features a bespoke luxury design system crafted specifically for luxury wedding venues.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SUBSECTION 3: RESOURCES REQUIRED */}
+        {activeTab === 'resources' && (
+          <div className="space-y-10 animate-fade-in">
+            {/* Resources Required Header */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-10 shadow-sm">
+              <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700">
+                <FileText size={14} weight="fill" />
+                Client Onboarding & Action Checklist
+              </span>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+                Requirements Needed from Client
+              </h2>
+              <p className="mt-3 text-slate-600 leading-relaxed text-sm sm:text-base max-w-3xl">
+                To complete final domain launch, WhatsApp booking setup, and operational deployment, please provide the following assets and access credentials:
+              </p>
+            </div>
+
+            {/* Checklist Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Category 1: Media Assets */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm space-y-4">
+                <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                    <Images size={22} weight="fill" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base">1. High-Resolution Photography</h3>
+                    <p className="text-xs text-slate-500">Visual assets for resort grounds & rooms</p>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-indigo-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Original high-res photography of Grand Royal Lawns, Poolside, & Banquets.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-indigo-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Interior room photos for Deluxe Rooms, Executive Suites, and Royal Villas.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-indigo-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Vector transparent PNG / SVG logo files for header & footer branding.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Category 2: Business & Contact Metadata */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm space-y-4">
+                <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                    <PhoneCall size={22} weight="fill" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base">2. Contact & Inquiry Setup</h3>
+                    <p className="text-xs text-slate-500">Direct guest routing and WhatsApp numbers</p>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-emerald-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Primary WhatsApp business phone number for instant proposal requests.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-emerald-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Official reception desk phone numbers & primary email address.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-emerald-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Verified Google Maps location pin link for exact GPS navigation embedded in website.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Category 3: Booking Engine Integration */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm space-y-4">
+                <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                    <Buildings size={22} weight="fill" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base">3. Booking Engine Credentials</h3>
+                    <p className="text-xs text-slate-500">ChannelManager connection setup</p>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-amber-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>ChannelManager Property ID & direct booking engine URL.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-amber-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Room category mapping parameters (`tb=...`) for instant room selection.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Category 4: Domain & Hosting Access */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm space-y-4">
+                <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+                    <LockKey size={22} weight="fill" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base">4. Domain DNS Access</h3>
+                    <p className="text-xs text-slate-500">For live domain pointing (.com / .in)</p>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-rose-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>GoDaddy / Namecheap account access (or CNAME record update pointing to Vercel/Cloudflare).</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle size={18} className="text-rose-600 shrink-0 mt-0.5" weight="fill" />
+                    <span>Final confirmation of official resort domain name for SSL certificate issuance.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Next Steps CTA Box */}
+            <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-10 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="space-y-2 text-center sm:text-left">
+                <h3 className="text-2xl font-bold">Ready to Launch Amritaara Online?</h3>
+                <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
+                  Once the above resources are provided, final live deployment and domain mapping will be completed within 24 hours.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  const phone = '917455002900';
+                  const message = encodeURIComponent('Hello! I have reviewed the Amritaara Client Proposal and am ready to provide the onboarding resources.');
+                  window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                }}
+                className="shrink-0 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-950 transition-all hover:bg-emerald-400 hover:scale-105 active:scale-95 cursor-pointer shadow-lg"
+              >
+                <span>Submit Resources via WhatsApp</span>
+                <ArrowRight size={16} weight="bold" />
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}

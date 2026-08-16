@@ -9,19 +9,23 @@ const NAV_LINKS = [
   { label: 'ABOUT US', href: '#about' },
   { label: 'SPACES', href: '#spaces' },
   { label: 'GALLERY', href: '#gallery' },
-  { label: 'BLOG', href: '#blog' },
   { label: 'CORPORATE', href: '#corporate' },
+  { label: 'PRICING', href: '#pricing' },
   { label: 'LOCATE', href: '#location' },
   { label: 'CONTACT', href: '#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ currentPage = 'home', onNavigatePricing, onNavigateHome }) {
   const reduceMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('HOME');
+  const [active, setActive] = useState(currentPage === 'pricing' ? 'PRICING' : 'HOME');
   const { scrollY } = useScroll();
   const navRef = useRef(null);
+
+  useEffect(() => {
+    setActive(currentPage === 'pricing' ? 'PRICING' : 'HOME');
+  }, [currentPage]);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 40);
@@ -43,6 +47,33 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  const handleLinkClick = (e, link) => {
+    if (link.label === 'PRICING') {
+      e.preventDefault();
+      setActive('PRICING');
+      setMenuOpen(false);
+      if (onNavigatePricing) {
+        onNavigatePricing();
+      } else {
+        window.location.href = '/pricing';
+      }
+      return;
+    }
+
+    if (currentPage === 'pricing') {
+      e.preventDefault();
+      if (onNavigateHome) {
+        onNavigateHome(link.href);
+      } else {
+        window.location.href = '/' + link.href;
+      }
+      return;
+    }
+
+    setActive(link.label);
+    setMenuOpen(false);
+  };
+
   return (
     <motion.header
       ref={navRef}
@@ -57,7 +88,17 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-5 sm:px-8">
         {/* Logo */}
-        <a href="#home" className="group flex items-center gap-2.5 sm:gap-3" aria-label="Orabella Banquet Home">
+        <a
+          href="/"
+          onClick={(e) => {
+            if (currentPage === 'pricing') {
+              e.preventDefault();
+              if (onNavigateHome) onNavigateHome('#home');
+            }
+          }}
+          className="group flex items-center gap-2.5 sm:gap-3"
+          aria-label="Orabella Banquet Home"
+        >
           <Logo className="h-9 w-9 sm:h-11 sm:w-11 text-gold transition-transform duration-500 ease-premium group-hover:scale-105" />
           <span className="flex flex-col leading-tight">
             <span className="font-serif text-base font-medium tracking-wide text-white sm:text-lg">{siteData.name || 'Orabella Banquet'}</span>
@@ -71,7 +112,7 @@ export default function Navbar() {
             <li key={link.label}>
               <a
                 href={link.href}
-                onClick={() => setActive(link.label)}
+                onClick={(e) => handleLinkClick(e, link)}
                 className="group relative font-sans text-[13px] font-medium uppercase tracking-[0.12em] text-white/90 transition-colors duration-300 hover:text-white"
               >
                 {link.label}
@@ -88,7 +129,13 @@ export default function Navbar() {
         {/* Right cluster */}
         <div className="flex items-center gap-3">
           <a
-            href="#book"
+            href={currentPage === 'pricing' ? '/#contact' : '#contact'}
+            onClick={(e) => {
+              if (currentPage === 'pricing') {
+                e.preventDefault();
+                if (onNavigateHome) onNavigateHome('#contact');
+              }
+            }}
             className="group hidden items-center gap-2 rounded-sm bg-forest px-6 py-3 font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-cream shadow-[0_8px_30px_rgba(20,57,43,0.45)] ring-1 ring-inset ring-white/10 transition-all duration-500 ease-premium hover:bg-forest-light active:scale-[0.98] sm:flex"
           >
             {siteData.bookButtonLabel || 'Book Now'}
@@ -118,10 +165,7 @@ export default function Navbar() {
             <li key={link.label}>
               <a
                 href={link.href}
-                onClick={() => {
-                  setActive(link.label);
-                  setMenuOpen(false);
-                }}
+                onClick={(e) => handleLinkClick(e, link)}
                 className="block py-2.5 font-sans text-sm uppercase tracking-[0.14em] text-white/85 transition-colors hover:text-gold"
               >
                 {link.label}
@@ -130,8 +174,14 @@ export default function Navbar() {
           ))}
           <li className="pt-3">
             <a
-              href="#book"
-              onClick={() => setMenuOpen(false)}
+              href={currentPage === 'pricing' ? '/#contact' : '#contact'}
+              onClick={(e) => {
+                setMenuOpen(false);
+                if (currentPage === 'pricing') {
+                  e.preventDefault();
+                  if (onNavigateHome) onNavigateHome('#contact');
+                }
+              }}
               className="block rounded-sm bg-forest px-6 py-3 text-center font-sans text-xs font-semibold uppercase tracking-[0.14em] text-cream ring-1 ring-inset ring-white/10"
             >
               {siteData.bookButtonLabel || 'Book Now'}
