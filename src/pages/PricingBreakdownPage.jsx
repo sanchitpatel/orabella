@@ -34,7 +34,8 @@ import {
   SpeakerHigh,
   Microphone,
   Quotes,
-  ShoppingCart
+  ShoppingCart,
+  Trash
 } from '@phosphor-icons/react';
 
 // Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
@@ -306,6 +307,25 @@ export default function PricingBreakdownPage() {
   const [activeTab, setActiveTab] = useState('pricing');
   const [openItems, setOpenItems] = useState({ roi_math: true });
 
+  const isPricingActive = activeTab === 'pricing';
+  const isCartActive = activeTab === 'cart';
+
+  const [cartItems, setCartItems] = useState([]);
+
+  const toggleCartItem = (item) => {
+    setCartItems(prev => {
+      const exists = prev.some(i => i.id === item.id);
+      if (exists) {
+        return prev.filter(i => i.id !== item.id);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
+  const isItemInCart = (id) => cartItems.some(i => i.id === id);
+  const cartTotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+
   const toggleItem = (id) => {
     setOpenItems(prev => ({ ...prev, [id]: !prev[id] }));
   };
@@ -408,12 +428,21 @@ export default function PricingBreakdownPage() {
                 {/* 2 Primary Level Branches: Website UI vs Appointment Engine */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹36,365) */}
-                  <div id="section-1" className="rounded-2xl sm:rounded-3xl border border-blue-200 bg-blue-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5 scroll-mt-20 sm:scroll-mt-24">
+                  <div
+                    id="section-1"
+                    className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 scroll-mt-20 sm:scroll-mt-24 transition-all duration-300 ${isPricingActive
+                        ? 'border-2 border-blue-500 bg-blue-50/50 ring-4 ring-blue-500/20 shadow-xl shadow-blue-500/10 md:scale-[1.015] z-10'
+                        : 'border border-blue-200/80 bg-blue-50/20 md:opacity-75 hover:md:opacity-100'
+                      }`}
+                  >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-200/60 pb-3 sm:pb-4">
                       <div>
                         <h4 className="text-base sm:text-lg font-black text-slate-900">Website UI & Patient Lead Management Architecture</h4>
                       </div>
-                      <span className="text-base sm:text-xl font-black text-blue-700 bg-blue-100/80 px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border border-blue-200 self-start sm:self-auto shrink-0">
+                      <span className={`text-base sm:text-xl font-black px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border transition-all duration-300 self-start sm:self-auto shrink-0 ${isPricingActive
+                          ? 'text-blue-800 bg-blue-100 border-blue-300 shadow-2xs'
+                          : 'text-blue-700 bg-blue-100/60 border-blue-200'
+                        }`}>
                         ₹36,365
                       </span>
                     </div>
@@ -430,10 +459,24 @@ export default function PricingBreakdownPage() {
                             <div className="p-2 sm:p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
                               <Browsers size={20} weight="bold" />
                             </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Multi-page static & Responsive Dental Website</h5>
+                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Multi-page static & Mobile first Responsive Dental Website</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_1', title: 'Multi-page static & Mobile first Responsive Dental Website', price: 13937, formattedPrice: '₹13,937' });
+                              }}
+                              title={isItemInCart('c1_1') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_1') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_1'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -461,7 +504,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Home Page Engine (Primary Sitemap & SEO Hub)</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹4,799</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹4,799</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_1_sub1', title: 'Home Page Engine (Primary Sitemap & SEO Hub)', price: 4799, formattedPrice: '₹4,799' });
+                                        }}
+                                        title={isItemInCart('c1_1_sub1') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub1')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_1_sub1') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Decides the entire website sitemap and search engine SEO framework. Includes custom patient appointment form, clinic location mapping (with QR integration), section routing, plus optimized media assets.
@@ -472,7 +531,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Dedicated Standalone Pages</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹999 x 6</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹999 x 6</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_1_sub2', title: 'Dedicated Standalone Pages (6 Pages)', price: 5994, formattedPrice: '₹5,994' });
+                                        }}
+                                        title={isItemInCart('c1_1_sub2') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub2')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_1_sub2') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Individual tailored pages designed for specific patient journeys: <strong className="text-slate-900 font-bold">About Us, Treatments & Services, Clinic Gallery, Dental Blog, Doctor Profiles & Appointment Booking</strong>.
@@ -483,7 +558,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">3. Policy, Legal & Custom 404 Pages</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹599 × 3</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹599 × 3</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_1_sub3', title: 'Policy, Legal & Custom 404 Pages (3 Pages)', price: 1797, formattedPrice: '₹1,797' });
+                                        }}
+                                        title={isItemInCart('c1_1_sub3') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub3')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_1_sub3') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Standard legal compliance & maintenance framework covering <strong className="text-slate-900 font-bold">Terms & Conditions</strong>, <strong className="text-slate-900 font-bold">Privacy Policy</strong>, and <strong className="text-slate-900 font-bold">Custom Branded 404 Page</strong>.
@@ -494,7 +585,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">4. Interactive Sub-Page Popups & Modals</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹449 × 3</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹449 × 3</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_1_sub4', title: 'Interactive Sub-Page Popups & Modals (3 Modals)', price: 1347, formattedPrice: '₹1,347' });
+                                        }}
+                                        title={isItemInCart('c1_1_sub4') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_1_sub4')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_1_sub4') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Rich interactive overlay modals integrated into <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Bookings</strong> pages for detailed sub-content views.
@@ -518,8 +625,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Content Management System</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹11,088</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_2', title: 'Content Management System', price: 11088, formattedPrice: '₹11,088' });
+                              }}
+                              title={isItemInCart('c1_2') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_2') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_2'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -547,7 +668,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Home Page CMS Build & Integration</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,699</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹2,699</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_2_sub1', title: 'Home Page CMS Build & Integration', price: 2699, formattedPrice: '₹2,699' });
+                                        }}
+                                        title={isItemInCart('c1_2_sub1') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub1')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_2_sub1') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Dynamic JSON schema mapping for hero banners, footer, patient appointment form and all content on the homepage&apos;s different sections enabling clinic to edit effortlessly.
@@ -558,7 +695,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Standalone Pages CMS Integration</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,199 × 6</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,199 × 6</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_2_sub2', title: 'Standalone Pages CMS Integration (6 Pages)', price: 7194, formattedPrice: '₹7,194' });
+                                        }}
+                                        title={isItemInCart('c1_2_sub2') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub2')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_2_sub2') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Full content management wiring across 7 core pages: <strong className="text-slate-900 font-bold">About Us, Treatments, Clinic Gallery, Dental Blog, Doctor Profiles, Appointment Booking & Contact</strong>.
@@ -569,7 +722,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">3. Terms & Privacy Policy CMS</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹299 × 2</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹299 × 2</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_2_sub3', title: 'Terms & Privacy Policy CMS (2 Pages)', price: 598, formattedPrice: '₹598' });
+                                        }}
+                                        title={isItemInCart('c1_2_sub3') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub3')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_2_sub3') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Editable policy fields allowing instant modifications to <strong className="text-slate-900 font-bold">Terms & Conditions</strong> and <strong className="text-slate-900 font-bold">Privacy Policy</strong> text copy.
@@ -580,7 +749,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">4. Pop-up Sub-pages CMS Integration</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹199 × 3</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹199 × 3</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_2_sub4', title: 'Pop-up Sub-pages CMS Integration (3 Modals)', price: 597, formattedPrice: '₹597' });
+                                        }}
+                                        title={isItemInCart('c1_2_sub4') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_2_sub4')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_2_sub4') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Dynamic content fields for interactive pop-up overlays in <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Booking</strong> sub-views.
@@ -604,8 +789,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Telegram & WhatsApp Instant Notifications</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,499</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_3', title: 'Telegram & WhatsApp Instant Notifications', price: 1499, formattedPrice: '₹1,499' });
+                              }}
+                              title={isItemInCart('c1_3') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_3')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_3') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_3'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -640,8 +839,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Automated Google Sheets Patient Lead Ledger</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_4', title: 'Automated Google Sheets Patient Lead Ledger', price: 1049, formattedPrice: '₹1,049' });
+                              }}
+                              title={isItemInCart('c1_4') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_4')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_4') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_4'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -676,8 +889,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Two-Way Telegram ↔ Ledger Sync Engine</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,699</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_5', title: 'Two-Way Telegram ↔ Ledger Sync Engine', price: 1699, formattedPrice: '₹1,699' });
+                              }}
+                              title={isItemInCart('c1_5') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_5')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_5') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_5'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -712,8 +939,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Cloudflare Workers & R2 Storage deployment</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹4,298</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_6', title: 'Cloudflare Workers & R2 Storage deployment', price: 4298, formattedPrice: '₹4,298' });
+                              }}
+                              title={isItemInCart('c1_6') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_6') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_6'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -736,7 +977,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Cloudflare Workers Implementation (Serverless API Gateways with Security & Credential Shield)</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,499</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹2,499</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_6_sub1', title: 'Cloudflare Workers Implementation (Serverless API Gateways)', price: 2499, formattedPrice: '₹2,499' });
+                                        }}
+                                        title={isItemInCart('c1_6_sub1') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub1')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_6_sub1') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Serverless edge proxy execution, protecting sensitive credentials like API keys, webhook secrets, and Telegram bot tokens from client-side inspection and unauthorized access.
@@ -747,7 +1004,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Global Edge CDN, Cloudflare R2 storage implementation, Asset Optimization & Caching Strategy</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,799</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,799</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_6_sub2', title: 'Global Edge CDN & Cloudflare R2 Storage Implementation', price: 1799, formattedPrice: '₹1,799' });
+                                        }}
+                                        title={isItemInCart('c1_6_sub2') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_6_sub2')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_6_sub2') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     High-throughput S3-compatible Cloudflare R2 object storage integration for streaming 4K hero background videos at 0ms cold start & zero egress cost.
@@ -771,8 +1044,22 @@ export default function PricingBreakdownPage() {
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure , Turnstile & edge caching</h5>
                           </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,798</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCartItem({ id: 'c1_7', title: 'Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure', price: 2798, formattedPrice: '₹2,798' });
+                              }}
+                              title={isItemInCart('c1_7') ? "Remove from Cart" : "Add to Cart"}
+                              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7')
+                                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs ring-2 ring-emerald-400/30'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                }`}
+                            >
+                              {isItemInCart('c1_7') ? <CheckCircle size={16} weight="bold" /> : <ShoppingCart size={16} weight="bold" />}
+                            </button>
                             <motion.div animate={{ rotate: openItems['c1_7'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
@@ -795,7 +1082,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,299</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,299</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_7_sub1', title: 'Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)', price: 1299, formattedPrice: '₹1,299' });
+                                        }}
+                                        title={isItemInCart('c1_7_sub1') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7_sub1')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_7_sub1') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Privacy-first, frictionless bot verification --- (blocking automated form spam, fake/spam appointment inquiries, preventing random webhook triggering, data scraping etc.) without frustrating real patients with visual puzzles.
@@ -806,7 +1109,23 @@ export default function PricingBreakdownPage() {
                                 <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Enterprise WAF, Rate Limiting & Edge Caching</h6>
-                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,499</span>
+                                    <div className="flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+                                      <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs">₹1,499</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleCartItem({ id: 'c1_7_sub2', title: 'Enterprise WAF, Rate Limiting & Edge Caching', price: 1499, formattedPrice: '₹1,499' });
+                                        }}
+                                        title={isItemInCart('c1_7_sub2') ? "Remove from Cart" : "Add to Cart"}
+                                        className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg border transition-all duration-200 cursor-pointer active:scale-90 flex items-center justify-center shrink-0 ${isItemInCart('c1_7_sub2')
+                                            ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                                          }`}
+                                      >
+                                        {isItemInCart('c1_7_sub2') ? <CheckCircle size={14} weight="bold" /> : <ShoppingCart size={14} weight="bold" />}
+                                      </button>
+                                    </div>
                                   </div>
 
                                   <div className="space-y-2 pt-0.5">
@@ -842,35 +1161,85 @@ export default function PricingBreakdownPage() {
                   </div>
 
                   {/* BRANCH B: CUSTOM PROPOSAL CART SHOWCASE */}
-                  <div id="cart-section" className="rounded-2xl sm:rounded-3xl border border-emerald-200 bg-emerald-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5 flex flex-col justify-between scroll-mt-20 sm:scroll-mt-24">
+                  <div
+                    id="cart-section"
+                    className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 flex flex-col justify-between scroll-mt-20 sm:scroll-mt-24 transition-all duration-300 ${isCartActive
+                        ? 'border-2 border-emerald-500 bg-emerald-50/50 ring-4 ring-emerald-500/20 shadow-xl shadow-emerald-500/10 md:scale-[1.015] z-10'
+                        : 'border border-emerald-200/80 bg-emerald-50/20 md:opacity-75 hover:md:opacity-100'
+                      }`}
+                  >
                     <div>
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200/60 pb-3 sm:pb-4">
                         <div>
                           <h4 className="text-base sm:text-lg font-black text-slate-900">Overall Price for Custom cart</h4>
                         </div>
-                        <span className="text-xs sm:text-sm font-black text-emerald-700 bg-emerald-100/80 px-3 py-1 rounded-xl border border-emerald-200 self-start sm:self-auto shrink-0">
-                          Cart Options
+                        <span className={`text-xs sm:text-sm font-black px-3 py-1 rounded-xl border transition-all duration-300 self-start sm:self-auto shrink-0 ${isCartActive
+                            ? 'text-emerald-800 bg-emerald-100 border-emerald-300 shadow-2xs'
+                            : 'text-emerald-700 bg-emerald-100/60 border-emerald-200'
+                          }`}>
+                          {cartItems.length > 0 ? `${cartItems.length} Selected` : 'Cart Options'}
                         </span>
                       </div>
 
-                      {/* Theme-Matching Blank Cart Showcase Card */}
-                      <div className="mt-4 p-8 sm:p-12 rounded-2xl bg-white border border-dashed border-emerald-200 flex flex-col items-center justify-center text-center space-y-3 shadow-2xs">
-                        <div className="p-4 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-2xs">
-                          <ShoppingCart size={36} weight="bold" />
+                      {cartItems.length === 0 ? (
+                        <div className="mt-4 p-8 sm:p-12 rounded-2xl bg-white border border-dashed border-emerald-200 flex flex-col items-center justify-center text-center space-y-3 shadow-2xs">
+                          <div className="p-4 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-2xs">
+                            <ShoppingCart size={36} weight="bold" />
+                          </div>
+                          <div className="space-y-1 max-w-xs">
+                            <h5 className="font-extrabold text-slate-900 text-base sm:text-lg">Blank Cart Showcase</h5>
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                              Click the <strong className="text-emerald-700 font-bold">🛒 icon</strong> next to any pricing deliverable item to add it to your custom proposal cart.
+                            </p>
+                          </div>
+                          <div className="pt-2">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/70 text-emerald-800 font-extrabold text-xs border border-emerald-200">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                              Cart Showcase Ready
+                            </span>
+                          </div>
                         </div>
-                        <div className="space-y-1 max-w-xs">
-                          <h5 className="font-extrabold text-slate-900 text-base sm:text-lg">Blank Cart Showcase</h5>
-                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-                            Your proposal cart items and custom deliverable selection will be displayed here.
-                          </p>
+                      ) : (
+                        <div className="mt-4 space-y-4">
+                          <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+                            {cartItems.map((item) => (
+                              <div key={item.id} className="p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs flex items-center justify-between gap-3 animate-fade-in">
+                                <div className="min-w-0 flex-1">
+                                  <h6 className="font-extrabold text-slate-900 text-xs sm:text-sm truncate">{item.title}</h6>
+                                  <span className="text-[11px] font-black text-emerald-700">{item.formattedPrice || `₹${item.price.toLocaleString()}`}</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => toggleCartItem(item)}
+                                  title="Remove Item"
+                                  className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 transition-colors shrink-0 cursor-pointer"
+                                >
+                                  <Trash size={15} weight="bold" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Dynamic Cart Total Card */}
+                          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-lg shadow-emerald-500/20 space-y-2">
+                            <div className="hidden sm:flex items-center justify-between text-xs sm:text-sm font-medium text-white">
+                              <span>Selected Items:</span>
+                              <span className="font-extrabold text-white">{cartItems.length} Deliverable{cartItems.length > 1 ? 's' : ''}</span>
+                            </div>
+                            <div className="flex items-center justify-between pt-0 sm:pt-1 border-t-0 sm:border-t border-emerald-500/60">
+                              <span className="font-black text-sm sm:text-base">Custom Cart Total:</span>
+                              <span className="font-black text-xl sm:text-2xl tracking-tight">₹{cartTotal.toLocaleString()}</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setCartItems([])}
+                              className="w-full mt-2 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-extrabold text-xs transition-all cursor-pointer border border-white/20"
+                            >
+                              Clear Cart
+                            </button>
+                          </div>
                         </div>
-                        <div className="pt-2">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/70 text-emerald-800 font-extrabold text-xs border border-emerald-200">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            Cart Showcase Active
-                          </span>
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
