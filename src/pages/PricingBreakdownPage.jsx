@@ -1736,12 +1736,12 @@ export default function PricingBreakdownPage() {
                             </div>
 
                             {isFullBundleInCart && (
-                              <div className="p-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-emerald-300 to-teal-200 text-slate-950 font-extrabold flex items-center justify-between shadow-md">
-                                <span className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-slate-950">
-                                  <Gift size={18} weight="fill" className="text-amber-800 shrink-0" />
-                                  <span>Full Platform Discount Applied</span>
+                              <div className="p-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 text-white font-extrabold flex items-center justify-between shadow-md">
+                                <span className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-white">
+                                  <Gift size={18} weight="fill" className="text-amber-300 shrink-0" />
+                                  <span>full Discount Applied</span>
                                 </span>
-                                <span className="bg-white/40 text-slate-950 px-2.5 py-0.5 rounded-lg text-[11px] uppercase font-black tracking-wide shrink-0">
+                                <span className="bg-white/30 text-amber-200 px-2.5 py-0.5 rounded-lg text-[11px] uppercase font-black tracking-wide shrink-0">
                                   Saved ₹3,569
                                 </span>
                               </div>
@@ -1955,13 +1955,17 @@ export default function PricingBreakdownPage() {
       {/* Celebration Discount Unlocked Modal */}
       <AnimatePresence>
         {showCelebrationModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-md">
+          <div
+            onClick={() => setShowCelebrationModal(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-md cursor-pointer"
+          >
             <motion.div
+              onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.85, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 10 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative max-w-md w-full rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-blue-200 text-center space-y-5 overflow-hidden"
+              className="relative max-w-md w-full rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-blue-200 text-center space-y-5 overflow-hidden cursor-default"
             >
               {/* Decorative Background Ambient Glows */}
               <div className="absolute -top-12 -left-12 w-36 h-36 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none" />
