@@ -33,7 +33,8 @@ import {
   Pause,
   SpeakerHigh,
   Microphone,
-  Quotes
+  Quotes,
+  ShoppingCart
 } from '@phosphor-icons/react';
 
 // Boilerplate sub-component for Voice Recording Audits & Direct Price Comparisons (5-step Architecture)
@@ -51,7 +52,7 @@ function VoiceAuditCard({
     { metric: "Core Stack", agency: "WordPress + Elementor Theme", amritaara: "Bespoke React 18 + Serverless Engine" },
     { metric: "Delivery Timeline", agency: "60 – 90 Days", amritaara: "Ready & Live in 7 Days" },
     { metric: "Ongoing Maintenance", agency: "₹10,000 / month mandatory retainer", amritaara: "₹0 / month mandatory fee" },
-    { metric: "OTA Booking Engine", agency: "Not Included (Paid Third-Party SaaS)", amritaara: "10+ OTA Channel Sync Built-In" },
+    { metric: "Patient Appointment Engine", agency: "Not Included (Paid Third-Party SaaS)", amritaara: "Healthcare & Direct Booking Sync Built-In" },
     { metric: "Mobile Load Speed", agency: "3.8s – 5.5s (Fails Google Vitals)", amritaara: "< 0.6s Instant Load (95+ Score)" }
   ]
 }) {
@@ -188,8 +189,8 @@ function VoiceAuditCard({
                 src={imageSrc}
                 alt={imageAlt}
                 className={`transition-all duration-300 ${isZoomed
-                    ? 'max-w-none w-auto h-auto cursor-zoom-out'
-                    : 'max-w-full max-h-[92vh] object-contain cursor-zoom-in'
+                  ? 'max-w-none w-auto h-auto cursor-zoom-out'
+                  : 'max-w-full max-h-[92vh] object-contain cursor-zoom-in'
                   }`}
               />
             </div>
@@ -319,35 +320,44 @@ export default function PricingBreakdownPage() {
     }
   };
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [activeTab]);
+
 
   const tabs = [
-    { id: 'pricing', label: 'Pricing Breakdown' }
+    { id: 'pricing', label: 'Pricing Breakdown', targetId: 'section-1' },
+    { id: 'cart', label: 'Cart', icon: ShoppingCart, targetId: 'cart-section' }
   ];
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab.id);
+    const element = document.getElementById(tab.targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-indigo-500 selection:text-white pb-16 sm:pb-24">
       {/* Floating Centered Navbar */}
       <header className="sticky top-2 sm:top-5 z-50 flex justify-center px-2 sm:px-4">
-        <nav className="w-full max-w-[280px] sm:max-w-[360px] grid grid-cols-1 gap-1 sm:gap-1.5 rounded-full border border-slate-200/90 bg-white/95 backdrop-blur-xl p-1.5 sm:p-2.5 shadow-xl sm:shadow-2xl shadow-slate-900/10 font-bold">
+        <nav className="w-full max-w-[380px] sm:max-w-[480px] flex items-center gap-1.5 sm:gap-2 rounded-full border border-slate-200 bg-transparent backdrop-blur-xl p-1.5 sm:p-2 shadow-xl sm:shadow-2xl shadow-slate-900/10 font-black transform-gpu [backface-visibility:hidden] [transform:translateZ(0)]">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
+            const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative z-10 w-full rounded-full py-2 sm:py-3.5 px-1 sm:px-4 text-center transition-colors duration-200 cursor-pointer select-none font-bold tracking-tight sm:tracking-wide text-[11px] xs:text-xs sm:text-base leading-tight flex items-center justify-center min-h-[38px] sm:min-h-[48px] ${isActive ? 'text-white' : 'text-slate-600 hover:text-slate-900'
+                onClick={() => handleTabClick(tab)}
+                className={`relative z-10 flex-1 rounded-full py-2.5 sm:py-3.5 px-3 sm:px-5 text-center transition-colors duration-200 cursor-pointer select-none font-black tracking-tight sm:tracking-wide text-sm sm:text-base leading-tight flex items-center justify-center gap-2 min-h-[44px] sm:min-h-[52px] transform-gpu [backface-visibility:hidden] ${isActive ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeProposalTab"
-                    className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/30"
-                    transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                    className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-md shadow-blue-500/30 transform-gpu"
+                    transition={{ type: 'tween', ease: 'easeInOut', duration: 0.2 }}
                   />
                 )}
+                {Icon && <Icon size={22} weight="bold" className="shrink-0" />}
                 <span>{tab.label}</span>
               </button>
             );
@@ -358,25 +368,23 @@ export default function PricingBreakdownPage() {
       {/* Main Content Body */}
       <main className="mx-auto max-w-6xl px-3 sm:px-6 lg:px-8 pt-4 sm:pt-14">
         {/* SUBSECTION 1: PRICING BREAKDOWN */}
-        {activeTab === 'pricing' && (
+        {(activeTab === 'pricing' || activeTab === 'cart') && (
           <div className="space-y-10 animate-fade-in">
             {/* VISUAL FLOWCHART 1: CAPITAL ALLOCATION TREE */}
             <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-4">
-              <div className="flex flex-col items-center justify-center text-center gap-2.5 border-b border-slate-100 pb-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/60 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
-                  Transparent price breakdown
+              <div className="flex flex-col items-center justify-center text-center border-b border-slate-100">
+                <span className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full bg-blue-50 border border-blue-200/80 px-4 py-1.5 text-xs shadow-2xs">
+                  <span className="font-black uppercase tracking-wider text-blue-700 text-sm">Transparent Price Breakdown</span>
+                  <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span className="text-slate-800 font-bold text-sm">Complete Dental Clinic Platform</span>
                 </span>
-                <div className="rounded-2xl bg-white/90 border border-slate-200/90 backdrop-blur-md px-6 py-2.5 text-center shadow-sm">
-                  <span className="text-xs text-slate-500 block font-semibold">Complete Resort Platform</span>
-                  <span className="text-2xl font-black tracking-tight text-blue-600">₹60,000</span>
-                </div>
               </div>
 
               {/* Flowchart Diagram Canvas */}
-              <div className="relative pt-1 pb-2 space-y-6">
+              <div className="relative  pb-2 space-y-6">
                 {/* Central Root Box */}
                 <div className="mx-auto max-w-md rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 backdrop-blur-md border border-blue-400/30 p-4 sm:p-5 text-white text-center shadow-lg shadow-blue-500/20">
-                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹60,000 Breakdown</h3>
+                  <h3 className="text-xl sm:text-2xl font-black tracking-tight">₹20,000 Breakdown</h3>
                 </div>
 
                 {/* Simple Lightweight SVG Flowchart Arrows */}
@@ -397,17 +405,16 @@ export default function PricingBreakdownPage() {
                   </svg>
                 </div>
 
-                {/* 2 Primary Level Branches: Website UI vs Booking Engine */}
+                {/* 2 Primary Level Branches: Website UI vs Appointment Engine */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹27,000) */}
-                  <div className="rounded-2xl sm:rounded-3xl border border-blue-200 bg-blue-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5">
+                  {/* BRANCH A: WEBSITE UI & FRONTEND ARCHITECTURE (₹36,365) */}
+                  <div id="section-1" className="rounded-2xl sm:rounded-3xl border border-blue-200 bg-blue-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5 scroll-mt-20 sm:scroll-mt-24">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-200/60 pb-3 sm:pb-4">
                       <div>
-                        <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Category 01</span>
-                        <h4 className="text-base sm:text-lg font-black text-slate-900">Website UI & Lead Management Architecture</h4>
+                        <h4 className="text-base sm:text-lg font-black text-slate-900">Website UI & Patient Lead Management Architecture</h4>
                       </div>
                       <span className="text-base sm:text-xl font-black text-blue-700 bg-blue-100/80 px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border border-blue-200 self-start sm:self-auto shrink-0">
-                        ₹29,269
+                        ₹36,365
                       </span>
                     </div>
 
@@ -423,7 +430,7 @@ export default function PricingBreakdownPage() {
                             <div className="p-2 sm:p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
                               <Browsers size={20} weight="bold" />
                             </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Multi-page static & Responsive Website</h5>
+                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Multi-page static & Responsive Dental Website</h5>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹13,937</span>
@@ -443,7 +450,7 @@ export default function PricingBreakdownPage() {
                             >
                               {/* Overview Subtitle */}
                               <p className="leading-relaxed font-medium text-slate-700 bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-xs sm:text-sm">
-                                Build a beautiful, Ultra-smooth static website compatible & responsive across both laptop and mobile screen sizes — featuring smooth Lenis scroll physics, integrated background music, and ultra-optimized video & media assets.
+                                Build a beautiful, Ultra-smooth static dental website compatible & responsive across both laptop and mobile screen sizes — featuring smooth Lenis scroll physics, patient-friendly UI, and ultra-optimized video & media assets.
                               </p>
 
                               {/* Granular Line-Item Breakdown */}
@@ -457,7 +464,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹4,799</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Decides the entire website sitemap and search engine SEO framework. Includes well-build custom lead submission form, interactive location mapping (with QR integration), section routing, plus optimized background video, audio & media assets as the cherry on top.
+                                    Decides the entire website sitemap and search engine SEO framework. Includes custom patient appointment form, clinic location mapping (with QR integration), section routing, plus optimized media assets.
                                   </p>
                                 </div>
 
@@ -468,7 +475,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹999 x 6</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Individual tailored pages designed for specific guest journeys: <strong className="text-slate-900 font-bold">About Us, Spaces, Gallery, Blog, Corporate Events & Room Booking</strong>.
+                                    Individual tailored pages designed for specific patient journeys: <strong className="text-slate-900 font-bold">About Us, Treatments & Services, Clinic Gallery, Dental Blog, Doctor Profiles & Appointment Booking</strong>.
                                   </p>
                                 </div>
 
@@ -479,7 +486,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹599 × 3</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Standard legal compliance & maintenance framework covering <strong className="text-slate-900 font-bold">Terms & Conditions</strong>, <strong className="text-slate-900 font-bold">Privacy Policy</strong>, and <strong className="text-slate-900 font-bold">Custom Branded 404 / Under Preparation</strong> page.
+                                    Standard legal compliance & maintenance framework covering <strong className="text-slate-900 font-bold">Terms & Conditions</strong>, <strong className="text-slate-900 font-bold">Privacy Policy</strong>, and <strong className="text-slate-900 font-bold">Custom Branded 404 Page</strong>.
                                   </p>
                                 </div>
 
@@ -490,7 +497,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹449 × 3</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Rich interactive overlay modals integrated into <strong className="text-slate-900 font-bold">Blog, Corporate Events, and Bookings</strong> pages for detailed sub-content views.
+                                    Rich interactive overlay modals integrated into <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Bookings</strong> pages for detailed sub-content views.
                                   </p>
                                 </div>
                               </div>
@@ -529,7 +536,7 @@ export default function PricingBreakdownPage() {
                             >
                               {/* Overview Subtitle */}
                               <p className="leading-relaxed font-medium text-slate-700 bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-xs sm:text-sm">
-                                Built a headless, self-serve JSON content management architecture enabling the resort owner to update room prices, text copy, media galleries, and blog entries in real-time without requiring developer assistance — <strong className="text-slate-900 font-bold">hence making the site completely dynamic</strong>.
+                                Built a headless, self-serve JSON content management architecture enabling the clinic owner / dentist to update treatment prices, consultation fees, doctor profiles, media galleries, and dental blog entries in real-time without requiring developer assistance — <strong className="text-slate-900 font-bold">hence making the site completely dynamic</strong>.
                               </p>
 
                               {/* Granular Line-Item Breakdown */}
@@ -543,7 +550,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,699</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Dynamic JSON schema mapping for hero banners, footer, contact form and all content on the homepage's different section enabling client to edit effortlessly.
+                                    Dynamic JSON schema mapping for hero banners, footer, patient appointment form and all content on the homepage&apos;s different sections enabling clinic to edit effortlessly.
                                   </p>
                                 </div>
 
@@ -554,7 +561,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,199 × 6</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Full content management wiring across 7 core pages: <strong className="text-slate-900 font-bold">About Us, Spaces, Gallery, Blog, Corporate Events, Room Booking & Contact</strong>.
+                                    Full content management wiring across 7 core pages: <strong className="text-slate-900 font-bold">About Us, Treatments, Clinic Gallery, Dental Blog, Doctor Profiles, Appointment Booking & Contact</strong>.
                                   </p>
                                 </div>
 
@@ -576,7 +583,7 @@ export default function PricingBreakdownPage() {
                                     <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹199 × 3</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Dynamic content fields for interactive pop-up overlays in <strong className="text-slate-900 font-bold">Blog, Corporate Events, and Booking</strong> sub-views.
+                                    Dynamic content fields for interactive pop-up overlays in <strong className="text-slate-900 font-bold">Blog, Treatments, and Appointment Booking</strong> sub-views.
                                   </p>
                                 </div>
                               </div>
@@ -614,7 +621,7 @@ export default function PricingBreakdownPage() {
                               className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-2 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-1.5 bg-blue-50/30"
                             >
                               <p className="leading-relaxed font-medium">
-                                Multi-channel webhook notification system dispatching instant booking inquiry alerts directly to Telegram staff channels & WhatsApp Business response templates.
+                                Multi-channel webhook notification system dispatching instant patient appointment & consultation inquiry alerts directly to Telegram clinic staff channels & WhatsApp Business response templates.
                               </p>
                             </motion.div>
                           )}
@@ -631,7 +638,7 @@ export default function PricingBreakdownPage() {
                             <div className="p-2 sm:p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
                               <Table size={20} weight="bold" />
                             </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Automated Google Sheets Lead Ledger</h5>
+                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Automated Google Sheets Patient Lead Ledger</h5>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                             <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹1,049</span>
@@ -650,7 +657,7 @@ export default function PricingBreakdownPage() {
                               className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-2 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-1.5 bg-blue-50/30"
                             >
                               <p className="leading-relaxed font-medium">
-                                Automated database pipeline storing every guest inquiry into a structured Google Sheets business CRM with zero manual data entry required.
+                                Automated database pipeline storing every patient inquiry into a structured Google Sheets clinic CRM with zero manual data entry required.
                               </p>
                             </motion.div>
                           )}
@@ -692,60 +699,44 @@ export default function PricingBreakdownPage() {
                           )}
                         </AnimatePresence>
                       </div>
-                    </div>
-                  </div>
 
-                  {/* BRANCH B: BOOKING SOFTWARE & ENGINE (₹33,000) */}
-                  <div className="rounded-2xl sm:rounded-3xl border border-emerald-200 bg-emerald-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200/60 pb-3 sm:pb-4">
-                      <div>
-                        <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Category 02</span>
-                        <h4 className="text-base sm:text-lg font-black text-slate-900">Booking engine software & Backend Engineering</h4>
-                      </div>
-                      <span className="text-base sm:text-xl font-black text-emerald-700 bg-emerald-100/80 px-3 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl border border-emerald-200 self-start sm:self-auto shrink-0">
-                        ₹30,729
-                      </span>
-                    </div>
-
-                    {/* Sub-itemized Technical Cards with Interactive Toggle Bars */}
-                    <div className="space-y-3.5">
-                      {/* Item 1 */}
-                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_1'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                      {/* Item 6: Cloudflare Workers & R2 */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_6'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
                         <div
-                          onClick={() => toggleItem('c2_1')}
+                          onClick={() => toggleItem('c1_6')}
                           className="p-3.5 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-2 sm:gap-3"
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                            <div className="p-2 sm:p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
                               <Video size={20} weight="bold" />
                             </div>
                             <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Cloudflare Workers & R2 Storage deployment</h5>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                            <span className="font-black text-xs sm:text-base text-emerald-800 bg-emerald-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-300 shadow-2xs">₹4,298</span>
-                            <motion.div animate={{ rotate: openItems['c2_1'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                            <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹4,298</span>
+                            <motion.div animate={{ rotate: openItems['c1_6'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
                           </div>
                         </div>
                         <AnimatePresence>
-                          {openItems['c2_1'] && (
+                          {openItems['c1_6'] && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-blue-50/20"
                             >
                               {/* Granular Architecture Deliverables */}
                               <div className="space-y-2.5 pt-1">
-                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Architecture Deliverables</span>
+                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Architecture Deliverables</span>
 
                                 {/* Sub-heading 1: Cloudflare Workers */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Cloudflare Workers Implementation (Security & Credential Shield)</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,499</span>
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Cloudflare Workers Implementation (Serverless API Gateways with Security & Credential Shield)</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,499</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     Serverless edge proxy execution, protecting sensitive credentials like API keys, webhook secrets, and Telegram bot tokens from client-side inspection and unauthorized access.
@@ -753,10 +744,10 @@ export default function PricingBreakdownPage() {
                                 </div>
 
                                 {/* Sub-heading 2: Cloudflare R2 Storage */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Cloudflare R2 Implementation (4K Video CDN Storage)</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,799</span>
+                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Global Edge CDN, Cloudflare R2 storage implementation, Asset Optimization & Caching Strategy</h6>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,799</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                                     High-throughput S3-compatible Cloudflare R2 object storage integration for streaming 4K hero background videos at 0ms cold start & zero egress cost.
@@ -768,61 +759,61 @@ export default function PricingBreakdownPage() {
                         </AnimatePresence>
                       </div>
 
-                      {/* Item 2 */}
-                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_2'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
+                      {/* Item 7: Cloudflare Anti-Bot & WAF */}
+                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c1_7'] ? 'border-blue-300 ring-2 ring-blue-500/10 shadow-md' : 'border-blue-100 hover:border-blue-300 hover:shadow-sm'}`}>
                         <div
-                          onClick={() => toggleItem('c2_2')}
+                          onClick={() => toggleItem('c1_7')}
                           className="p-3.5 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-2 sm:gap-3"
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
+                            <div className="p-2 sm:p-2.5 rounded-xl bg-blue-100/70 border border-blue-200 shrink-0 text-blue-700">
                               <ShieldCheck size={20} weight="bold" />
                             </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Cloudflare WAF, Turnstile & Edge Caching</h5>
+                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Cloudflare Anti-Bot Guard & Enterprise WAF Infrastructure , Turnstile & edge caching</h5>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                            <span className="font-black text-xs sm:text-base text-emerald-800 bg-emerald-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-300 shadow-2xs">₹2,798</span>
-                            <motion.div animate={{ rotate: openItems['c2_2'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                            <span className="font-black text-xs sm:text-base text-blue-800 bg-blue-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-blue-300 shadow-2xs">₹2,798</span>
+                            <motion.div animate={{ rotate: openItems['c1_7'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
                               <CaretDown size={16} className="text-slate-400" weight="bold" />
                             </motion.div>
                           </div>
                         </div>
                         <AnimatePresence>
-                          {openItems['c2_2'] && (
+                          {openItems['c1_7'] && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
+                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-blue-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-blue-50/20"
                             >
                               {/* Granular Security & Defense Deliverables */}
                               <div className="space-y-2.5 pt-1">
-                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Security & Defense Deliverables</span>
+                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-blue-600 block">Security & Defense Deliverables</span>
 
                                 {/* Sub-heading 1: Cloudflare Turnstile */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-1.5 shadow-2xs">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Cloudflare Turnstile (CAPTCHA-Free Anti-Bot Guard)</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,299</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,299</span>
                                   </div>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Privacy-first, frictionless bot verification --- (blocking automated form spam, fake/spam booking inquiries, preventing random webhook triggering, data scraping etc.) without frustrating real guests with visual puzzles.
+                                    Privacy-first, frictionless bot verification --- (blocking automated form spam, fake/spam appointment inquiries, preventing random webhook triggering, data scraping etc.) without frustrating real patients with visual puzzles.
                                   </p>
                                 </div>
 
                                 {/* Sub-heading 2: Cloudflare WAF & Edge Caching */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-2.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-emerald-100/60 pb-2">
+                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-blue-100/80 space-y-2.5 shadow-2xs">
+                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-blue-100/60 pb-2">
                                     <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Enterprise WAF, Rate Limiting & Edge Caching</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,499</span>
+                                    <span className="font-black text-blue-800 text-[11px] sm:text-sm bg-blue-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-blue-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,499</span>
                                   </div>
 
                                   <div className="space-y-2 pt-0.5">
                                     {/* Point A */}
                                     <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                                       <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                                        <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
                                         <h6 className="font-bold text-slate-900 text-xs sm:text-sm">Edge Web Application Firewall (WAF)</h6>
                                       </div>
                                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium pl-4">
@@ -833,7 +824,7 @@ export default function PricingBreakdownPage() {
                                     {/* Point B */}
                                     <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                                       <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                                        <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
                                         <h6 className="font-bold text-slate-900 text-xs sm:text-sm">Rate Limiting & Global Edge Caching</h6>
                                       </div>
                                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium pl-4">
@@ -847,179 +838,38 @@ export default function PricingBreakdownPage() {
                           )}
                         </AnimatePresence>
                       </div>
+                    </div>
+                  </div>
 
-                      {/* Item 3 */}
-                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_3'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
-                        <div
-                          onClick={() => toggleItem('c2_3')}
-                          className="p-3.5 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-2 sm:gap-3"
-                        >
-                          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
-                              <Globe size={20} weight="bold" />
-                            </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Multi-Channel OTA Integration & Inventory Sync</h5>
-                          </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                            <span className="font-black text-xs sm:text-base text-emerald-800 bg-emerald-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-300 shadow-2xs">₹9,898</span>
-                            <motion.div animate={{ rotate: openItems['c2_3'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                              <CaretDown size={16} className="text-slate-400" weight="bold" />
-                            </motion.div>
-                          </div>
+                  {/* BRANCH B: CUSTOM PROPOSAL CART SHOWCASE */}
+                  <div id="cart-section" className="rounded-2xl sm:rounded-3xl border border-emerald-200 bg-emerald-50/30 p-4 sm:p-6 space-y-4 sm:space-y-5 flex flex-col justify-between scroll-mt-20 sm:scroll-mt-24">
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200/60 pb-3 sm:pb-4">
+                        <div>
+                          <h4 className="text-base sm:text-lg font-black text-slate-900">Overall Price for Custom cart</h4>
                         </div>
-                        <AnimatePresence>
-                          {openItems['c2_3'] && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
-                            >
-                              <div className="space-y-2.5 pt-1">
-                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Integration & Channel Deliverables</span>
-
-                                {/* Sub-heading 1 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Multi-OTA Channel API Mapping & 2-Way Sync Engine</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹7,999</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Complex bi-directional API channel integration connecting the resort engine with major OTAs (<strong className="text-slate-900 font-bold">MakeMyTrip, Goibibo, Booking.com, Agoda, Airbnb, Yatra</strong>) upto 6 OTA. Meticulously mapping individual room category keys, automated 2-way room availability pooling, instant reservation import, and real-time calendar locks to eliminate overbooking risks across all portals.
-                                  </p>
-                                </div>
-
-                                {/* Sub-heading 2 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Dynamic Pricing Matrix, Seasonal Tariffs & Promo Rules</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,899</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Configuring intricate multi-channel pricing rules — defining peak weekend tariffs, seasonal holiday surcharges, extra adult/child guest pricing policies, non-refundable vs flexible cancellation rules, minimum night stay restrictions, GST tax slab calculations, and automated promo code discount distribution across all linked channels.
-                                  </p>
-                                </div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        <span className="text-xs sm:text-sm font-black text-emerald-700 bg-emerald-100/80 px-3 py-1 rounded-xl border border-emerald-200 self-start sm:self-auto shrink-0">
+                          Cart Options
+                        </span>
                       </div>
 
-                      {/* Item 4 */}
-                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_4'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
-                        <div
-                          onClick={() => toggleItem('c2_4')}
-                          className="p-3.5 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-2 sm:gap-3"
-                        >
-                          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
-                              <Receipt size={20} weight="bold" />
-                            </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Centralized PMS Setup & Front-Desk Receptionist Engineering</h5>
-                          </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                            <span className="font-black text-xs sm:text-base text-emerald-800 bg-emerald-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-300 shadow-2xs">₹8,498</span>
-                            <motion.div animate={{ rotate: openItems['c2_4'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                              <CaretDown size={16} className="text-slate-400" weight="bold" />
-                            </motion.div>
-                          </div>
+                      {/* Theme-Matching Blank Cart Showcase Card */}
+                      <div className="mt-4 p-8 sm:p-12 rounded-2xl bg-white border border-dashed border-emerald-200 flex flex-col items-center justify-center text-center space-y-3 shadow-2xs">
+                        <div className="p-4 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-2xs">
+                          <ShoppingCart size={36} weight="bold" />
                         </div>
-                        <AnimatePresence>
-                          {openItems['c2_4'] && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
-                            >
-                              <div className="space-y-2.5 pt-1">
-                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">PMS & Staff Workflow Deliverables</span>
-
-                                {/* Sub-heading 1 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Room Inventory, Vault Storage & Domain Setup</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹5,999</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Meticulous room-by-room database setup — mapping room inventory (Deluxe, Executive, Villa categories), max guest capacity rules, seasonal tariff slabs, meal plan inclusions, GST tax structures, photo galleries, PCI-compliant guest card details vault storage setup, and booking software integration on custom domain SSL endpoints.
-                                  </p>
-                                </div>
-
-                                {/* Sub-heading 2 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Front-Desk Receptionist UI Simplification & Error-Proof Controls</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹2,499</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Designing and configuring a simplified, error-proof administrative PMS dashboard specifically tailored for non-technical receptionist staff — featuring one-click room status controls (Clean/Dirty/Reserved), quick walk-in guest check-in billing, and automated daily occupancy reports.
-                                  </p>
-                                </div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-
-                      {/* Item 5 */}
-                      <div className={`rounded-2xl bg-white border transition-all duration-200 shadow-xs overflow-hidden ${openItems['c2_5'] ? 'border-emerald-300 ring-2 ring-emerald-500/10 shadow-md' : 'border-emerald-100 hover:border-emerald-300 hover:shadow-sm'}`}>
-                        <div
-                          onClick={() => toggleItem('c2_5')}
-                          className="p-3.5 sm:p-5 flex items-center justify-between cursor-pointer select-none gap-2 sm:gap-3"
-                        >
-                          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-100/70 border border-emerald-200 shrink-0 text-emerald-700">
-                              <PhoneCall size={20} weight="bold" />
-                            </div>
-                            <h5 className="font-extrabold text-slate-900 text-xs sm:text-lg leading-snug break-words">Custom Direct Booking Software & Handoff Engine</h5>
-                          </div>
-                          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                            <span className="font-black text-xs sm:text-base text-emerald-800 bg-emerald-100 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-emerald-300 shadow-2xs">₹5,248</span>
-                            <motion.div animate={{ rotate: openItems['c2_5'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                              <CaretDown size={16} className="text-slate-400" weight="bold" />
-                            </motion.div>
-                          </div>
+                        <div className="space-y-1 max-w-xs">
+                          <h5 className="font-extrabold text-slate-900 text-base sm:text-lg">Blank Cart Showcase</h5>
+                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                            Your proposal cart items and custom deliverable selection will be displayed here.
+                          </p>
                         </div>
-                        <AnimatePresence>
-                          {openItems['c2_5'] && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="px-3.5 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-emerald-100/60 text-xs sm:text-sm text-slate-600 space-y-3 bg-emerald-50/20"
-                            >
-                              <div className="space-y-2.5 pt-1">
-                                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 block">Direct Booking Deliverables</span>
-
-                                {/* Sub-heading 1 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">1. Custom Interactive Booking Flow & Checkout UI</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹3,249</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Developing the interactive client-side booking interface: room category selector, date availability pickers, guest/room count selection options, live price calculation logic, custom checkout page flow, payment gateway integration, and real-time reservation notification architecture.
-                                  </p>
-                                </div>
-
-                                {/* Sub-heading 2 */}
-                                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-emerald-100/80 space-y-1.5 shadow-2xs">
-                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
-                                    <h6 className="font-extrabold text-slate-900 text-xs sm:text-base">2. Automated Transactional Email Confirmation setup</h6>
-                                    <span className="font-black text-emerald-800 text-[11px] sm:text-sm bg-emerald-100/90 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg border border-emerald-200 shadow-2xs shrink-0 self-start sm:self-auto">₹1,999</span>
-                                  </div>
-                                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                                    Direct booking handoff engine auto-generating pre-filled reservation links and instant custom & transactional email confirmation mails for guests.
-                                  </p>
-                                </div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        <div className="pt-2">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/70 text-emerald-800 font-extrabold text-xs border border-emerald-200">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            Cart Showcase Active
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1212,7 +1062,7 @@ export default function PricingBreakdownPage() {
                     >
                       <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-teal-600">Module Deployments</span>
                       <h4 className="font-extrabold text-slate-900 text-base sm:text-xl leading-snug group-hover:text-teal-600 transition-colors">
-                        Booking Engine & PMS Engineering
+                        Patient Appointment Engine & CMS Engineering
                       </h4>
                     </div>
 
@@ -1226,7 +1076,7 @@ export default function PricingBreakdownPage() {
                           className="overflow-hidden pt-1 sm:pt-2"
                         >
                           <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-medium pt-2.5 sm:pt-3 border-t border-slate-100">
-                            Payments are released on-the-go progressively as development of each remaining Section 02 backend module (<strong className="text-slate-900 font-extrabold">OTA Channel Sync, Front-Desk PMS, & Direct Booking Software</strong>) completes and is reported.
+                            Payments are released on-the-go progressively as development of each remaining Section 02 backend module (<strong className="text-slate-900 font-extrabold">Healthcare Portal Sync, Front-Desk Clinic CMS, & Direct Patient Booking Software</strong>) completes and is reported.
                           </p>
                         </motion.div>
                       )}
@@ -1324,7 +1174,7 @@ export default function PricingBreakdownPage() {
               </div>
             </div>
 
-            {/* VISUAL FLOWCHART 3: OPERATIONAL COST & CHANNEL MANAGER JUSTIFICATION */}
+            {/* VISUAL FLOWCHART 3: OPERATIONAL COST & CLINIC SYSTEM JUSTIFICATION */}
             <div className="rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-10 shadow-sm space-y-6 sm:space-y-8">
               {/* Top Header */}
               <div className="border-b border-slate-100 pb-4 sm:pb-6">
@@ -1332,10 +1182,10 @@ export default function PricingBreakdownPage() {
                   Operational Cost Justification
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-2 sm:mt-3">
-                  Channel Manager & Cloud Infrastructure (<span className="text-blue-600">~₹3,000 / month</span>)
+                  Clinic Software & Cloud Infrastructure (<span className="text-blue-600">~₹3,000 / month</span>)
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
-                  Transparent breakdown of mandatory third-party subscription required for live resort operations.
+                  Transparent breakdown of mandatory third-party infrastructure required for live clinic operations.
                 </p>
               </div>
 
@@ -1347,7 +1197,7 @@ export default function PricingBreakdownPage() {
                     {/* Live Screenshot Image Slot */}
                     <img
                       src="/merged-image-2026-08-14T06-45-30.png"
-                      alt="Channel Manager & Centralized PMS Dashboard"
+                      alt="Clinic Management & Centralized Patient Dashboard"
                       className="w-full h-full object-contain bg-slate-50 transition-transform duration-300 group-hover:scale-102"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
@@ -1363,7 +1213,7 @@ export default function PricingBreakdownPage() {
                         <SlidersHorizontal size={42} className="hidden sm:block" weight="bold" />
                       </div>
                       <div className="space-y-1.5">
-                        <p className="text-xs font-black uppercase tracking-wider text-slate-900">Channel Manager & PMS Dashboard</p>
+                        <p className="text-xs font-black uppercase tracking-wider text-slate-900">Clinic Management & Patient Dashboard</p>
                       </div>
                     </div>
                   </div>
@@ -1383,27 +1233,27 @@ export default function PricingBreakdownPage() {
                     <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
                       <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
                         <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Dedicated Cloud Server & Database Hosting:</strong> The Channel Manager provides the core cloud infrastructure hosting our backend server and database, processing guest reservation requests with 99.9% uptime.</span>
+                        <span><strong className="text-slate-900 font-extrabold">Dedicated Cloud Server & Database Hosting:</strong> Provides the core cloud infrastructure hosting our backend server and database, processing patient appointment requests with 99.9% uptime.</span>
                       </li>
 
                       <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
                         <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Instant 2-Way OTA Integration:</strong> Handles real-time inventory and rate synchronization across 10+ major OTAs (MakeMyTrip, Booking.com, Agoda, Goibibo, etc.) to prevent room overbooking.</span>
+                        <span><strong className="text-slate-900 font-extrabold">Instant 2-Way Doctor Schedule Integration:</strong> Handles real-time treatment slot & calendar synchronization across major lead portals (Practo, Justdial, Google Business, WhatsApp Direct) to prevent double booking.</span>
                       </li>
 
                       <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
                         <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Integration with Our Custom Booking Software:</strong> Seamlessly connects with our custom-built website booking software to convert direct website traffic into instant confirmed reservations.</span>
+                        <span><strong className="text-slate-900 font-extrabold">Integration with Our Custom Patient Software:</strong> Seamlessly connects with our custom-built website appointment software to convert direct website traffic into instant confirmed patient visits.</span>
                       </li>
 
                       <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
                         <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Centralized PMS (CRM Tool):</strong> Delivers a single, unified front-desk portal for resort staff to manage room categories, tariffs, guest check-ins, and direct ledgers from one clean interface.</span>
+                        <span><strong className="text-slate-900 font-extrabold">Centralized Clinic CMS (Patient CRM Tool):</strong> Delivers a single, unified front-desk portal for clinic receptionist staff to manage doctor slots, procedure tariffs, patient check-ins, and direct billing from one clean interface.</span>
                       </li>
 
                       <li className="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 border border-slate-200/80">
                         <span className="text-blue-600 font-black text-base sm:text-lg leading-none mt-0.5">•</span>
-                        <span><strong className="text-slate-900 font-extrabold">Bundled Transactional Email Services:</strong> Dispatches pre-filled guest confirmation vouchers and reservation emails automatically without external email service fees.</span>
+                        <span><strong className="text-slate-900 font-extrabold">Bundled Transactional SMS & Email Services:</strong> Dispatches automated patient appointment confirmation cards and SMS reminder notifications without external messaging fees.</span>
                       </li>
                     </ul>
                   </div>
@@ -1423,10 +1273,10 @@ export default function PricingBreakdownPage() {
                         </div>
                         <div className="min-w-0">
                           <h4 className="text-xs sm:text-lg font-black text-emerald-950 tracking-tight leading-snug break-words">
-                            Annual Revenue & Profit Projections (For 20-Rooms)
+                            Annual Patient Revenue & ROI Projections (For Dental Clinic)
                           </h4>
                           <p className="text-[10px] sm:text-xs text-emerald-800/90 font-medium mt-0.5 truncate">
-                            Click to {openItems['roi_math'] ? 'collapse' : 'expand'} full 3-tier annual revenue & payback breakdown
+                            Click to {openItems['roi_math'] ? 'collapse' : 'expand'} full 3-tier patient revenue & payback breakdown
                           </p>
                         </div>
                       </div>
@@ -1455,15 +1305,15 @@ export default function PricingBreakdownPage() {
                             <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-emerald-200/90 space-y-2 text-xs sm:text-sm font-semibold text-emerald-950 shadow-2xs">
                               <div className="flex items-start gap-2 sm:gap-2.5">
                                 <span className="text-emerald-600 font-black text-base sm:text-lg leading-none shrink-0">•</span>
-                                <span>See how online distribution (<strong className="font-extrabold text-emerald-900">10+ OTAs & Direct Website booking</strong>) unlocks 10&apos;s of lakhs in resort revenue.</span>
+                                <span>See how online lead acquisition (<strong className="font-extrabold text-emerald-900">Google Business, Direct Website & Patient Portals</strong>) unlocks lakhs in high-margin dental procedure revenue.</span>
                               </div>
                               <div className="flex items-start gap-2 sm:gap-2.5 pt-2 border-t border-emerald-100/70">
                                 <span className="text-emerald-600 font-black text-base sm:text-lg leading-none shrink-0">•</span>
-                                <span>Estimated for <strong className="font-extrabold text-emerald-900">just 100 active days</strong> (out of 365 days) at an average room tariff of <strong className="font-extrabold text-emerald-900">~₹3,000 / night</strong>:</span>
+                                <span>Estimated for <strong className="font-extrabold text-emerald-900">just 100 operating days</strong> at an average treatment value of <strong className="font-extrabold text-emerald-900">~₹3,000 / patient procedure</strong>:</span>
                               </div>
                             </div>
 
-                            {/* 3 Occupancy Scenario Cards (Estimated for 100 Days) */}
+                            {/* 3 Patient Scenario Cards */}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                               {/* Card 1 */}
                               <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-emerald-200 shadow-2xs space-y-3 flex flex-col justify-between hover:border-emerald-300 transition-all">
@@ -1471,7 +1321,7 @@ export default function PricingBreakdownPage() {
                                   {/* Top Header */}
                                   <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
                                     <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Bookings : ~3/day
+                                      Patients : ~3/day
                                     </div>
                                   </div>
 
@@ -1485,19 +1335,15 @@ export default function PricingBreakdownPage() {
 
                                   {/* Description */}
                                   <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 300 online room-nights over 100 days covers all tech costs <strong>9x over</strong>.
+                                    Generating 300 new patient consultations covers all tech investment costs <strong>9x over</strong>.
                                   </p>
                                 </div>
 
                                 {/* Bottom Profit & Commission Breakdown */}
                                 <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-rose-50/60 p-1.5 sm:p-2 rounded-xl border border-rose-100">
-                                    <span className="text-[10px] sm:text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
-                                    <span className="text-[11px] sm:text-xs font-black text-rose-600 block mt-0.5">-- ₹1.62 L</span>
-                                  </div>
                                   <div className="bg-emerald-50/80 p-2 sm:p-2.5 rounded-xl border border-emerald-200/80">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-900 block uppercase tracking-wide">Net Online Profit:</span>
-                                    <span className="text-sm sm:text-lg font-black text-emerald-700 block mt-0.5">~ ₹6.42 L</span>
+                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-900 block uppercase tracking-wide">Net Clinic Revenue:</span>
+                                    <span className="text-sm sm:text-lg font-black text-emerald-700 block mt-0.5">~ ₹9.00 L</span>
                                   </div>
                                 </div>
                               </div>
@@ -1508,7 +1354,7 @@ export default function PricingBreakdownPage() {
                                   {/* Top Header */}
                                   <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
                                     <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Bookings : ~6/day
+                                      Patients : ~6/day
                                     </div>
                                   </div>
 
@@ -1522,19 +1368,15 @@ export default function PricingBreakdownPage() {
 
                                   {/* Description */}
                                   <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 600 online room-nights over 100 days via 10+ OTAs & direct website booking engine.
+                                    Generating 600 online patient appointments via digital channels & direct website booking.
                                   </p>
                                 </div>
 
                                 {/* Bottom Profit & Commission Breakdown */}
                                 <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-rose-50/60 p-1.5 sm:p-2 rounded-xl border border-rose-100">
-                                    <span className="text-[10px] sm:text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
-                                    <span className="text-[11px] sm:text-xs font-black text-rose-600 block mt-0.5">-- ₹3.24 L</span>
-                                  </div>
                                   <div className="bg-emerald-100/80 p-2 sm:p-2.5 rounded-xl border border-emerald-300/80">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-950 block uppercase tracking-wide">Net Online Profit:</span>
-                                    <span className="text-sm sm:text-lg font-black text-emerald-800 block mt-0.5">~ ₹13.80 L</span>
+                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-emerald-950 block uppercase tracking-wide">Net Clinic Revenue:</span>
+                                    <span className="text-sm sm:text-lg font-black text-emerald-800 block mt-0.5">~ ₹18.00 L</span>
                                   </div>
                                 </div>
                               </div>
@@ -1545,7 +1387,7 @@ export default function PricingBreakdownPage() {
                                   {/* Top Header */}
                                   <div className="flex items-center justify-end border-b border-slate-100 pb-2.5 sm:pb-3">
                                     <div className="px-2.5 sm:px-3 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-extrabold text-[10px] sm:text-[11px] text-center leading-tight shrink-0">
-                                      Bookings : ~10/day
+                                      Patients : ~10/day
                                     </div>
                                   </div>
 
@@ -1559,19 +1401,15 @@ export default function PricingBreakdownPage() {
 
                                   {/* Description */}
                                   <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2 sm:mt-3">
-                                    Generating 1,000 online room-nights over 100 days across peak holiday seasons & wedding weekends.
+                                    Generating 1,000 patient appointments across high-ticket dental procedures (Implants, Aligners, Restorative).
                                   </p>
                                 </div>
 
                                 {/* Bottom Profit & Commission Breakdown */}
                                 <div className="pt-2.5 sm:pt-3 border-t border-slate-100 space-y-2 text-center">
-                                  <div className="bg-rose-50/60 p-1.5 sm:p-2 rounded-xl border border-rose-100">
-                                    <span className="text-[10px] sm:text-[11px] font-semibold text-rose-700 block">18% OTA Comm:</span>
-                                    <span className="text-[11px] sm:text-xs font-black text-rose-600 block mt-0.5">-- ₹5.40 L</span>
-                                  </div>
                                   <div className="bg-amber-50/90 p-2 sm:p-2.5 rounded-xl border border-amber-200/90">
-                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-amber-950 block uppercase tracking-wide">Net Online Profit:</span>
-                                    <span className="text-sm sm:text-lg font-black text-amber-800 block mt-0.5">~ ₹23.64 L</span>
+                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-amber-950 block uppercase tracking-wide">Net Clinic Revenue:</span>
+                                    <span className="text-sm sm:text-lg font-black text-amber-800 block mt-0.5">~ ₹30.00 L</span>
                                   </div>
                                 </div>
                               </div>
@@ -1585,7 +1423,7 @@ export default function PricingBreakdownPage() {
                                   The Payback Benchmark:
                                 </span>
                                 <p className="text-slate-600 font-medium leading-relaxed text-xs sm:text-sm">
-                                  1 room booking/mo (~₹3k) covers maintenance. Just <strong className="text-emerald-800 font-black">20 room bookings in 365 days</strong> pays off the entire ₹60,000 one-time dev cost!
+                                  1 patient procedure/mo (~₹3k) covers hosting. Just <strong className="text-emerald-800 font-black">20 patient procedures in 365 days</strong> pays off the entire ₹60,000 one-time dev cost!
                                 </p>
                               </div>
                             </div>
@@ -1611,14 +1449,14 @@ export default function PricingBreakdownPage() {
                       <li className="flex items-start gap-2 sm:gap-2.5">
                         <span className="text-rose-600 font-black text-sm sm:text-base leading-none mt-0.5">•</span>
                         <span>
-                          <strong className="text-slate-900 font-extrabold">In-House Cost Benchmark:</strong> Attempting to build, host, and maintain custom cloud servers, high-availability databases, OTA API gateways, and PCI-compliant security in-house would easily cost <span className="text-rose-700 font-black bg-rose-50 px-2 py-0.5 rounded border border-rose-200 inline-block my-0.5">₹25,000 – ₹45,000+ per month</span> in infrastructure alone.
+                          <strong className="text-slate-900 font-extrabold">In-House Cost Benchmark:</strong> Attempting to build, host, and maintain custom cloud servers, high-availability databases, doctor API gateways, and HIPAA-conscious security in-house would easily cost <span className="text-rose-700 font-black bg-rose-50 px-2 py-0.5 rounded border border-rose-200 inline-block my-0.5">₹25,000 – ₹45,000+ per month</span> in infrastructure alone.
                         </span>
                       </li>
 
                       <li className="flex items-start gap-2 sm:gap-2.5">
                         <span className="text-emerald-600 font-black text-sm sm:text-base leading-none mt-0.5">•</span>
                         <span>
-                          <strong className="text-slate-900 font-extrabold">Bundled Subscription Advantage:</strong> Getting full cloud hosting, 2-way OTA sync, centralized PMS, and email services bundled for just <span className="text-emerald-800 font-black bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 inline-block my-0.5">~₹3,000 / month</span> represents an extraordinary, high-value deal for the resort.
+                          <strong className="text-slate-900 font-extrabold">Bundled Subscription Advantage:</strong> Getting full cloud hosting, multi-portal doctor sync, centralized clinic CMS, and SMS/email services bundled for just <span className="text-emerald-800 font-black bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 inline-block my-0.5">~₹3,000 / month</span> represents an extraordinary, high-value deal for the dental clinic.
                         </span>
                       </li>
                     </ul>
